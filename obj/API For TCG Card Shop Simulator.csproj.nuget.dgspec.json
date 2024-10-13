@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj": {}
+    "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj": {
+    "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+        "projectUniqueName": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
         "projectName": "TheAPI",
-        "projectPath": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+        "projectPath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
         "packagesPath": "C:\\Users\\Thinc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\obj\\",
+        "outputPath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\NuGet.Config",
+          "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\NuGet.Config",
           "C:\\Users\\Thinc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -60,6 +60,12 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[1.*, )"
+            },
+            "BepInEx.AssemblyPublicizer.MSBuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[0.4.0, )"
             },
             "BepInEx.Core": {
               "target": "Package",

@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:patches\\addcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api-for-tcg-card-shop-simulator\\scripts\\addcardstopool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:scripts\\addcardstopool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api-for-tcg-card-shop-simulator\\api for tcg card shop simulator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:api for tcg card shop simulator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|The Hex Expansion.csproj|c:\\users\\thinc\\source\\repos\\api-for-tcg-card-shop-simulator\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|The Hex Expansion.csproj|solutionrelative:plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api-for-tcg-card-shop-simulator\\scripts\\addcardstopool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:scripts\\addcardstopool.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api-for-tcg-card-shop-simulator\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,14 +44,14 @@
               "RelativeDocumentMoniker": "Patches\\AddCard.cs",
               "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\Patches\\AddCard.cs",
               "RelativeToolTip": "Patches\\AddCard.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACEAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T17:26:22.38Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AddCardsToPool.cs",
               "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\Scripts\\AddCardsToPool.cs",
               "RelativeDocumentMoniker": "Scripts\\AddCardsToPool.cs",
@@ -64,13 +64,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "API For TCG Card Shop Simulator",
-              "DocumentMoniker": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+              "DocumentIndex": 1,
+              "Title": "API For TCG Card Shop Simulator.csproj",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
               "RelativeDocumentMoniker": "API For TCG Card Shop Simulator.csproj",
-              "ToolTip": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
               "RelativeToolTip": "API For TCG Card Shop Simulator.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAjAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAADsAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2024-10-13T16:57:50.547Z",
               "EditorCaption": ""
@@ -79,11 +79,11 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Plugin.cs",
-              "DocumentMoniker": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
               "RelativeDocumentMoniker": "Plugin.cs",
-              "ToolTip": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
               "RelativeToolTip": "Plugin.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAUwB4AAAAMAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-06T20:21:43.169Z",
               "EditorCaption": ""

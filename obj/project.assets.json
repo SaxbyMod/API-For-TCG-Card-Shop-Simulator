@@ -16,6 +16,30 @@
       "BepInEx.Analyzers/1.0.8": {
         "type": "package"
       },
+      "BepInEx.AssemblyPublicizer.MSBuild/0.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/AsmResolver.DotNet.dll": {},
+          "lib/netstandard2.1/AsmResolver.PE.File.dll": {},
+          "lib/netstandard2.1/AsmResolver.PE.dll": {},
+          "lib/netstandard2.1/AsmResolver.dll": {},
+          "lib/netstandard2.1/BepInEx.AssemblyPublicizer.MSBuild.dll": {},
+          "lib/netstandard2.1/BepInEx.AssemblyPublicizer.dll": {}
+        },
+        "contentFiles": {
+          "contentFiles/cs/any/IgnoresAccessChecksToAttribute.cs": {
+            "buildAction": "Compile",
+            "codeLanguage": "cs",
+            "copyToOutput": false
+          }
+        },
+        "build": {
+          "build/BepInEx.AssemblyPublicizer.MSBuild.props": {}
+        }
+      },
       "BepInEx.BaseLib/5.4.20": {
         "type": "package",
         "compile": {
@@ -672,6 +696,31 @@
         "bepinex.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
+      ]
+    },
+    "BepInEx.AssemblyPublicizer.MSBuild/0.4.0": {
+      "sha512": "kD9iPQnCcOAS68C7lyWxMoxMcxNgZdd4xdraRp8YHf5xCuHs5UzYjqHxER5/v81NEoGs9QEiz6/NdvFPTbDZqg==",
+      "type": "package",
+      "path": "bepinex.assemblypublicizer.msbuild/0.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bepinex.assemblypublicizer.msbuild.0.4.0.nupkg.sha512",
+        "bepinex.assemblypublicizer.msbuild.nuspec",
+        "build/BepInEx.AssemblyPublicizer.MSBuild.props",
+        "contentFiles/cs/any/IgnoresAccessChecksToAttribute.cs",
+        "lib/net472/AsmResolver.DotNet.dll",
+        "lib/net472/AsmResolver.PE.File.dll",
+        "lib/net472/AsmResolver.PE.dll",
+        "lib/net472/AsmResolver.dll",
+        "lib/net472/BepInEx.AssemblyPublicizer.MSBuild.dll",
+        "lib/net472/BepInEx.AssemblyPublicizer.dll",
+        "lib/netstandard2.1/AsmResolver.DotNet.dll",
+        "lib/netstandard2.1/AsmResolver.PE.File.dll",
+        "lib/netstandard2.1/AsmResolver.PE.dll",
+        "lib/netstandard2.1/AsmResolver.dll",
+        "lib/netstandard2.1/BepInEx.AssemblyPublicizer.MSBuild.dll",
+        "lib/netstandard2.1/BepInEx.AssemblyPublicizer.dll"
       ]
     },
     "BepInEx.BaseLib/5.4.20": {
@@ -2710,6 +2759,7 @@
     ".NETStandard,Version=v2.1": [
       "BepInEx-MonoMod_Loader_Inscryption >= 1.0.0",
       "BepInEx.Analyzers >= 1.*",
+      "BepInEx.AssemblyPublicizer.MSBuild >= 0.4.0",
       "BepInEx.Core >= 5.*",
       "BepInEx.PluginInfoProps >= 1.*",
       "Inscryption.GameLibs >= 1.9.0-r.0",
@@ -2723,17 +2773,17 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+      "projectUniqueName": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
       "projectName": "TheAPI",
-      "projectPath": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+      "projectPath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
       "packagesPath": "C:\\Users\\Thinc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\obj\\",
+      "outputPath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\NuGet.Config",
+        "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\NuGet.Config",
         "C:\\Users\\Thinc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -2776,6 +2826,12 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[1.*, )"
+          },
+          "BepInEx.AssemblyPublicizer.MSBuild": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[0.4.0, )"
           },
           "BepInEx.Core": {
             "target": "Package",

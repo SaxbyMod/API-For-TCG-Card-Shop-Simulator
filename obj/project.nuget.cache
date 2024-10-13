@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "cihwAvYJJvgxl2chav39VxvRZtZOkKQpf87OvoQ2sDPRdI1rL5hknEM42RWyeSrGlIUsEAkV88I4rAsIJx6k6w==",
+  "dgSpecHash": "lhE1ZRK1CuD3atBXUHwprf/xbkkZXyA+nS2/fwT8fGoeoiQ+v7ha2S/+c96VtfI3wnTYDB13KUQq/4+GhUcdcg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Thinc\\Source\\Repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+  "projectFilePath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex-monomod_loader_inscryption\\1.0.0\\bepinex-monomod_loader_inscryption.1.0.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.analyzers\\1.0.8\\bepinex.analyzers.1.0.8.nupkg.sha512",
+    "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.assemblypublicizer.msbuild\\0.4.0\\bepinex.assemblypublicizer.msbuild.0.4.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.baselib\\5.4.20\\bepinex.baselib.5.4.20.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.core\\5.4.21\\bepinex.core.5.4.21.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.plugininfoprops\\1.1.0\\bepinex.plugininfoprops.1.1.0.nupkg.sha512",
