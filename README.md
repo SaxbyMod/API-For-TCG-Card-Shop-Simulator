@@ -1,2 +1,15 @@
+# This is open source for a reason!
+* If you want to contribute
+* If you want to add additions
+* If you want to make bug fixes
+Make a Pull Request and I will review and decide whether to implement it or not, Do note the code must be working off the bat when you send the PR. Make sure it works on your end before sending it.
+If you have any suggestions or bugs or anything of the like report it in the Issues tab.
+
+## If you need me on discord for whatever reason you can find me in these two places for this game:
+* https://discord.gg/kCp4mRAVUE
+* https://discord.gg/ka7s2PxsG5
+
+Ping me via the API or THE API thread in Modding Help or Requests, `@thincreator3483`.
+
 # API-For-TCG-Card-Shop-Simulator
- An API made for the game TCG Card Shop Simulator
+I will fill this out later along with setup a wiki for this later.
