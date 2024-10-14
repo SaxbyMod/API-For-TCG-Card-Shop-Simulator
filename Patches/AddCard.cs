@@ -1,5 +1,8 @@
-﻿using HarmonyLib;
+﻿using API_For_TCG_Card_Shop_Simulator.Scripts;
+using HarmonyLib;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace API_For_TCG_Card_Shop_Simulator.Patches
 {
@@ -371,6 +374,67 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             EX0Scout,
             EX0Pirate,
             MAX_CATJOB
+        }
+        static void Main()
+        {
+            // Retrieve all enum values and store them in a list
+            List<string> enumValuesList = new List<string>();
+            Array enumValues = Enum.GetValues(typeof(EMonsterType)); // Get all enum values
+
+            // Convert enum values to a list for easier manipulation
+            List<string> tempEnumValues = enumValues.Cast<EMonsterType>().Select(e => e.ToString()).ToList();
+
+            // Add enum values to the list
+            enumValuesList.AddRange(tempEnumValues);
+
+            // Create an instance of CardHandler
+            CardHandler cardHandler = new CardHandler();
+
+            // Check if ModdedCards has any entries
+            if (cardHandler.ModdedCards != null && cardHandler.ModdedCards.Count > 0)
+            {
+                // Find the index of MAX
+                int TetraMonInsert = enumValuesList.IndexOf("MAX");
+                int MegabotInsert = enumValuesList.IndexOf("MAX_MEGABOT");
+                int FantasyRPGInsert = enumValuesList.IndexOf("MAX_FANTASYRPG");
+                int CatJobInsert = enumValuesList.IndexOf("MAX_CATJOB");
+
+                // Insert the modded cards before MAX if the Set is "MAX"
+                foreach (var card in cardHandler.ModdedCards)
+                {
+                    if (card.Value.Set == "Tetramon") // Check if the Set is "Tetramon"
+                    {
+                        // Insert each CardEnum at the found index
+                        enumValuesList.Insert(TetraMonInsert, card.Value.CardEnum); // Using card.Value to get the CardEnum
+                        TetraMonInsert++; // Increment the index to insert subsequent cards
+                    }
+                    if (card.Value.Set == "Megabot") // Check if the Set is "MegaBot"
+                    {
+                        // Insert each CardEnum at the found index
+                        enumValuesList.Insert(MegabotInsert, card.Value.CardEnum); // Using card.Value to get the CardEnum
+                        MegabotInsert++; // Increment the index to insert subsequent cards
+                    }
+                    if (card.Value.Set == "FantasyRPG") // Check if the Set is "FantasyRPG"
+                    {
+                        // Insert each CardEnum at the found index
+                        enumValuesList.Insert(FantasyRPGInsert, card.Value.CardEnum); // Using card.Value to get the CardEnum
+                        FantasyRPGInsert++; // Increment the index to insert subsequent cards
+                    }
+                    if (card.Value.Set == "CatJob") // Check if the Set is "CatJob"
+                    {
+                        // Insert each CardEnum at the found index
+                        enumValuesList.Insert(CatJobInsert, card.Value.CardEnum); // Using card.Value to get the CardEnum
+                        CatJobInsert++; // Increment the index to insert subsequent cards
+                    }
+                }
+            }
+
+            // Optional: Display the combined list (for debugging purposes)
+            foreach (var item in enumValuesList)
+            {
+                Console.WriteLine(item);
+            }
+            List<string> EMonsterTypeNew = enumValuesList;
         }
     }
 }
