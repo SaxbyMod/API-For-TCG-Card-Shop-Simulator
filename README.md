@@ -2,6 +2,7 @@
 * If you want to contribute
 * If you want to add additions
 * If you want to make bug fixes
+
 Make a Pull Request and I will review and decide whether to implement it or not, Do note the code must be working off the bat when you send the PR. Make sure it works on your end before sending it.
 If you have any suggestions or bugs or anything of the like report it in the Issues tab.
 
