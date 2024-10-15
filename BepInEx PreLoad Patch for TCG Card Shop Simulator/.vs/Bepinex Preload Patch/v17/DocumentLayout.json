@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\",
+  "WorkspaceRootPath": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\gamer\\source\\repos\\bepinex preload patch\\bepinex preload patch\\patches\\preloadertestpatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\thinc\\source\\repos\\api github\\bepinex preload patch for tcg card shop simulator\\bepinex preload patch\\patches\\preloadertestpatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|solutionrelative:bepinex preload patch\\patches\\preloadertestpatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\gamer\\source\\repos\\bepinex preload patch\\bepinex preload patch\\bepinex preload patch.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\thinc\\source\\repos\\api github\\bepinex preload patch for tcg card shop simulator\\bepinex preload patch\\bepinex preload patch.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|solutionrelative:bepinex preload patch\\bepinex preload patch.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\gamer\\source\\repos\\bepinex preload patch\\bepinex preload patch\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\thinc\\source\\repos\\api github\\bepinex preload patch for tcg card shop simulator\\bepinex preload patch\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|solutionrelative:bepinex preload patch\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\gamer\\source\\repos\\bepinex preload patch\\bepinex preload patch\\bepinex preload patch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|c:\\users\\thinc\\source\\repos\\api github\\bepinex preload patch for tcg card shop simulator\\bepinex preload patch\\bepinex preload patch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{7A5924A1-AD86-4643-B301-B2E128FB855E}|Bepinex Preload Patch\\Bepinex Preload Patch.csproj|solutionrelative:bepinex preload patch\\bepinex preload patch.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
@@ -26,29 +26,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Bepinex Preload Patch",
-              "DocumentMoniker": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "RelativeDocumentMoniker": "Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
-              "ToolTip": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "RelativeToolTip": "Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-15T21:09:51.53Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-15T21:09:51.53Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PreloaderTestPatch.cs",
-              "DocumentMoniker": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
               "RelativeDocumentMoniker": "Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
-              "ToolTip": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
               "RelativeToolTip": "Bepinex Preload Patch\\Patches\\PreloaderTestPatch.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAmwBkAAAANAAAAAAAAAA==",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAkwCQAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T20:38:20.35Z",
               "EditorCaption": ""
@@ -56,15 +63,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Bepinex Preload Patch",
-              "DocumentMoniker": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
+              "Title": "Bepinex Preload Patch.csproj",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "RelativeDocumentMoniker": "Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
-              "ToolTip": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "RelativeToolTip": "Bepinex Preload Patch\\Bepinex Preload Patch.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-15T20:35:28.484Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-15T20:35:28.484Z"
             },
             {
               "$type": "Bookmark",
@@ -74,14 +80,13 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Plugin.cs",
-              "DocumentMoniker": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Plugin.cs",
+              "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Plugin.cs",
               "RelativeDocumentMoniker": "Bepinex Preload Patch\\Plugin.cs",
-              "ToolTip": "C:\\Users\\Gamer\\source\\repos\\Bepinex Preload Patch\\Bepinex Preload Patch\\Plugin.cs",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\BepInEx PreLoad Patch for TCG Card Shop Simulator\\Bepinex Preload Patch\\Plugin.cs",
               "RelativeToolTip": "Bepinex Preload Patch\\Plugin.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAYwBsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T20:35:01.83Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-15T20:35:01.83Z"
             }
           ]
         }

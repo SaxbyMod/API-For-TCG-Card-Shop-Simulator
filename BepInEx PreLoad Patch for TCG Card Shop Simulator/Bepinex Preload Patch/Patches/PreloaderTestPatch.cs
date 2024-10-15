@@ -16,24 +16,26 @@ namespace Bepinex_Preload_Patch.Patches
             Console.WriteLine("Starting Patching");
             // Find the enum type
             var monsterType = assembly.MainModule.Types.First(t => t.Name == "EMonsterType");
+            var rarity = assembly.MainModule.Types.First(t => t.Name == "ERarity");
+            var skill = assembly.MainModule.Types.First(t => t.Name == "ESkill");
+            var elementIndex = assembly.MainModule.Types.First(t => t.Name == "EElementIndex");
+            var monsterRole = assembly.MainModule.Types.First(t => t.Name == "EMonsterRole");
 
             if (monsterType != null)
             {
                 Console.WriteLine("Found monster type");
-            } else if (monsterType != null)
+            } else if (monsterType == null)
             {
                 Console.WriteLine("NULL monster type");
             }
 
             ModifyEnumValue(monsterType, "MAX", 124);
-            CloneAndAddEnumValue(monsterType, "FireChickenB", "Lairon", 122);
-            CloneAndAddEnumValue(monsterType, "FireChickenB", "Aggron", 123);
 
             // Save the changes
             Console.WriteLine("Done Patching");
         }
 
-        private static void ModifyEnumValue(TypeDefinition enumType, string fieldName, int newValue)
+        public static void ModifyEnumValue(TypeDefinition enumType, string fieldName, int newValue)
         {
             var enumField = enumType.Fields.FirstOrDefault(f => f.Name == fieldName);
             if (enumField != null)
@@ -43,7 +45,7 @@ namespace Bepinex_Preload_Patch.Patches
             }
         }     
 
-        private static void CloneAndAddEnumValue(TypeDefinition enumType, string existingFieldName, string newFieldName, int newValue)
+        public static void CloneAndAddEnumValue(TypeDefinition enumType, string existingFieldName, string newFieldName, int newValue)
         {
             // Find the existing enum field
             var existingField = enumType.Fields.FirstOrDefault(f => f.Name == existingFieldName);
@@ -67,6 +69,32 @@ namespace Bepinex_Preload_Patch.Patches
             enumType.Fields.Add(newEnumValue);
 
             Console.WriteLine($"Successfully cloned and added new enum value: '{newFieldName}' = {newValue}.");
+        }
+
+        public static void AddEnumValueAtEnd(TypeDefinition enumType, string newFieldName)
+        {
+            // Find the max current enum value
+            var maxEnumValue = enumType.Fields
+                .Where(f => f.HasConstant)
+                .Max(f => (int)f.Constant);
+
+            // Define the new value as one greater than the max
+            int newEnumValue = maxEnumValue + 1;
+
+            // Create a new FieldDefinition for the new enum value
+            var newEnumField = new FieldDefinition(
+                newFieldName,
+                Mono.Cecil.FieldAttributes.Public | Mono.Cecil.FieldAttributes.Static | Mono.Cecil.FieldAttributes.Literal,
+                enumType.Module.ImportReference(typeof(int))
+            );
+
+            // Set the constant value of the new field
+            newEnumField.Constant = newEnumValue;
+
+            // Add the new field to the enum type
+            enumType.Fields.Add(newEnumField);
+
+            Console.WriteLine($"Successfully added new enum value: '{newFieldName}' = {newEnumValue}.");
         }
     }
 }
