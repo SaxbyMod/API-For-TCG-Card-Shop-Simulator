@@ -1,5 +1,10 @@
-﻿using System;
+﻿using HarmonyLib;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using UnityEngine;
+using BepInEx.Logging;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
@@ -341,6 +346,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 "EX0Pirate",
 "MAX_CATJOB"
             };
+        public List<Sprite> CardPortraits = new List<Sprite> {};
 
         // This method should not be static to access the instance variable
         public void AddCardsToPool(string ModPrefix, string CardName, string ImagePath, string CardSet)
@@ -349,6 +355,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             // Combine ModPrefix and CardName to form the key
             string CardEnum = ModPrefix + "_" + CardName;
             string Set = CardSet;
+            string ImagePathNew = Path.Combine(ImagePath, CardEnum);
 
             // Setup Base Game Cards as An Array
 
@@ -390,11 +397,37 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                     }
                 }
             }
+            SpriteConverter spriteConverter = new SpriteConverter();
+            CardPortraits.Add(spriteConverter.ConvertFileToSprite(ImagePathNew));
 
             // Optional: Display the combined list (for debugging purposes)
-            foreach (var item in CardsTotal)
+        }
+    }
+    public class SpriteConverter : MonoBehaviour
+    {
+        // Method to convert a file into a Sprite
+        public Sprite ConvertFileToSprite(string filePath)
+        {
+            // Check if the file exists
+            if (!File.Exists(filePath))
             {
-                Console.WriteLine(item);
+                Debug.LogError($"File not found: {filePath}");
+                return null;
+            }
+
+            // Load the image data from the file
+            byte[] fileData = File.ReadAllBytes(filePath);
+            Texture2D texture = new Texture2D(2, 2); // Create a texture of size 2x2
+            if (texture.LoadImage(fileData)) // Automatically resizes the texture
+            {
+                // Create a sprite from the texture
+                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                return sprite;
+            }
+            else
+            {
+                Debug.LogError("Failed to load image data into texture.");
+                return null;
             }
         }
     }

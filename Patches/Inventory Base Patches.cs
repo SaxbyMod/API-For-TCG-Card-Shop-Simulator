@@ -1,6 +1,9 @@
 ﻿using API_For_TCG_Card_Shop_Simulator.Scripts;
 using System;
 using HarmonyLib;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
 
 namespace API_For_TCG_Card_Shop_Simulator.Patches
 {
@@ -44,7 +47,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
                 {
                     return InventoryBase.GetMonsterDataMatchWithType(CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_CatJobDataList, monsterType);
                 }
-
                 // Default return
                 return CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_DataList[(int)monsterType];
             }

@@ -33,6 +33,10 @@ namespace The_Hex_Expansion
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             cardHandler.AddCardsToPool("MyPrefix", "TestCard", Path.Combine(DLLPath+ "/Art"), "Tetramon");
+            foreach (var item in cardHandler.CardsTotal)
+            {
+                Logger.LogInfo($"{item} card has succeeded");
+            }
         }
 
         public static void AddCards(string Prefix, string Name, string ImagePath, string Set)
