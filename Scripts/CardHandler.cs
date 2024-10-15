@@ -1,357 +1,172 @@
-﻿using HarmonyLib;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using UnityEngine;
-using BepInEx.Logging;
-using BepInEx;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
     internal class CardHandler
     {
         // Instance field for the dictionary
-        public List<string> CardsTotal = new List<string>
+
+
+        public class MonsterData
+        {
+            private EnumListScript enumListScript = new EnumListScript(); // Correct instantiation
+            public Stats MonsterStats { get; set; } // New property for stats
+            public string Name { get; set; }
+            public string Artist { get; set; }
+            public string Description { get; set; }
+            public System.Numerics.Vector3 EffectAmount { get; set; }
+            public string Element { get; set; }
+            public string Rarity { get; set; }
+            public string MonsterType { get; set; }
+            public string NextEvolution { get; set; }
+            public string PreviousEvolution { get; set; }
+            public List<string> Roles { get; set; } = new List<string>(); // Initialize list
+            public List<string> Skills { get; set; } = new List<string>(); // Initialize list
+
+            // Icon properties for the monster
+            public Sprite GhostIcon { get; set; }
+            public Sprite DefaultIcon { get; set; }
+
+            // Constructor that takes 12 arguments, with the element as a string
+            public MonsterData(
+                string name,
+                string artist,
+                string description,
+                float x,
+                float y,
+                float z,
+                string elementName,
+                string rarity,
+                string monsterType,
+                string nextEvolution,
+                string previousEvolution,
+                List<string> roles,
+                Stats stats,
+                List<string> skills,
+                Sprite ghostIcon,
+                Sprite defaultIcon)
             {
-            "None",
-"PiggyA",
-"PiggyB",
-"PiggyC",
-"PiggyD",
-"FoxA",
-"FoxB",
-"FoxC",
-"FoxD",
-"GolemA",
-"GolemB",
-"GolemC",
-"GolemD",
-"TreeA",
-"TreeB",
-"TreeC",
-"TreeD",
-"StarfishA",
-"StarfishB",
-"StarfishC",
-"StarfishD",
-"ShellyA",
-"ShellyB",
-"ShellyC",
-"ShellyD",
-"BugA",
-"BugB",
-"BugC",
-"BugD",
-"BatA",
-"BatB",
-"BatC",
-"BatD",
-"Skull",
-"Beetle",
-"Bear",
-"Jellyfish",
-"Wisp",
-"MummyMan",
-"FlowerA",
-"FlowerB",
-"FlowerC",
-"FlowerD",
-"WeirdBirdA",
-"FireSpirit",
-"Angez",
-"Mosquito",
-"HydraA",
-"HydraB",
-"HydraC",
-"HydraD",
-"DragonFire",
-"DragonEarth",
-"DragonWater",
-"DragonThunder",
-"Turtle",
-"FireWolfA",
-"FireWolfB",
-"FireWolfC",
-"FireWolfD",
-"FishA",
-"FishB",
-"FishC",
-"FishD",
-"HalloweenA",
-"HalloweenB",
-"HalloweenC",
-"HalloweenD",
-"TronA",
-"TronB",
-"TronC",
-"TronD",
-"LobsterA",
-"LobsterB",
-"LobsterC",
-"LobsterD",
-"FireBirdA",
-"FireBirdB",
-"FireBirdC",
-"SerpentA",
-"SerpentB",
-"SerpentC",
-"CloudA",
-"CloudB",
-"CloudC",
-"EmeraldA",
-"EmeraldB",
-"EmeraldC",
-"Crystalmon",
-"ElecDragon",
-"CrabA",
-"CrabB",
-"FireUmbrellaDragon",
-"Lanternmon",
-"SeedBugA",
-"SeedBugB",
-"SeedBugC",
-"NinjaBirdA",
-"NinjaBirdB",
-"NinjaBirdC",
-"NinjaBirdD",
-"NinjaCrowC",
-"NinjaCrowD",
-"MuffinTreeA",
-"MuffinTreeB",
-"MuffinTreeC",
-"SharkFishA",
-"SharkFishB",
-"SharkFishC",
-"FireGeckoA",
-"FireGeckoB",
-"EarthDino",
-"SlimeA",
-"SlimeB",
-"SlimeC",
-"SlimeD",
-"SeahorseA",
-"SeahorseB",
-"SeahorseC",
-"SeahorseD",
-"FireChickenA",
-"FireChickenB",
-"MAX",
-"START_MEGABOT",
-"Alpha",
-"Beta",
-"Gamma",
-"Ronin",
-"Bumblebee",
-"Orca",
-"Garuda",
-"Viper",
-"Blitz",
-"Cylops",
-"Kabuto",
-"Minotaur",
-"Spectre",
-"Wolf",
-"Bolt",
-"Hawk",
-"Cyber",
-"Space",
-"Hangar",
-"Arena",
-"UndergroundDark",
-"UndergroundLight",
-"RoninBoss",
-"OrcaBoss",
-"GarudaBoss",
-"ViperBoss",
-"Max",
-"Shockwave",
-"Tremor",
-"Rhino",
-"RoninArt",
-"GarudaArt",
-"MaxArt",
-"MinotaurArt",
-"WolfArt",
-"SkullArt",
-"OrcaAlt",
-"GarudaAlt",
-"ViperAlt",
-"KabutoAlt",
-"Neon",
-"Pulse",
-"Raptor",
-"AncientHammer",
-"ArcMissile",
-"Axe",
-"BarrageMissle",
-"BarrelHammer",
-"BattleChip",
-"BoxingGlove",
-"ChainGun",
-"ChillMissile",
-"ColdShoulder",
-"CrescentClaw",
-"CrescentMachete",
-"CrimsonWheel",
-"CryoBlaster",
-"Drill",
-"DualMissile",
-"ElecBroadsword",
-"ElectricChainsaw",
-"ElectricSpike",
-"EnergyShield",
-"FanBlade",
-"FeatherBlade",
-"FireAxe",
-"FireBroadsword",
-"FireKatana",
-"FireRocket",
-"FireShield",
-"FireTwinAxe",
-"Flamethrower",
-"FreezeBomb",
-"GigaBlade",
-"GigaCannon",
-"GreatCleaver",
-"HeatKnife",
-"HeatMissile",
-"IceBroadsword",
-"IceMortar",
-"IcePike",
-"IceSpinner",
-"IceTwinSpear",
-"InfernoBoost",
-"IronBall",
-"JetBurner",
-"Katana",
-"KnightShield",
-"KnightSword",
-"LightSaber",
-"LionShield",
-"MagneticCoil",
-"MaulerMace",
-"MegavoltBeam",
-"MiniMissile",
-"MissileCannon",
-"MoonlightBlade",
-"MorningStar",
-"Mortar",
-"PulseCannon",
-"RailCannon",
-"Ravager",
-"RocketMissile",
-"RollerSpike",
-"ShurikenBlade",
-"SonicBlaster",
-"SpikeBall",
-"SpikedWarhammer",
-"Sword",
-"ThorHammer",
-"Thunderblade",
-"ThunderTwinBlade",
-"WingBooster",
-"MAX_MEGABOT",
-"START_FANTASYRPG",
-"Archer",
-"ArmoredSlime",
-"AxeWarrior",
-"Basilisk",
-"Blacksmith",
-"CatMage",
-"CatPirate1",
-"CatThief",
-"Cook",
-"DarkKnight",
-"Dragon",
-"DragonKnight",
-"EldritchCreature",
-"Farmer",
-"Fencer",
-"Florist",
-"GoblinMage",
-"GoblinThief",
-"GoblinWarrior",
-"Golem",
-"Grandma",
-"Harpy1",
-"Harpy2",
-"InkKnight",
-"Jester1",
-"Jester2",
-"King",
-"Knight",
-"Lamia",
-"Mage",
-"Mimic1",
-"Mimic2",
-"MushroomMonster",
-"Noble1",
-"Noble2",
-"Peasant1",
-"Peasant2",
-"Phoenix",
-"Queen",
-"Reaper",
-"Schoolboy1",
-"SchoolBoy2",
-"Slime",
-"Snake",
-"Traveller",
-"TreeMonster",
-"Vampire",
-"Witch",
-"Wizard",
-"WolfFantasy",
-"MAX_FANTASYRPG",
-"START_CATJOB",
-"EX0Teacher",
-"EX0Detective",
-"EX0Woodworker",
-"EX0Plumber",
-"EX0Electrician",
-"EX0Soldier",
-"EX0General",
-"EX0Police",
-"EX0Fireman",
-"EX0Farmer",
-"EX0Architect",
-"EX0Construction",
-"EX0Bodybuilder",
-"EX0Archer",
-"EX0Explorer",
-"EX0Hiker",
-"EX0Programmer",
-"EX0Librarian",
-"EX0Laundry",
-"EX0Racer",
-"EX0Florist",
-"EX0Geologist",
-"EX0Gamer",
-"EX0Maid",
-"EX0Barber",
-"EX0Bartender",
-"EX0Bouncer",
-"EX0Composer",
-"EX0Director",
-"EX0Investor",
-"EX0Singer",
-"EX0Musician",
-"EX0Artist",
-"EX0Photographer",
-"EX0Lawyer",
-"EX0Janitor",
-"EX0Psychic",
-"EX0Astronaut",
-"EX0Scout",
-"EX0Pirate",
-"MAX_CATJOB"
-            };
-        public List<Sprite> CardPortraits = new List<Sprite> {};
+                Name = name;
+                Artist = artist;
+                Description = description;
+                EffectAmount = new System.Numerics.Vector3(x, y, z); // Initialize EffectAmount using x, y, z
+
+                // Element validation
+                if (enumListScript.Elements.Contains(elementName))
+                {
+                    Element = elementName;
+                }
+                else
+                {
+                    Debug.LogWarning($"Element '{elementName}' not found!"); // Warning for invalid element name
+                }
+
+                // Rarity validation
+                if (enumListScript.Rarities.Contains(rarity))
+                {
+                    Rarity = rarity;
+                }
+                else
+                {
+                    Debug.LogWarning($"Rarity '{rarity}' not found!"); // Warning for invalid rarity name
+                }
+
+                // Monster Type validation
+                if (enumListScript.CardsTotal.Contains(monsterType))
+                {
+                    MonsterType = monsterType;
+                }
+                else
+                {
+                    Debug.LogWarning($"Monster Type '{monsterType}' not found!"); // Warning for invalid Monster Type name
+                }
+
+                // Next Evolution validation
+                if (enumListScript.CardsTotal.Contains(nextEvolution))
+                {
+                    NextEvolution = nextEvolution;
+                }
+                else
+                {
+                    Debug.LogWarning($"Next Evolution '{nextEvolution}' not found!"); // Warning for invalid Next Evolution name
+                }
+
+                // Previous Evolution validation
+                if (enumListScript.CardsTotal.Contains(previousEvolution))
+                {
+                    PreviousEvolution = previousEvolution;
+                }
+                else
+                {
+                    Debug.LogWarning($"Previous Evolution '{previousEvolution}' not found!"); // Warning for invalid Previous Evolution name
+                }
+
+                // Role validation
+                foreach (var role in roles)
+                {
+                    if (enumListScript.Roles.Contains(role))
+                    {
+                        Roles.Add(role); // Add valid role to the Roles list
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Role '{role}' not found!"); // Warning for invalid role
+                    }
+                }
+
+                // Skill validation
+                foreach (var skill in skills)
+                {
+                    if (enumListScript.Skills.Contains(skill))
+                    {
+                        Skills.Add(skill); // Add valid skill to the Skills list
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Skill '{skill}' not found!"); // Warning for invalid skill
+                    }
+                }
+
+                MonsterStats = stats;
+
+                // Set the icons directly
+                GhostIcon = ghostIcon;
+                DefaultIcon = defaultIcon;
+            }
+
+            // Method to update EffectAmount later if needed
+            public void SetEffectAmount(float x, float y, float z)
+            {
+                EffectAmount = new System.Numerics.Vector3(x, y, z);
+            }
+
+            // Method to get the icon based on the expansion type
+            public Sprite GetIcon(ECardExpansionType cardExpansionType)
+            {
+                if (cardExpansionType == ECardExpansionType.Ghost)
+                {
+                    return GhostIcon; // Return the Ghost icon
+                }
+
+                if (DefaultIcon != null)
+                {
+                    return DefaultIcon; // Return the default icon if available
+                }
+
+                // If the specific cardExpansionType is not found, fallback to special icon
+                return LoadStreamTexture.GetImage("Special_" + MonsterType);
+            }
+        }
+
+        public List<Sprite> CardPortraits = new List<Sprite> { };
 
         // This method should not be static to access the instance variable
         public void AddCardsToPool(string ModPrefix, string CardName, string ImagePath, string CardSet)
         {
+            EnumListScript enumListScript = new EnumListScript();
+            Stats stats = new Stats();
 
             // Combine ModPrefix and CardName to form the key
             string CardEnum = ModPrefix + "_" + CardName;
@@ -361,75 +176,84 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             // Setup Base Game Cards as An Array
 
             // Check if ModdedCards has any entries
-            if (CardsTotal != null && CardsTotal.Count > 0)
+            if (enumListScript.CardsTotal != null && enumListScript.CardsTotal.Count > 0)
             {
                 // Find the index of MAX
-                int TetraMonInsert = CardsTotal.IndexOf("MAX");
-                int MegabotInsert = CardsTotal.IndexOf("MAX_MEGABOT");
-                int FantasyRPGInsert = CardsTotal.IndexOf("MAX_FANTASYRPG");
-                int CatJobInsert = CardsTotal.IndexOf("MAX_CATJOB");
+                int TetraMonInsert = enumListScript.CardsTotal.IndexOf("MAX");
+                int MegabotInsert = enumListScript.CardsTotal.IndexOf("MAX_MEGABOT");
+                int FantasyRPGInsert = enumListScript.CardsTotal.IndexOf("MAX_FANTASYRPG");
+                int CatJobInsert = enumListScript.CardsTotal.IndexOf("MAX_CATJOB");
                 // Insert the modded cards before MAX if the Set is "MAX"
-                foreach (var card in CardsTotal)
+                foreach (var card in enumListScript.CardsTotal)
                 {
 
                     if (CardSet == "Tetramon") // Check if the Set is "Tetramon"
                     {
                         // Insert each CardEnum at the found index
-                        CardsTotal.Insert(TetraMonInsert, CardEnum); // Using card.Value to get the CardEnum
+                        enumListScript.CardsTotal.Insert(TetraMonInsert, CardEnum); // Using card.Value to get the CardEnum
                         TetraMonInsert++; // Increment the index to insert subsequent cards
                     }
                     if (CardSet == "Megabot") // Check if the Set is "MegaBot"
                     {
                         // Insert each CardEnum at the found index
-                        CardsTotal.Insert(MegabotInsert, CardEnum); // Using card.Value to get the CardEnum
+                        enumListScript.CardsTotal.Insert(MegabotInsert, CardEnum); // Using card.Value to get the CardEnum
                         MegabotInsert++; // Increment the index to insert subsequent cards
                     }
                     if (CardSet == "FantasyRPG") // Check if the Set is "FantasyRPG"
                     {
                         // Insert each CardEnum at the found index
-                        CardsTotal.Insert(FantasyRPGInsert, CardEnum); // Using card.Value to get the CardEnum
+                        enumListScript.CardsTotal.Insert(FantasyRPGInsert, CardEnum); // Using card.Value to get the CardEnum
                         FantasyRPGInsert++; // Increment the index to insert subsequent cards
                     }
                     if (CardSet == "CatJob") // Check if the Set is "CatJob"
                     {
                         // Insert each CardEnum at the found index
-                        CardsTotal.Insert(CatJobInsert, CardEnum); // Using card.Value to get the CardEnum
+                        enumListScript.CardsTotal.Insert(CatJobInsert, CardEnum); // Using card.Value to get the CardEnum
                         CatJobInsert++; // Increment the index to insert subsequent cards
                     }
                 }
+                // Example of creating a MonsterData object with an element name
+                Stats teststats = new Stats(100, 20, 15, 10, 5, 10, 0, 2, 5, 3, 1, 74);
+                MonsterData monster = new MonsterData("Monster1", "Artist1", "This is Monster1's description", 1.0f, 2.0f, 3.0f, "Fire", "SuperLegend", ModPrefix + CardName, "FireBirdB", "FireGeckoB", ["Defender"], teststats, ["DoNothing"], ImageLoader.GetCustomImage(ModPrefix + CardName, ImagePath), ImageLoader.GetCustomImage(ModPrefix + CardName + "_Ghost", ImagePath));
             }
-            SpriteConverter spriteConverter = new SpriteConverter();
-            CardPortraits.Add(spriteConverter.ConvertFileToSprite(ImagePathNew));
-
-            // Optional: Display the combined list (for debugging purposes)
         }
     }
-    public class SpriteConverter : MonoBehaviour
-    {
-        // Method to convert a file into a Sprite
-        public Sprite ConvertFileToSprite(string filePath)
-        {
-            // Check if the file exists
-            if (!File.Exists(filePath))
-            {
-                Debug.LogError($"File not found: {filePath}");
-                return null;
-            }
 
-            // Load the image data from the file
-            byte[] fileData = File.ReadAllBytes(filePath);
-            Texture2D texture = new Texture2D(2, 2); // Create a texture of size 2x2
-            if (texture.LoadImage(fileData)) // Automatically resizes the texture
+    public static class ImageLoader
+    {
+        // Load a custom texture from the specified path
+        public static Texture2D LoadCustomTexture(string fileName, string imagePath)
+        {
+            string imageToLoad = Path.Combine(imagePath, fileName + ".png");
+            if (File.Exists(imageToLoad))
             {
-                // Create a sprite from the texture
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+                byte[] data = File.ReadAllBytes(imageToLoad);
+                Texture2D texture2D = new Texture2D(2, 2, TextureFormat.RGBA32, false); // Use RGBA32 format for better color representation
+                texture2D.LoadImage(data);
+                return texture2D;
+            }
+            Debug.LogWarning($"Texture not found at path: {imageToLoad}");
+            return null;
+        }
+
+        // Load a custom PNG texture from the specified path
+        public static Texture2D LoadCustomPNG(string fileName, string imagePath)
+        {
+            return LoadCustomTexture(fileName, imagePath); // Reuse LoadCustomTexture for PNG files
+        }
+
+        // Create a Sprite from a custom image file
+        public static Sprite GetCustomImage(string fileName, string imagePath)
+        {
+            Texture2D texture2D = LoadCustomPNG(fileName, imagePath);
+            if (texture2D != null)
+            {
+                Sprite sprite = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), Vector2.zero);
+                sprite.name = fileName; // Name the sprite for easy identification
                 return sprite;
             }
-            else
-            {
-                Debug.LogError("Failed to load image data into texture.");
-                return null;
-            }
+            Debug.LogWarning($"Sprite creation failed for: {fileName} at path: {imagePath}");
+            return null;
         }
     }
 }

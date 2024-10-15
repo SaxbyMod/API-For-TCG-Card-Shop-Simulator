@@ -25,15 +25,15 @@ namespace The_Hex_Expansion
         public List<string> CardsToAdd = new List<string>();
 
         // Static CardHandler instance
+        private static EnumListScript CardHandler = new EnumListScript();
         private static CardHandler cardHandler = new CardHandler();
-
         public void Awake()
         {
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             AddCards("MyPrefix", "TestCard", Path.Combine(DLLPath+ "/Art"), "Tetramon");
-            foreach (var item in cardHandler.CardsTotal)
+            foreach (var item in CardHandler.CardsTotal)
             {
                 Logger.LogInfo($"{item} card has succeeded");
             }

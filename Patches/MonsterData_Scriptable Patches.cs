@@ -11,12 +11,12 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
     internal class AddCardPatch
     {
         private static CardHandler cardHandler = new CardHandler(); // Correct instantiation
-        private static RarityScript rarityScript = new RarityScript(); // Correct instantiation
+        private static EnumListScript enumListScript = new EnumListScript(); // Correct instantiation
         [HarmonyPrefix]
         public static string GetMonsterDataPrefix(ref string monsterType)
         {
             // Use a separate list for enumeration
-            var cardsTotal = cardHandler.CardsTotal.ToList(); // Create a temporary list for safe enumeration
+            var cardsTotal = enumListScript.CardsTotal.ToList(); // Create a temporary list for safe enumeration
             for (int i = 0; i < cardsTotal.Count; i++)
             {
                 if (cardsTotal[i] == monsterType)

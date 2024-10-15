@@ -15,11 +15,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             [HarmonyPrefix]
             public static MonsterData GetMonsterDataPrefix(ref EMonsterType monsterType)
             {
-                CardHandler cardHandler = new CardHandler(); // Correct instantiation
-                int TetraMonInsert = cardHandler.CardsTotal.IndexOf("MAX");
-                int MegabotInsert = cardHandler.CardsTotal.IndexOf("MAX_MEGABOT");
-                int FantasyRPGInsert = cardHandler.CardsTotal.IndexOf("MAX_FANTASYRPG");
-                int CatJobInsert = cardHandler.CardsTotal.IndexOf("MAX_CATJOB");
+                EnumListScript enumListScript = new EnumListScript(); // Correct instantiation
+                int TetraMonInsert = enumListScript.CardsTotal.IndexOf("MAX");
+                int MegabotInsert = enumListScript.CardsTotal.IndexOf("MAX_MEGABOT");
+                int FantasyRPGInsert = enumListScript.CardsTotal.IndexOf("MAX_FANTASYRPG");
+                int CatJobInsert = enumListScript.CardsTotal.IndexOf("MAX_CATJOB");
 
                 // Check for invalid monsterType
                 if (monsterType == 0)
