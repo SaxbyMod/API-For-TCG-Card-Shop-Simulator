@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using BepInEx.Logging;
+using BepInEx;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {

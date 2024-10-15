@@ -7,7 +7,6 @@ using UnityEngine.UIElements;
 
 namespace API_For_TCG_Card_Shop_Simulator.Patches
 {
-    [HarmonyPatch]
     [HarmonyPatch(typeof(MonsterData_ScriptableObject))]
     internal class AddCardPatch
     {
@@ -16,18 +15,18 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
         [HarmonyPrefix]
         public static string GetMonsterDataPrefix(ref string monsterType)
         {
-            // Loop through each card in CardsTotal
-            for (int i = 0; i < cardHandler.CardsTotal.Count; i++)
+            // Use a separate list for enumeration
+            var cardsTotal = cardHandler.CardsTotal.ToList(); // Create a temporary list for safe enumeration
+            for (int i = 0; i < cardsTotal.Count; i++)
             {
-                // Compare the current card with the provided monsterType
-                if (cardHandler.CardsTotal.ToList()[i] == monsterType)
+                if (cardsTotal[i] == monsterType)
                 {
-                    return cardHandler.CardsTotal.ToList()[i]; // Return the matched string
+                    return cardsTotal[i]; // Return the matched string
                 }
             }
-            // Return the first card if no match is found, or null if the list is empty
-            return cardHandler.CardsTotal.ToList().Count > 0 ? cardHandler.CardsTotal.ToList()[0] : null;
+            return cardsTotal.Count > 0 ? cardsTotal[0] : null; // Return the first card if no match is found
         }
+        /*
 
         [HarmonyPrefix]
         public static bool GetCardBorderSprite(ERarity rarity, ref Sprite __result, object __instance)
@@ -53,7 +52,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             __result = m_CardBGList[(int)element];
             return false; // Skip original method
         }
-
+        */
         [HarmonyPrefix]
         public static bool GetCardFrontSprite(EElementIndex elementIndex, ref Sprite __result, object __instance)
         {
@@ -63,30 +62,27 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             // Clear the original list directly
             m_CardFrontImageList.Clear();
 
-            // Ensure cardHandler is properly initialized and accessible
-            for (int i = 0; i < cardHandler.CardsTotal.Count; i++)
+            // Populate the list with the current card portraits
+            for (int i = 0; i < cardHandler.CardPortraits.Count; i++)
             {
-                // Ensure that CardPortraits is valid and has the expected number of elements
-                if (i < cardHandler.CardPortraits.Count) // No need to convert to List
+                if (cardHandler.CardPortraits[i] != null) // Check for null values
                 {
-                    m_CardFrontImageList.Add(cardHandler.CardPortraits[i]); // Access directly
+                    m_CardFrontImageList.Add(cardHandler.CardPortraits[i]);
                 }
             }
 
-            // Ensure the index is within bounds before accessing the list
-            if ((int)elementIndex >= 0 && (int)elementIndex < m_CardFrontImageList.Count) // No need to convert to List
+            if ((int)elementIndex >= 0 && (int)elementIndex < m_CardFrontImageList.Count)
             {
-                __result = m_CardFrontImageList[(int)elementIndex]; // Access directly
+                __result = m_CardFrontImageList[(int)elementIndex];
             }
             else
             {
-                __result = null; // or handle the error case as appropriate
+                __result = null; // Handle out of bounds case
             }
 
-            // Skip original method
-            return false;
+            return false; // Skip original method
         }
-
+        /*
         [HarmonyPrefix]
         public static bool GetCardBackSprite(ECardExpansionType cardExpansionType, ref Sprite __result, object __instance)
         {
@@ -103,9 +99,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
 
             __result = m_CardFoilMaskImageList[(int)cardExpansionType];
             return false; // Skip original method
+        
         }
-
-
+        */
     }
     // ToDO: Add Art stuff as well as the other elements of the MonsterData classes.
 }

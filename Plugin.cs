@@ -32,15 +32,17 @@ namespace The_Hex_Expansion
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
-            cardHandler.AddCardsToPool("MyPrefix", "TestCard", Path.Combine(DLLPath+ "/Art"), "Tetramon");
+            AddCards("MyPrefix", "TestCard", Path.Combine(DLLPath+ "/Art"), "Tetramon");
             foreach (var item in cardHandler.CardsTotal)
             {
                 Logger.LogInfo($"{item} card has succeeded");
             }
-        }
 
-        public static void AddCards(string Prefix, string Name, string ImagePath, string Set)
+        }
+        
+        public void AddCards(string Prefix, string Name, string ImagePath, string Set)
         {
+            Logger.LogInfo($"I Have seen {Prefix}_{Name}");
             cardHandler.AddCardsToPool(Prefix, Name, ImagePath, Set);
         }
 
