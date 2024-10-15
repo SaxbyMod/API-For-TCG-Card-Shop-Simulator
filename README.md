@@ -12,5 +12,10 @@ If you have any suggestions or bugs or anything of the like report it in the Iss
 
 Ping me via the API or THE API thread in Modding Help or Requests, `@thincreator3483`.
 
+# Attributations:
+
+Thincreator3483/Creator: API Code
+DarkDragon: Preloader Patch
+
 # API-For-TCG-Card-Shop-Simulator
 I will fill this out later along with setup a wiki for this later.
