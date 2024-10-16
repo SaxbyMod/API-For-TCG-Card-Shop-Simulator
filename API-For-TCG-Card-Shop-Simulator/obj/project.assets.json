@@ -88,23 +88,6 @@
           }
         }
       },
-      "Inscryption.GameLibs/1.9.0-r.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Assembly-CSharp.dll": {},
-          "lib/netstandard2.0/Sirenix.Serialization.dll": {},
-          "lib/netstandard2.0/Sirenix.Utilities.dll": {},
-          "lib/netstandard2.0/Unity.TextMeshPro.dll": {},
-          "lib/netstandard2.0/UnityEngine.UI.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Assembly-CSharp.dll": {},
-          "lib/netstandard2.0/Sirenix.Serialization.dll": {},
-          "lib/netstandard2.0/Sirenix.Utilities.dll": {},
-          "lib/netstandard2.0/Unity.TextMeshPro.dll": {},
-          "lib/netstandard2.0/UnityEngine.UI.dll": {}
-        }
-      },
       "Microsoft.NETCore.Platforms/1.1.0": {
         "type": "package",
         "compile": {
@@ -780,21 +763,6 @@
         "lib/netstandard2.0/0Harmony.dll",
         "lib/netstandard2.0/0Harmony.xml",
         "logo_mini.png"
-      ]
-    },
-    "Inscryption.GameLibs/1.9.0-r.0": {
-      "sha512": "CYk8lSFcQ8xCeNOaUx8hoR3WZq/nu3w0gtsFd8JnAGFHwIhbMqLobc3w2NFxnBlb5bgyJwUQqDr2vKol9DGJsg==",
-      "type": "package",
-      "path": "inscryption.gamelibs/1.9.0-r.0",
-      "files": [
-        ".nupkg.metadata",
-        "inscryption.gamelibs.1.9.0-r.0.nupkg.sha512",
-        "inscryption.gamelibs.nuspec",
-        "lib/netstandard2.0/Assembly-CSharp.dll",
-        "lib/netstandard2.0/Sirenix.Serialization.dll",
-        "lib/netstandard2.0/Sirenix.Utilities.dll",
-        "lib/netstandard2.0/Unity.TextMeshPro.dll",
-        "lib/netstandard2.0/UnityEngine.UI.dll"
       ]
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
@@ -2762,7 +2730,6 @@
       "BepInEx.AssemblyPublicizer.MSBuild >= 0.4.0",
       "BepInEx.Core >= 5.*",
       "BepInEx.PluginInfoProps >= 1.*",
-      "Inscryption.GameLibs >= 1.9.0-r.0",
       "UnityEngine.Modules >= 2019.4.24"
     ]
   },
@@ -2840,10 +2807,6 @@
           "BepInEx.PluginInfoProps": {
             "target": "Package",
             "version": "[1.*, )"
-          },
-          "Inscryption.GameLibs": {
-            "target": "Package",
-            "version": "[1.9.0-r.0, )"
           },
           "UnityEngine.Modules": {
             "include": "Compile",

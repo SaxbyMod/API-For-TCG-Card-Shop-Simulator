@@ -14,7 +14,6 @@
           "BepInEx.AssemblyPublicizer.MSBuild": "0.4.0",
           "BepInEx.Core": "5.4.21",
           "BepInEx.PluginInfoProps": "1.1.0",
-          "Inscryption.GameLibs": "1.9.0-r.0",
           "UnityEngine.Modules": "2019.4.24"
         },
         "runtime": {
@@ -86,30 +85,6 @@
           "lib/netstandard2.0/0Harmony.dll": {
             "assemblyVersion": "2.7.0.0",
             "fileVersion": "2.7.0.0"
-          }
-        }
-      },
-      "Inscryption.GameLibs/1.9.0-r.0": {
-        "runtime": {
-          "lib/netstandard2.0/Assembly-CSharp.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          },
-          "lib/netstandard2.0/Sirenix.Serialization.dll": {
-            "assemblyVersion": "2.1.8.0",
-            "fileVersion": "2.1.8.0"
-          },
-          "lib/netstandard2.0/Sirenix.Utilities.dll": {
-            "assemblyVersion": "2.1.8.0",
-            "fileVersion": "2.1.8.0"
-          },
-          "lib/netstandard2.0/Unity.TextMeshPro.dll": {
-            "assemblyVersion": "0.0.0.0",
-            "fileVersion": "0.0.0.0"
-          },
-          "lib/netstandard2.0/UnityEngine.UI.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -475,13 +450,6 @@
       "sha512": "sha512-lec/SkduQspMa3Pi/nM/NSvA84Za8HCCWA8ybdToKiTqnBZa+JC5g6rxoFQCg/1vNuYcvjy77edePZzIEsRmvw==",
       "path": "harmonyx/2.7.0",
       "hashPath": "harmonyx.2.7.0.nupkg.sha512"
-    },
-    "Inscryption.GameLibs/1.9.0-r.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CYk8lSFcQ8xCeNOaUx8hoR3WZq/nu3w0gtsFd8JnAGFHwIhbMqLobc3w2NFxnBlb5bgyJwUQqDr2vKol9DGJsg==",
-      "path": "inscryption.gamelibs/1.9.0-r.0",
-      "hashPath": "inscryption.gamelibs.1.9.0-r.0.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.0": {
       "type": "package",

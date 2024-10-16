@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/S8EE3IOiwq/+Evm1Bp0F6+npt+wlP4opyu4q7n7vfq6fTNrfVpfx04KJQ45S7jo3Fr2ENtgBJq/276C0GvrxA==",
+  "dgSpecHash": "5O5eF02y511JKWrLplFNHz7p3luKrLRm/CFe5sCBTrr50tDrFoHciFzKjPPGPTJzzYtjC0V+83y+1TR1cbCnWQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,6 @@
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.core\\5.4.21\\bepinex.core.5.4.21.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.plugininfoprops\\1.1.0\\bepinex.plugininfoprops.1.1.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\harmonyx\\2.7.0\\harmonyx.2.7.0.nupkg.sha512",
-    "C:\\Users\\Thinc\\.nuget\\packages\\inscryption.gamelibs\\1.9.0-r.0\\inscryption.gamelibs.1.9.0-r.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\mono.cecil\\0.11.4\\mono.cecil.0.11.4.nupkg.sha512",

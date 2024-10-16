@@ -75,10 +75,6 @@
               "target": "Package",
               "version": "[1.*, )"
             },
-            "Inscryption.GameLibs": {
-              "target": "Package",
-              "version": "[1.9.0-r.0, )"
-            },
             "UnityEngine.Modules": {
               "include": "Compile",
               "target": "Package",
