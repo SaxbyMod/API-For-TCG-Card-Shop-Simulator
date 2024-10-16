@@ -1,4 +1,4 @@
-﻿using Bepinex_Preload_Patch.Patches;
+﻿using Bepinex_Preload_Patch;
 using Mono.Cecil;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
 
             // Call managesets method
-            Bepinex_Preload_Patch.Patches.PreloaderTestPatch.managesets(CardSet, ModPrefix + "_" + CardName, assembly);
+            
+            Bepinex_Preload_Patch.Handlers.CustomMonsterManager.(CardSet, ModPrefix + "_" + CardName, assembly);
 
             // Add a new enum value for the monster type (assuming monsterType is an enum)
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);

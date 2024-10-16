@@ -12,14 +12,13 @@ namespace Bepinex_Preload_Patch
         private const string PluginName = "PreloaderTest";
         private const string VersionString = "1.0.0";
         public static ManualLogSource Log { get; private set; }
-
-        private void Awake()
+        public void Awake()
         {
             Log = Logger; // Initialize the static Log property
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loading...");
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loaded.");
         }
-        private void Update()
+        public void Update()
         {
             if (UnityEngine.Input.GetKeyUp(KeyCode.O))
             {
