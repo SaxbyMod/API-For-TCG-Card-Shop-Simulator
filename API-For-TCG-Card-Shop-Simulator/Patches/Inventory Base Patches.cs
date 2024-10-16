@@ -4,7 +4,7 @@ using HarmonyLib;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+/*
 namespace API_For_TCG_Card_Shop_Simulator.Patches
 {
     internal class Inventory_Base_Patches
@@ -53,3 +53,4 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
         }
     }
 }
+*/

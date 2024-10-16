@@ -1,15 +1,148 @@
-﻿using System.Collections.Generic;
+﻿using Bepinex_Preload_Patch.Patches;
+using Mono.Cecil;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
     internal class CardHandler
     {
-        // Instance field for the dictionary
+        public static MonsterData AddNewCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
+        {
+            Assembly DLLAssembly = Assembly.GetExecutingAssembly();
+            string DLLPath = Path.GetDirectoryName(DLLAssembly.Location);
+            var assemblyPath = Path.Combine(DLLPath + "..\\..\\..\\..\\Card Shop Simulator_Data\\Managed\\Assembly-CSharp.dll"); // Change this to the actual path
+            AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
 
+            // Call managesets method
+            Bepinex_Preload_Patch.Patches.PreloaderTestPatch.managesets(CardSet, ModPrefix + "_" + CardName, assembly);
+
+            // Add a new enum value for the monster type (assuming monsterType is an enum)
+            EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
+
+            // Convert the roles from strings to the EMonsterRole enum
+            var convertedRoles = role.Select(r =>
+            {
+                if (Enum.TryParse(typeof(EMonsterRole), r, out var parsedEnum))
+                {
+                    return (EMonsterRole)parsedEnum;
+                }
+                else
+                {
+                    throw new ArgumentException($"Role '{r}' is not a valid EMonsterRole");
+                }
+            }).ToList();
+
+            // Convert the skills from strings to the ESkill enum, similar to roles
+            var convertedSkills = Skills.Select(s =>
+            {
+                if (Enum.TryParse(typeof(ESkill), s, out var parsedSkill))
+                {
+                    return (ESkill)parsedSkill;
+                }
+                else
+                {
+                    Console.WriteLine($"Warning: Skill '{s}' could not be parsed to ESkill");
+                    return ESkill.None; // Fallback if skill not found
+                }
+            }).ToList();
+
+            return new MonsterData
+            {
+                Name = CardName,
+                ArtistName = Artist,
+                Description = Description,
+                EffectAmount = effectAmount,
+                ElementIndex = element,
+                MonsterType = monsterType,
+                NextEvolution = nextEvolution,
+                PreviousEvolution = previousEvolution,
+                Rarity = rarity,
+                Roles = convertedRoles,
+                BaseStats = stats,
+                SkillList = convertedSkills,
+                GhostIcon = ImageLoader.GetCustomImage(ModPrefix + "_" + CardName + "_Ghost", ImagePath),
+                Icon = ImageLoader.GetCustomImage(ModPrefix + "_" + CardName, ImagePath)
+            };
+        }
+
+        public static MonsterData ModifyCard(MonsterData original, EMonsterType newMonsterType, string newName)
+        {
+            return new MonsterData
+            {
+                Name = newName,
+                ArtistName = GetNewArtistName((int)newMonsterType),
+                Description = original.Description,
+                EffectAmount = original.EffectAmount,
+                ElementIndex = original.ElementIndex,
+                GhostIcon = original.GhostIcon,
+                Icon = original.Icon,
+                MonsterType = newMonsterType,
+                NextEvolution = original.NextEvolution,
+                PreviousEvolution = original.PreviousEvolution,
+                Rarity = original.Rarity,
+                Roles = original.Roles,
+                BaseStats = original.BaseStats,
+                SkillList = original.SkillList
+            };
+        }
+
+        public static string GetNewArtistName(int monsterType)
+        {
+            switch (monsterType)
+            {
+                case 121: //
+                    return "NewName";
+                default: return null;
+            }
+        }
+    }
+
+    public static class ImageLoader
+    {
+        // Load a custom texture from the specified path
+        public static Texture2D LoadCustomTexture(string fileName, string imagePath)
+        {
+            string imageToLoad = Path.Combine(imagePath, fileName + ".png");
+            if (File.Exists(imageToLoad))
+            {
+                byte[] data = File.ReadAllBytes(imageToLoad);
+                Texture2D texture2D = new Texture2D(2, 2, TextureFormat.RGBA32, false); // Use RGBA32 format for better color representation
+                texture2D.LoadImage(data);
+                return texture2D;
+            }
+            Debug.LogWarning($"Texture not found at path: {imageToLoad}");
+            return null;
+        }
+
+        // Load a custom PNG texture from the specified path
+        public static Texture2D LoadCustomPNG(string fileName, string imagePath)
+        {
+            return LoadCustomTexture(fileName, imagePath); // Reuse LoadCustomTexture for PNG files
+        }
+
+        // Create a Sprite from a custom image file
+        public static Sprite GetCustomImage(string fileName, string imagePath)
+        {
+            Texture2D texture2D = LoadCustomPNG(fileName, imagePath);
+            if (texture2D != null)
+            {
+                Sprite sprite = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), Vector2.zero);
+                sprite.name = fileName; // Name the sprite for easy identification
+                return sprite;
+            }
+            Debug.LogWarning($"Sprite creation failed for: {fileName} at path: {imagePath}");
+            return null;
+        }
+
+        // Old Method's DO NOT USE
+        /*
         public Dictionary<string, MonsterData> _monsterDataDict = new Dictionary<string, MonsterData>();
         public class ModdedMonsterData
         {
@@ -216,10 +349,10 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 }
                 // Example of creating a MonsterData object with an element name
                 ModdedStats teststats = new ModdedStats(100, 20, 15, 10, 5, 10, 0, 2, 5, 3, 1, 74);
-                ModdedMonsterData CreateCopy = new ModdedMonsterData("Monster1", "Artist1", "This is Monster1's description", 1.0f, 2.0f, 3.0f, "Fire", "SuperLegend", ModPrefix + CardName, "FireBirdB", "FireGeckoB", ["Defender"], teststats, ["DoNothing"], ImageLoader.GetCustomImage(ModPrefix + CardName, ImagePath), ImageLoader.GetCustomImage(ModPrefix + CardName + "_Ghost", ImagePath));
                 // MonsterData MyMonster = CreateCopy(EMonsterType.AncientHammer, EMonsterType.AncientHammer, "Alpha");
             }
         }
+
         // Method to fetch a MonsterData by name
         public MonsterData GetMonsterData(string name)
         {
@@ -236,75 +369,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
         {
             return new List<MonsterData>(_monsterDataDict.Values);
         }
-        /*
-        public static MonsterData CreateCopy(MonsterData original, EMonsterType newMonsterType, string newName)
-        {
-            return new MonsterData
-            {
-                ArtistName = GetNewArtistName((int)newMonsterType),
-                BaseStats = original.BaseStats,
-                Description = original.Description,
-                EffectAmount = original.EffectAmount,
-                ElementIndex = original.ElementIndex,
-                GhostIcon = original.GhostIcon,
-                Icon = original.Icon,
-                MonsterType = newMonsterType,
-                Name = newName,
-                NextEvolution = original.NextEvolution,
-                PreviousEvolution = original.PreviousEvolution,
-                Rarity = original.Rarity,
-                Roles = original.Roles,
-                SkillList = original.SkillList
-            };
-        }
-
-        public static string GetNewArtistName(int monsterType)
-        {
-            switch (monsterType)
-            {
-                case 121: //
-                    return "NewName";
-                default: return null;
-            }
-        }
         */
-    }
-
-    public static class ImageLoader
-    {
-        // Load a custom texture from the specified path
-        public static Texture2D LoadCustomTexture(string fileName, string imagePath)
-        {
-            string imageToLoad = Path.Combine(imagePath, fileName + ".png");
-            if (File.Exists(imageToLoad))
-            {
-                byte[] data = File.ReadAllBytes(imageToLoad);
-                Texture2D texture2D = new Texture2D(2, 2, TextureFormat.RGBA32, false); // Use RGBA32 format for better color representation
-                texture2D.LoadImage(data);
-                return texture2D;
-            }
-            Debug.LogWarning($"Texture not found at path: {imageToLoad}");
-            return null;
-        }
-
-        // Load a custom PNG texture from the specified path
-        public static Texture2D LoadCustomPNG(string fileName, string imagePath)
-        {
-            return LoadCustomTexture(fileName, imagePath); // Reuse LoadCustomTexture for PNG files
-        }
-
-        // Create a Sprite from a custom image file
-        public static Sprite GetCustomImage(string fileName, string imagePath)
-        {
-            Texture2D texture2D = LoadCustomPNG(fileName, imagePath);
-            if (texture2D != null)
-            {
-                Sprite sprite = Sprite.Create(texture2D, new Rect(0f, 0f, texture2D.width, texture2D.height), Vector2.zero);
-                sprite.name = fileName; // Name the sprite for easy identification
-                return sprite;
-            }
-            Debug.LogWarning($"Sprite creation failed for: {fileName} at path: {imagePath}");
-            return null;
-        }
     }
 }

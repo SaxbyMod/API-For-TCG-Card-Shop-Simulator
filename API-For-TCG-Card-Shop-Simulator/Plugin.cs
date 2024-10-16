@@ -25,20 +25,20 @@ namespace The_Hex_Expansion
         public List<string> CardsToAdd = new List<string>();
 
         // Static CardHandler instance
-        private static EnumListScript CardHandler = new EnumListScript();
         private static CardHandler cardHandler = new CardHandler();
         public void Awake()
         {
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
-            AddCards("MyPrefix", "TestCard", Path.Combine(DLLPath+ "/Art"), "Tetramon");
+            
+            AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), EElementIndex.Wind, EMonsterType.Alpha, EMonsterType.EX0Director, ERarity.Rare, new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new Stats { HP = 100, Strength = 10, Magic = 15, Vitality = 20, Spirit = 5, Speed = 12, HP_LevelAdd = 5, Strength_LevelAdd = 2 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath+ "/Art"));
         }
         
-        public void AddCards(string Prefix, string Name, string ImagePath, string Set)
+        public void AddCards(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
         {
-            Logger.LogInfo($"I Have seen {Prefix}_{Name}");
-            cardHandler.AddCardsToPool(Prefix, Name, ImagePath, Set);
+            Logger.LogInfo($"I Have seen {ModPrefix}_{CardName}");
+            MonsterData Card = CardHandler.AddNewCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
         }
 
         // Other methods can go here

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lhE1ZRK1CuD3atBXUHwprf/xbkkZXyA+nS2/fwT8fGoeoiQ+v7ha2S/+c96VtfI3wnTYDB13KUQq/4+GhUcdcg==",
+  "dgSpecHash": "/S8EE3IOiwq/+Evm1Bp0F6+npt+wlP4opyu4q7n7vfq6fTNrfVpfx04KJQ45S7jo3Fr2ENtgBJq/276C0GvrxA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Thinc\\source\\repos\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
+  "projectFilePath": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\API For TCG Card Shop Simulator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex-monomod_loader_inscryption\\1.0.0\\bepinex-monomod_loader_inscryption.1.0.0.nupkg.sha512",
     "C:\\Users\\Thinc\\.nuget\\packages\\bepinex.analyzers\\1.0.8\\bepinex.analyzers.1.0.8.nupkg.sha512",

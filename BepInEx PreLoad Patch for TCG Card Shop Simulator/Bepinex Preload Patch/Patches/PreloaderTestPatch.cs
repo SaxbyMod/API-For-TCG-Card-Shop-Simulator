@@ -18,8 +18,8 @@ namespace Bepinex_Preload_Patch.Patches
             var monsterType = assembly.MainModule.Types.First(t => t.Name == "EMonsterType");
             var rarity = assembly.MainModule.Types.First(t => t.Name == "ERarity");
             var skill = assembly.MainModule.Types.First(t => t.Name == "ESkill");
-            var elementIndex = assembly.MainModule.Types.First(t => t.Name == "EElementIndex");
-            var monsterRole = assembly.MainModule.Types.First(t => t.Name == "EMonsterRole");
+            var element = assembly.MainModule.Types.First(t => t.Name == "EElementIndex");
+            var role = assembly.MainModule.Types.First(t => t.Name == "EMonsterRole");
 
             if (monsterType != null)
             {
@@ -28,11 +28,35 @@ namespace Bepinex_Preload_Patch.Patches
             {
                 Console.WriteLine("NULL monster type");
             }
-
-            ModifyEnumValue(monsterType, "MAX", 124);
+            
 
             // Save the changes
             Console.WriteLine("Done Patching");
+        }
+
+        public static void managesets(string set, string name, AssemblyDefinition assembly)
+        {
+            var monsterType = assembly.MainModule.Types.First(t => t.Name == "EMonsterType");
+            if (set == "Tetramon")
+            {
+                ModifyEnumValue(monsterType, "MAX", (int)EMonsterType.MAX + 1);
+                CloneAndAddEnumValue(monsterType, EMonsterType.FireChickenB.ToString(), name, (int)EMonsterType.MAX -1);
+            } 
+            if (set == "Megabot")
+            {
+                ModifyEnumValue(monsterType, "MAX_MEGABOT", (int)EMonsterType.MAX_MEGABOT + 1);
+                CloneAndAddEnumValue(monsterType, EMonsterType.WingBooster.ToString(), name, (int)EMonsterType.MAX_MEGABOT - 1);
+            }
+            if (set == "FantasyRPG")
+            {
+                ModifyEnumValue(monsterType, "MAX_FANTASYRPG", (int)EMonsterType.MAX_FANTASYRPG + 1);
+                CloneAndAddEnumValue(monsterType, EMonsterType.WolfFantasy.ToString(), name, (int)EMonsterType.MAX_FANTASYRPG - 1);
+            }
+            if (set == "CatJob")
+            {
+                ModifyEnumValue(monsterType, "MAX_CATJOB", (int)EMonsterType.MAX_CATJOB + 1);
+                CloneAndAddEnumValue(monsterType, EMonsterType.EX0Pirate.ToString(), name, (int)EMonsterType.MAX_CATJOB - 1);
+            }
         }
 
         public static void ModifyEnumValue(TypeDefinition enumType, string fieldName, int newValue)

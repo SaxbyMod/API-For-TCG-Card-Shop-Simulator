@@ -10,7 +10,7 @@ namespace Bepinex_Preload_Patch
     {
         private const string MyGUID = "com.DarkDragoon.PreloaderTest";
         private const string PluginName = "PreloaderTest";
-        private const string VersionString = "1.0.0.0";
+        private const string VersionString = "1.0.0";
         public static ManualLogSource Log { get; private set; }
 
         private void Awake()
@@ -25,8 +25,8 @@ namespace Bepinex_Preload_Patch
             {
                 foreach (EMonsterType monsterType in Enum.GetValues(typeof(EMonsterType)))
                 {
-                    Log.LogInfo("Found monstertype with name --" + monsterType.ToString());
-                    Log.LogInfo("Found monstertype with value --" + (int)monsterType);
+                    Log.LogDebug("Found monstertype with name --" + monsterType.ToString());
+                    Log.LogDebug("Found monstertype with value --" + (int)monsterType);
                 }
             }
         }
