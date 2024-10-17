@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-namespace The_Hex_Expansion
+namespace API_For_TCG_Card_Shop_Simulator
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     public class Plugin : BaseUnityPlugin
     {
         // Declare Harmony here for future Harmony patches. You'll use Harmony to patch the game's code outside of the scope of the API.
         readonly Harmony harmony = new(PluginGuid);
+        public static ManualLogSource Log = new ManualLogSource(PluginName);
 
         // These are variables that exist everywhere in the entire class.
         public const string PluginGuid = "creator.TheAPI";
@@ -38,6 +39,7 @@ namespace The_Hex_Expansion
         public void AddCards(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
         {
             Logger.LogInfo($"I Have seen {ModPrefix}_{CardName}");
+            Logger.LogInfo($"Test inputting a Card");
             MonsterData Card = CardHandler.AddNewCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
         }
 

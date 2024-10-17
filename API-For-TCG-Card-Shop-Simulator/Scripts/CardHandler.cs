@@ -5,33 +5,37 @@ using System.IO;
 using System.Linq;
 using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
+using BepInEx.Logging;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
     internal class CardHandler
     {
-        // Dictionary to store cards grouped by CardSet
         private static Dictionary<string, List<MonsterData>> cardSets = new Dictionary<string, List<MonsterData>>();
+        public static List<CustomCard> newMonstersList = new List<CustomCard>();
 
         // Method to add a new card and store it under the specified CardSet
         public static MonsterData AddNewCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
         {
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating and adding new card...");
+
             MonsterData newCard = CreateCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
 
-            // Store the card in the dictionary based on its CardSet
             if (!cardSets.ContainsKey(CardSet))
             {
                 cardSets[CardSet] = new List<MonsterData>();
             }
             cardSets[CardSet].Add(newCard);
 
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo($"Added card {CardName} to set {CardSet}.");
+
             return newCard;
         }
 
-        // Helper method to create a new card (similar to the existing AddNewCard method)
+        // Helper method to create a new card (simplified structure)
         private static MonsterData CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
         {
-            // (existing code for creating MonsterData remains here)
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
 
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
 
@@ -55,7 +59,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 }
                 else
                 {
-                    Console.WriteLine($"Warning: Skill '{s}' could not be parsed to ESkill");
+                    API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogWarning($"Skill '{s}' could not be parsed to ESkill. Defaulting to None.");
                     return ESkill.None;
                 }
             }).ToList();
@@ -74,35 +78,28 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 Roles = convertedRoles,
                 BaseStats = stats,
                 SkillList = convertedSkills,
-                GhostIcon = ImageLoader.GetCustomImage(ModPrefix + "_" + CardName + "_Ghost", ImagePath),
-                Icon = ImageLoader.GetCustomImage(ModPrefix + "_" + CardName, ImagePath)
+                // ImageLoader integration
+                GhostIcon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}_Ghost", ImagePath),
+                Icon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}", ImagePath)
             };
         }
 
-        // Method to retrieve all cards from a specific CardSet
+        // Retrieve cards by CardSet
         public static List<MonsterData> GetCardsBySet(string CardSet)
         {
-            if (cardSets.ContainsKey(CardSet))
-            {
-                return cardSets[CardSet];
-            }
-            else
-            {
-                return new List<MonsterData>(); // Return empty list if CardSet does not exist
-            }
+            return cardSets.ContainsKey(CardSet) ? cardSets[CardSet] : new List<MonsterData>();
         }
 
-        // Method to retrieve all CardSets
+        // Retrieve all CardSets
         public static Dictionary<string, List<MonsterData>> GetAllCardSets()
         {
             return cardSets;
         }
 
-
-
+        // Class to convert card data to dictionaries and handle enum updates
         public class CardDataConverter
         {
-            // Method to convert all cards in a CardSet to a list of dictionaries
+            // Convert all cards in a CardSet to a list of dictionaries
             public static List<Dictionary<string, object>> ConvertCardSetToDictList(string CardSet)
             {
                 var cards = CardHandler.GetCardsBySet(CardSet);
@@ -118,78 +115,67 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                            int MaxMegabot,
                            int MaxTetramonCards) GetFourSpecificCardSetsAndUpdateEnum()
             {
-                // Retrieve the card dictionaries for each specific CardSet
                 var tetramonCards = ConvertCardSetToDictList("Tetramon");
                 var fantasyRPGCards = ConvertCardSetToDictList("FantasyRPG");
                 var megabotCards = ConvertCardSetToDictList("Megabot");
                 var catJobCards = ConvertCardSetToDictList("CatJob");
 
-                // Calculate max values for each card set
                 int maxCatJob = catJobCards.Count + 3040;
                 int maxMegabot = megabotCards.Count + 1113;
                 int maxFantasyRPG = fantasyRPGCards.Count + 2050;
                 int maxTetramonCards = tetramonCards.Count + 122;
 
-                // Load the assembly and retrieve the enum type definition (update with correct paths)
                 var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
                 AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
 
-                // Assuming the enum you need is inside a type like "MonsterTypeEnum" (replace with actual type name)
                 TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
 
-                // Call ChangeMaxValues to update the enum with new max values
                 CustomMonsterHandler.ChangeMaxValues(enumType, maxTetramonCards, maxMegabot, maxFantasyRPG, maxCatJob);
 
-                // Return the four lists and the max values as a tuple
                 return (tetramonCards, fantasyRPGCards, megabotCards, catJobCards, maxCatJob, maxFantasyRPG, maxMegabot, maxTetramonCards);
             }
 
-
+            // Convert MonsterData to Dictionary
             private static Dictionary<string, object> ConvertToDict(MonsterData monsterData)
             {
-                // Create a dictionary to hold monster information for adding to the enum
-                Dictionary<string, (string MonsterType, int MonsterTypeID)> monstersToAdd = new Dictionary<string, (string MonsterType, int MonsterTypeID)>();
+                var monstersToAdd = new Dictionary<string, (string MonsterType, int MonsterTypeID)>();
+                int monsterTypeID = GetMonsterTypeID(monsterData.MonsterType);
 
-                // Assuming you have a way to get MonsterTypeID from monsterData (you may need to define this)
-                int monsterTypeID = GetMonsterTypeID(monsterData.MonsterType); // Replace with your method to retrieve ID
-
-                // Fill the dictionary with the monster data
                 monstersToAdd[monsterData.Name] = (monsterData.MonsterType.ToString(), monsterTypeID);
 
-                // Call to add new monsters to the enum
-                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll"); // Ensure correct path
+                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
                 AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
                 TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
 
                 CustomMonsterHandler.AddNewMonstersToEnum(enumType, monstersToAdd);
 
                 return new Dictionary<string, object>
-        {
-            { "Name", monsterData.Name },
-            { "Artist", monsterData.ArtistName },
-            { "Description", monsterData.Description },
-            { "EffectAmount", monsterData.EffectAmount },
-            { "ElementIndex", monsterData.ElementIndex },
-            { "MonsterType", monsterData.MonsterType },
-            { "NextEvolution", monsterData.NextEvolution },
-            { "PreviousEvolution", monsterData.PreviousEvolution },
-            { "Rarity", monsterData.Rarity },
-            { "Roles", monsterData.Roles },
-            { "BaseStats", monsterData.BaseStats },
-            { "SkillList", monsterData.SkillList },
-            { "GhostIcon", monsterData.GhostIcon },
-            { "Icon", monsterData.Icon }
-        };
+                {
+                    { "Name", monsterData.Name },
+                    { "Artist", monsterData.ArtistName },
+                    { "Description", monsterData.Description },
+                    { "EffectAmount", monsterData.EffectAmount },
+                    { "ElementIndex", monsterData.ElementIndex },
+                    { "MonsterType", monsterData.MonsterType },
+                    { "NextEvolution", monsterData.NextEvolution },
+                    { "PreviousEvolution", monsterData.PreviousEvolution },
+                    { "Rarity", monsterData.Rarity },
+                    { "Roles", monsterData.Roles },
+                    { "BaseStats", monsterData.BaseStats },
+                    { "SkillList", monsterData.SkillList },
+                    { "GhostIcon", monsterData.GhostIcon },
+                    { "Icon", monsterData.Icon }
+                };
             }
 
-            // Sample method to retrieve MonsterTypeID (Implement according to your logic)
+            // Retrieve MonsterTypeID (implementation example)
             private static int GetMonsterTypeID(EMonsterType monsterType)
             {
-                // Implement logic to convert EMonsterType to an ID
-                return (int)monsterType; // Example conversion; replace with your logic
+                return (int)monsterType;
             }
         }
 
+        // Modify a card (existing method slightly modified)
         public static MonsterData ModifyCard(MonsterData original, EMonsterType newMonsterType, string newName)
         {
             return new MonsterData
@@ -211,19 +197,16 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             };
         }
 
-        public static string GetNewArtistName(int monsterType)
+        // Helper method to fetch a new artist name (basic example)
+        public static string GetNewArtistName(int MonsterType)
         {
-            switch (monsterType)
-            {
-                case 121: //
-                    return "NewName";
-                default: return null;
-            }
+            string artist = $"Artist{MonsterType}";
+            return artist;
         }
     }
 
 
-    public static class ImageLoader
+        public static class ImageLoader
     {
         // Load a custom texture from the specified path
         public static Texture2D LoadCustomTexture(string fileName, string imagePath)

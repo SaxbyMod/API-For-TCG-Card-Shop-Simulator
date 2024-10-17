@@ -22,11 +22,23 @@
     <Reference Include="BepInEx">
       <HintPath>libs\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="BepInEx.MonoMod.Loader">
+      <HintPath>libs\BepInEx.MonoMod.Loader.dll</HintPath>
+    </Reference>
     <Reference Include="BepInEx.Preloader">
       <HintPath>libs\BepInEx.Preloader.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>libs\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod">
+      <HintPath>libs\MonoMod.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>libs\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>libs\MonoMod.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>libs\Newtonsoft.Json.dll</HintPath>

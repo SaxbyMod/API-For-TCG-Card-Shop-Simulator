@@ -42,7 +42,7 @@
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Bepinex_Preload_Patch">
-			<HintPath>libs\Bepinex_Preload_Patch.dll</HintPath>
+		  <HintPath>libs\Bepinex_Preload_Patch.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>

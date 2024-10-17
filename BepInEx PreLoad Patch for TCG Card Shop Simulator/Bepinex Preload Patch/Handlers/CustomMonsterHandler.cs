@@ -8,12 +8,6 @@ namespace TCGShopNewCardsModPreloader.Handlers
 {
     public class CustomMonsterHandler
     {
-        public static string gameInstallPath = BepInEx.Paths.GameRootPath;
-        public static string patcherPath = BepInEx.Paths.PatcherPluginPath;
-        public static string pluginPath = patcherPath + "/" + "TCGShopNewCardsModPreloader" + "/";
-        public static string monsterConfigsPath = pluginPath + "MonsterConfigs" + "/";
-        public static string monsterImagesPath = pluginPath + "MonsterImages" + "/";
-        public static string[] files = Directory.GetFiles(monsterConfigsPath, "*.ini");
 
         public static int tetramonMax;
         public static int megabotMax;
