@@ -14,8 +14,8 @@ Ping me via the API or THE API thread in Modding Help or Requests, `@thincreator
 
 # Attributations:
 
-Thincreator3483/Creator: API Code
-DarkDragon: Preloader Patch
+* Thincreator3483/Creator: API Code
+* Dark_Dragoon: Preloader Patch, and help with figuring out issues.
 
 # API-For-TCG-Card-Shop-Simulator
 I will fill this out later along with setup a wiki for this later.
