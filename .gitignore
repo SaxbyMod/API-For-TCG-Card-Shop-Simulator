@@ -23,7 +23,6 @@
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-*.dll
 *.so
 *.so.*
 *.dylib
@@ -50,3 +49,5 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+API-For-TCG-Card-Shop-Simulator/bin
+BepInEx PreLoad Patch for TCG Card Shop Simulator/Bepinex Preload Patch/bin
