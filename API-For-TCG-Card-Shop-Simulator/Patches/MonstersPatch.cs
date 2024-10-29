@@ -25,6 +25,7 @@ namespace TCGShopNewCardsMod.Patches
         }
         public static void addNewMonsterData()//Works
         {
+            // can refactor this method by using a combination of reflection iteration technique in MonsterDataPatch.cs and to create the emonstertype could use what's done in CustomMonsterHandler.cs
             List<CustomCard> newMonsterDataList = CardHandler.newMonstersList;
             if (newMonsterDataList != null)
             {
@@ -37,6 +38,7 @@ namespace TCGShopNewCardsMod.Patches
                         MonsterData newMonsterData = CreateNewMonsterData(customCard);
                         if (baseMonsterData != null && newMonsterData != null)
                         {
+                            // this is getting the first and last member of the expansion range
                             EMonsterType FireChickenB = TryParseEnum<EMonsterType>("FireChickenB", EMonsterType.None);
                             EMonsterType MAX = TryParseEnum<EMonsterType>("MAX", EMonsterType.None);
 
