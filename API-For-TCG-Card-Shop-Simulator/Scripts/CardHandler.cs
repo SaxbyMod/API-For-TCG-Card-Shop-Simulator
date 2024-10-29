@@ -6,6 +6,7 @@ using System.Linq;
 using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
 using BepInEx.Logging;
+using System.Reflection;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
@@ -36,6 +37,33 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
         private static MonsterData CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string dllPath = baseDirectory + @"\Card Shop Simulator_Data\Managed\Assembly-CSharp.dll";
+
+            AssemblyDefinition loadedAssembly = new();
+            try
+            {
+                // Load the assembly from the specified path
+                loadedAssembly = AssemblyDefinition.ReadAssembly(Assembly.LoadFile(dllPath).Location);
+
+                // Display the assembly's full name as confirmation
+                Console.WriteLine("Loaded Assembly: " + loadedAssembly.FullName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading DLL: " + ex.Message);
+            }
+
+            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
+            CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", ModPrefix + "_" + CardName, 9999);
+            Console.WriteLine("Added new monster");
+
+            // print all EMonsterType names
+            // foreach (var field in typeDefinition.Fields)
+            // {
+            //     Console.WriteLine($"{field.Name} {field.initial_value}");
+            // }
 
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
 
