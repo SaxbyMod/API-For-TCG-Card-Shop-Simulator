@@ -134,8 +134,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 return cards.Select(ConvertToDict).ToList();
             }
 
-
-            // return a list of List<Dictionary<string, object>> or create a new class to store the data which includes the Max values
             public static (List<Dictionary<string, object>> TetramonCards,
                            List<Dictionary<string, object>> FantasyRPGCards,
                            List<Dictionary<string, object>> MegabotCards,
@@ -145,14 +143,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                            int MaxMegabot,
                            int MaxTetramonCards) GetFourSpecificCardSetsAndUpdateEnum()
             {
-                // figure out a way to get the names, possibly make a config file
                 var tetramonCards = ConvertCardSetToDictList("Tetramon");
                 var fantasyRPGCards = ConvertCardSetToDictList("FantasyRPG");
                 var megabotCards = ConvertCardSetToDictList("Megabot");
                 var catJobCards = ConvertCardSetToDictList("CatJob");
 
-
-                // figure out the meaning for the numbers
                 int maxCatJob = catJobCards.Count + 3040;
                 int maxMegabot = megabotCards.Count + 1113;
                 int maxFantasyRPG = fantasyRPGCards.Count + 2050;
@@ -163,7 +158,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 
                 TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
 
-                // use the names from above to create Monster objects to send to the ChangeMaxValues method
                 CustomMonsterHandler.ChangeMaxValues(enumType, maxTetramonCards, maxMegabot, maxFantasyRPG, maxCatJob);
 
                 return (tetramonCards, fantasyRPGCards, megabotCards, catJobCards, maxCatJob, maxFantasyRPG, maxMegabot, maxTetramonCards);
