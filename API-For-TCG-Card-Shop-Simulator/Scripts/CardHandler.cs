@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
-using BepInEx.Logging;
-using System.Reflection;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
@@ -60,10 +59,10 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             Console.WriteLine("Added new monster");
 
             // print all EMonsterType names
-            // foreach (var field in typeDefinition.Fields)
-            // {
-            //     Console.WriteLine($"{field.Name} {field.initial_value}");
-            // }
+            foreach (var field in typeDefinition.Fields)
+            {
+                Plugin.Log.LogDebug($"{field.Name} {field.initial_value}");
+            }
 
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
 
@@ -234,7 +233,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
     }
 
 
-        public static class ImageLoader
+    public static class ImageLoader
     {
         // Load a custom texture from the specified path
         public static Texture2D LoadCustomTexture(string fileName, string imagePath)
