@@ -51,3 +51,7 @@ Mkfile.old
 dkms.conf
 API-For-TCG-Card-Shop-Simulator/bin
 BepInEx PreLoad Patch for TCG Card Shop Simulator/Bepinex Preload Patch/bin
+API-For-TCG-Card-Shop-Simulator/.vs
+API-For-TCG-Card-Shop-Simulator/obj
+BepInEx PreLoad Patch for TCG Card Shop Simulator/.vs
+BepInEx PreLoad Patch for TCG Card Shop Simulator/Bepinex Preload Patch/obj
