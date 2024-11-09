@@ -7,6 +7,8 @@ using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
 using BepInEx.Logging;
 using System.Reflection;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
@@ -38,32 +40,17 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
 
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string dllPath = baseDirectory + @"\Card Shop Simulator_Data\Managed\Assembly-CSharp.dll";
-
-            AssemblyDefinition loadedAssembly = new();
-            try
-            {
-                // Load the assembly from the specified path
-                loadedAssembly = AssemblyDefinition.ReadAssembly(Assembly.LoadFile(dllPath).Location);
-
-                // Display the assembly's full name as confirmation
-                Console.WriteLine("Loaded Assembly: " + loadedAssembly.FullName);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error loading DLL: " + ex.Message);
-            }
+            AssemblyDefinition loadedAssembly = GetAssemblyDefinition("Assembly-CSharp.dll");
 
             TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
             CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", ModPrefix + "_" + CardName, 9999);
             Console.WriteLine("Added new monster");
 
-            // print all EMonsterType names
-            // foreach (var field in typeDefinition.Fields)
-            // {
-            //     Console.WriteLine($"{field.Name} {field.initial_value}");
-            // }
+            /// print all EMonsterType names
+            foreach (var field in typeDefinition.Fields)
+            {
+                Console.WriteLine($"{field.Name} {field.attributes}");
+            }
 
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
 
@@ -112,131 +99,37 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             };
         }
 
-        // Retrieve cards by CardSet
-        public static List<MonsterData> GetCardsBySet(string CardSet)
+        private static AssemblyDefinition GetAssemblyDefinition(string assemblyName = "Assembly-CSharp.dll")
         {
-            return cardSets.ContainsKey(CardSet) ? cardSets[CardSet] : new List<MonsterData>();
-        }
 
-        // Retrieve all CardSets
-        public static Dictionary<string, List<MonsterData>> GetAllCardSets()
-        {
-            return cardSets;
-        }
+            Process[] processes = Process.GetProcessesByName("Card Shop Simulator");
+            var cardShopSim = processes.FirstOrDefault();
+            // Get the full path of the process executable
+            string processPath = cardShopSim.MainModule.FileName;
 
-        // Class to convert card data to dictionaries and handle enum updates
-        public class CardDataConverter
-        {
-            // Convert all cards in a CardSet to a list of dictionaries
-            public static List<Dictionary<string, object>> ConvertCardSetToDictList(string CardSet)
+            // Extract the directory from the full path
+            string processDirectory = Path.GetDirectoryName(processPath);
+            Console.WriteLine("Process Directory: " + processDirectory);
+            string baseDirectory = processDirectory;
+
+            string dllPath = baseDirectory + $@"\Card Shop Simulator_Data\Managed\{assemblyName}";
+            AssemblyDefinition loadedAssembly = new();
+            try
             {
-                var cards = CardHandler.GetCardsBySet(CardSet);
-                return cards.Select(ConvertToDict).ToList();
+                // Load the assembly from the specified path
+                loadedAssembly = AssemblyDefinition.ReadAssembly(Assembly.LoadFile(dllPath).Location);
+
+                // Display the assembly's full name as confirmation
+                Console.WriteLine("Loaded Assembly: " + loadedAssembly.FullName);
             }
-
-
-            // return a list of List<Dictionary<string, object>> or create a new class to store the data which includes the Max values
-            public static (List<Dictionary<string, object>> TetramonCards,
-                           List<Dictionary<string, object>> FantasyRPGCards,
-                           List<Dictionary<string, object>> MegabotCards,
-                           List<Dictionary<string, object>> CatJobCards,
-                           int MaxCatJob,
-                           int MaxFantasyRPG,
-                           int MaxMegabot,
-                           int MaxTetramonCards) GetFourSpecificCardSetsAndUpdateEnum()
+            catch (Exception ex)
             {
-                // figure out a way to get the names, possibly make a config file
-                var tetramonCards = ConvertCardSetToDictList("Tetramon");
-                var fantasyRPGCards = ConvertCardSetToDictList("FantasyRPG");
-                var megabotCards = ConvertCardSetToDictList("Megabot");
-                var catJobCards = ConvertCardSetToDictList("CatJob");
-
-
-                // figure out the meaning for the numbers
-                int maxCatJob = catJobCards.Count + 3040;
-                int maxMegabot = megabotCards.Count + 1113;
-                int maxFantasyRPG = fantasyRPGCards.Count + 2050;
-                int maxTetramonCards = tetramonCards.Count + 122;
-
-                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
-                AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
-
-                TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
-
-                // use the names from above to create Monster objects to send to the ChangeMaxValues method
-                CustomMonsterHandler.ChangeMaxValues(enumType, maxTetramonCards, maxMegabot, maxFantasyRPG, maxCatJob);
-
-                return (tetramonCards, fantasyRPGCards, megabotCards, catJobCards, maxCatJob, maxFantasyRPG, maxMegabot, maxTetramonCards);
+                Console.WriteLine("Error loading DLL: " + ex.Message);
             }
-
-            // Convert MonsterData to Dictionary
-            private static Dictionary<string, object> ConvertToDict(MonsterData monsterData)
-            {
-                var monstersToAdd = new Dictionary<string, (string MonsterType, int MonsterTypeID)>();
-                int monsterTypeID = GetMonsterTypeID(monsterData.MonsterType);
-
-                monstersToAdd[monsterData.Name] = (monsterData.MonsterType.ToString(), monsterTypeID);
-
-                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
-                AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
-                TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
-
-                CustomMonsterHandler.AddNewMonstersToEnum(enumType, monstersToAdd);
-
-                return new Dictionary<string, object>
-                {
-                    { "Name", monsterData.Name },
-                    { "Artist", monsterData.ArtistName },
-                    { "Description", monsterData.Description },
-                    { "EffectAmount", monsterData.EffectAmount },
-                    { "ElementIndex", monsterData.ElementIndex },
-                    { "MonsterType", monsterData.MonsterType },
-                    { "NextEvolution", monsterData.NextEvolution },
-                    { "PreviousEvolution", monsterData.PreviousEvolution },
-                    { "Rarity", monsterData.Rarity },
-                    { "Roles", monsterData.Roles },
-                    { "BaseStats", monsterData.BaseStats },
-                    { "SkillList", monsterData.SkillList },
-                    { "GhostIcon", monsterData.GhostIcon },
-                    { "Icon", monsterData.Icon }
-                };
-            }
-
-            // Retrieve MonsterTypeID (implementation example)
-            private static int GetMonsterTypeID(EMonsterType monsterType)
-            {
-                return (int)monsterType;
-            }
+            return loadedAssembly;
         }
 
-        // Modify a card (existing method slightly modified)
-        public static MonsterData ModifyCard(MonsterData original, EMonsterType newMonsterType, string newName)
-        {
-            return new MonsterData
-            {
-                Name = newName,
-                ArtistName = GetNewArtistName((int)newMonsterType),
-                Description = original.Description,
-                EffectAmount = original.EffectAmount,
-                ElementIndex = original.ElementIndex,
-                GhostIcon = original.GhostIcon,
-                Icon = original.Icon,
-                MonsterType = newMonsterType,
-                NextEvolution = original.NextEvolution,
-                PreviousEvolution = original.PreviousEvolution,
-                Rarity = original.Rarity,
-                Roles = original.Roles,
-                BaseStats = original.BaseStats,
-                SkillList = original.SkillList
-            };
-        }
 
-        // Helper method to fetch a new artist name (basic example)
-        public static string GetNewArtistName(int MonsterType)
-        {
-            string artist = $"Artist{MonsterType}";
-            return artist;
-        }
     }
 
 
