@@ -16,6 +16,23 @@ Ping me via the API or THE API thread in Modding Help or Requests, `@thincreator
 
 * Thincreator3483/Creator: API Code
 * Dark_Dragoon: Preloader Patch, and help with figuring out issues.
+* Lynn Titis: Getting the Enum system working.
+
+# Planned for Initial Release:
+* Card Adding
+* Card Modification
+* Different portraits for each card type.
+
+Planned for Future:
+* Custom Sets (Without base Modification)
+* Set Selection Menu for the Album
+* Allow modders to define their system through the API for their cards to use.
+* NPC Model Handling
+* Phone Apps
+* New Items
+* Asset Bundle Support
+* Custom Fonts
+* More to come...
 
 # API-For-TCG-Card-Shop-Simulator
 I will fill this out later along with setup a wiki for this later.

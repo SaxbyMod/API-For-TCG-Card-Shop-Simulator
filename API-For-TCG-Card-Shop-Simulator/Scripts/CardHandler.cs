@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
 using BepInEx.Logging;
@@ -35,21 +36,66 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             return newCard;
         }
 
-        // Helper method to create a new card (simplified structure)
-        private static MonsterData CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
+        private static string FindDllPath()
+        {
+            string[] commonPaths = {
+        @"C:\Program Files (x86)\Steam\steamapps\common\TCG Card Shop Simulator\Card Shop Simulator_Data\Managed",
+        @"C:\Program Files\Steam\steamapps\common\TCG Card Shop Simulator\Card Shop Simulator_Data\Managed"
+    };
+
+            // Check each common path first
+            foreach (var path in commonPaths)
+            {
+                string dllPath = Path.Combine(path, "Assembly-CSharp.dll");
+                if (File.Exists(dllPath))
+                {
+                    Console.WriteLine("DLL found at: " + dllPath);
+                    return dllPath;
+                }
+            }
+
+            // If not found, proceed to full drive scan
+            foreach (string drive in Directory.GetLogicalDrives())
+            {
+                try
+                {
+                    string dllPath = Directory.GetFiles(drive, "Assembly-CSharp.dll", SearchOption.AllDirectories)
+                                              .FirstOrDefault(path => path.EndsWith(Path.Combine("Card Shop Simulator_Data", "Managed", "Assembly-CSharp.dll")));
+
+                    if (dllPath != null)
+                    {
+                        Console.WriteLine("DLL found at: " + dllPath);
+                        return dllPath;
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    continue;
+                }
+            }
+
+            Console.WriteLine("Error: DLL path not found.");
+            return null;
+        }
+
+
+        private static MonsterData CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description,
+                                      UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution,
+                                      EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats,
+                                      List<string> Skills, string ImagePath)
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
 
             AssemblyDefinition loadedAssembly = GetAssemblyDefinition("Assembly-CSharp.dll");
 
-            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
+            // Proceed with other logic
+            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First(t => t.Name == "EMonsterType");
             CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", ModPrefix + "_" + CardName, 9999);
             Console.WriteLine("Added new monster");
 
-            /// print all EMonsterType names
             foreach (var field in typeDefinition.Fields)
             {
-                Console.WriteLine($"{field.Name} {field.attributes}");
+                Plugin.Log.LogDebug($"{field.Name} {field.InitialValue}");
             }
 
             EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
@@ -93,7 +139,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 Roles = convertedRoles,
                 BaseStats = stats,
                 SkillList = convertedSkills,
-                // ImageLoader integration
                 GhostIcon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}_Ghost", ImagePath),
                 Icon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}", ImagePath)
             };
@@ -101,6 +146,46 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 
         private static AssemblyDefinition GetAssemblyDefinition(string assemblyName = "Assembly-CSharp.dll")
         {
+            return cardSets.ContainsKey(CardSet) ? cardSets[CardSet] : new List<MonsterData>();
+        }
+
+        // Retrieve all CardSets
+        public static Dictionary<string, List<MonsterData>> GetAllCardSets()
+        {
+            return cardSets;
+        }
+
+        // Class to convert card data to dictionaries and handle enum updates
+        public class CardDataConverter
+        {
+            // Convert all cards in a CardSet to a list of dictionaries
+            public static List<Dictionary<string, object>> ConvertCardSetToDictList(string CardSet)
+            {
+                var cards = CardHandler.GetCardsBySet(CardSet);
+                return cards.Select(ConvertToDict).ToList();
+            }
+
+            public static (List<Dictionary<string, object>> TetramonCards,
+                           List<Dictionary<string, object>> FantasyRPGCards,
+                           List<Dictionary<string, object>> MegabotCards,
+                           List<Dictionary<string, object>> CatJobCards,
+                           int MaxCatJob,
+                           int MaxFantasyRPG,
+                           int MaxMegabot,
+                           int MaxTetramonCards) GetFourSpecificCardSetsAndUpdateEnum()
+            {
+                var tetramonCards = ConvertCardSetToDictList("Tetramon");
+                var fantasyRPGCards = ConvertCardSetToDictList("FantasyRPG");
+                var megabotCards = ConvertCardSetToDictList("Megabot");
+                var catJobCards = ConvertCardSetToDictList("CatJob");
+
+                int maxCatJob = catJobCards.Count + 3040;
+                int maxMegabot = megabotCards.Count + 1113;
+                int maxFantasyRPG = fantasyRPGCards.Count + 2050;
+                int maxTetramonCards = tetramonCards.Count + 122;
+
+                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
+                AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
 
             Process[] processes = Process.GetProcessesByName("Card Shop Simulator");
             var cardShopSim = processes.FirstOrDefault();
@@ -111,6 +196,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             string processDirectory = Path.GetDirectoryName(processPath);
             Console.WriteLine("Process Directory: " + processDirectory);
             string baseDirectory = processDirectory;
+
+            CustomMonsterHandler.ChangeMaxValues(enumType, maxTetramonCards, maxMegabot, maxFantasyRPG, maxCatJob);
+
 
             string dllPath = baseDirectory + $@"\Card Shop Simulator_Data\Managed\{assemblyName}";
             AssemblyDefinition loadedAssembly = new();
@@ -133,7 +221,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
     }
 
 
-        public static class ImageLoader
+    public static class ImageLoader
     {
         // Load a custom texture from the specified path
         public static Texture2D LoadCustomTexture(string fileName, string imagePath)
