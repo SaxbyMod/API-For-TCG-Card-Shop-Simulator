@@ -44,17 +44,20 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 
             AssemblyDefinition loadedAssembly = GetAssemblyDefinition("Assembly-CSharp.dll");
 
+            string monsterType = ModPrefix + "_" + CardName;
+
             // Proceed with other logic
             TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First(t => t.Name == "EMonsterType");
-            CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", ModPrefix + "_" + CardName, 9999);
+            CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", monsterType, 9999);
             Console.WriteLine("Added new monster");
 
             foreach (var field in typeDefinition.Fields)
             {
                 Plugin.Log.LogDebug($"{field.Name} {field.InitialValue}");
             }
+
             EMonsterType monsterTypetype = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
-            string monsterType = ModPrefix + "_" + CardName;
+
 
             return new CustomCard
             {
