@@ -34,7 +34,7 @@ namespace API_For_TCG_Card_Shop_Simulator
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             
-            AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath+ "/Art"));
+            AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath + $"\\Art"));
         }
         
         public void AddCards(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, string element, string nextEvolution, string previousEvolution, string rarity, List<string> role, List<int> stats, List<string> Skills, string ImagePath)

@@ -1,13 +1,12 @@
 ﻿using Mono.Cecil;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using TCGShopNewCardsModPreloader.Handlers;
 using UnityEngine;
-using BepInEx.Logging;
-using System.Diagnostics;
 using Debug = UnityEngine.Debug;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
@@ -35,33 +34,40 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             return newCard;
         }
 
+        // Define a static dictionary to hold dynamic enum-like mappings
+        private static Dictionary<string, EMonsterType> dynamicMonsterTypes = new Dictionary<string, EMonsterType>();
+
         private static CustomCard CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description,
-                                      UnityEngine.Vector3 effectAmount, string element, string nextEvolution,
-                                      string previousEvolution, string rarity, List<string> role, List<int> stats,
-                                      List<string> Skills, string ImagePath)
+                                             UnityEngine.Vector3 effectAmount, string element, string nextEvolution,
+                                             string previousEvolution, string rarity, List<string> role, List<int> stats,
+                                             List<string> Skills, string ImagePath)
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
 
+            // Load the assembly
             AssemblyDefinition loadedAssembly = GetAssemblyDefinition("Assembly-CSharp.dll");
 
+            // Construct monster type string
             string monsterType = ModPrefix + "_" + CardName;
 
-            // Proceed with other logic
-            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First(t => t.Name == "EMonsterType");
-            CustomMonsterHandler.CloneAndAddEnumValue(typeDefinition, "FireChickenB", monsterType, 9999);
-            Console.WriteLine("Added new monster");
-
-            foreach (var field in typeDefinition.Fields)
+            // Add the new value to the dictionary (acting as a dynamic enum)
+            if (!dynamicMonsterTypes.ContainsKey(monsterType))
             {
-                Plugin.Log.LogDebug($"{field.Name} {field.InitialValue}");
+                dynamicMonsterTypes.Add(monsterType, EMonsterType.WeirdBirdA);  // Default value, or you can choose an appropriate value
+                Plugin.Log.LogInfo($"Dynamically registered monster type '{monsterType}'");
             }
 
-            EMonsterType monsterTypetype = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
+            // Attempt to retrieve the monster type from the dictionary
+            if (!dynamicMonsterTypes.TryGetValue(monsterType, out var monsterTypeValue))
+            {
+                Debug.LogError($"Failed to find '{monsterType}' in dynamic monster types.");
+                monsterTypeValue = EMonsterType.WeirdBirdA; // Fallback value
+            }
 
-
+            // Return the newly created card
             return new CustomCard
             {
-                MonsterTypeType = monsterTypetype,
+                MonsterTypeType = monsterTypeValue,
                 Name = CardName,
                 ArtistName = Artist,
                 Description = Description,
@@ -89,6 +95,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 VitalityLevelAdd = stats[11]
             };
         }
+
 
         private static AssemblyDefinition GetAssemblyDefinition(string assemblyName = "Assembly-CSharp.dll")
         {

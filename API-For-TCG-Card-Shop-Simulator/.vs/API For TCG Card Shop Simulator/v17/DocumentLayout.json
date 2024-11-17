@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api github\\api-for-tcg-card-shop-simulator\\scripts\\cardhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:scripts\\cardhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api github\\api-for-tcg-card-shop-simulator\\plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:plugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api github\\api-for-tcg-card-shop-simulator\\scripts\\cardhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|solutionrelative:scripts\\cardhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F312A419-1C1C-4F75-A55A-176D229C5146}|API For TCG Card Shop Simulator.csproj|c:\\users\\thinc\\source\\repos\\api github\\api-for-tcg-card-shop-simulator\\patches\\monsterspatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -66,8 +66,7 @@
               "RelativeToolTip": "Patches\\NewDataPatch.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:56:44.278Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-17T12:56:44.278Z"
             },
             {
               "$type": "Document",
@@ -91,8 +90,7 @@
               "RelativeToolTip": "Patches\\MonstersPatch.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T21:45:44.218Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T21:45:44.218Z"
             },
             {
               "$type": "Document",
@@ -104,8 +102,7 @@
               "RelativeToolTip": "Patches\\MonsterDataPatch.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T23:53:37.646Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T23:53:37.646Z"
             },
             {
               "$type": "Document",
@@ -133,26 +130,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CardHandler.cs",
               "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\Scripts\\CardHandler.cs",
               "RelativeDocumentMoniker": "Scripts\\CardHandler.cs",
               "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\Scripts\\CardHandler.cs",
               "RelativeToolTip": "Scripts\\CardHandler.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAAAAAD4AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAkwEYAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-13T17:14:59.445Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Plugin.cs",
               "DocumentMoniker": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
               "RelativeDocumentMoniker": "Plugin.cs",
-              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs",
-              "RelativeToolTip": "Plugin.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAArwDAAAAABAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Thinc\\source\\repos\\API Github\\API-For-TCG-Card-Shop-Simulator\\Plugin.cs*",
+              "RelativeToolTip": "Plugin.cs*",
+              "ViewState": "AgIAAAcAAAAAAAAAAAArwCQAAACbAQAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-06T20:21:43.169Z",
               "EditorCaption": ""
