@@ -8,6 +8,7 @@ namespace TCGShopNewCardsModPreloader.Handlers
 {
     public class CustomCard
     {
+        public EMonsterType MonsterTypeType { get; set; }
         public string Header { get; set; }
         public string ArtistName { get; set; }
         public string Description { get; set; }

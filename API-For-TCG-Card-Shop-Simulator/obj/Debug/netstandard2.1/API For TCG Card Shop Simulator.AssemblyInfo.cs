@@ -26,7 +26,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("The API For TCG Card Shop Simulator")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32adecd5ff98f8a37891e9d55caf08a556a36bda")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7653ff441c49a74433417075b02a42d642fbdd48")]
 [assembly: System.Reflection.AssemblyProductAttribute("TheAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

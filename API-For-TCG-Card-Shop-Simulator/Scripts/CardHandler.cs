@@ -14,19 +14,19 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
     internal class CardHandler
     {
-        private static Dictionary<string, List<MonsterData>> cardSets = new Dictionary<string, List<MonsterData>>();
+        private static Dictionary<string, List<CustomCard>> cardSets = new Dictionary<string, List<CustomCard>>();
         public static List<CustomCard> newMonstersList = new List<CustomCard>();
 
         // Method to add a new card and store it under the specified CardSet
-        public static MonsterData AddNewCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
+        public static CustomCard AddNewCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, string element, string nextEvolution, string previousEvolution, string rarity, List<string> role, List<int> stats, List<string> Skills, string ImagePath)
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating and adding new card...");
 
-            MonsterData newCard = CreateCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
+            CustomCard newCard = CreateCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
 
             if (!cardSets.ContainsKey(CardSet))
             {
-                cardSets[CardSet] = new List<MonsterData>();
+                cardSets[CardSet] = new List<CustomCard>();
             }
             cardSets[CardSet].Add(newCard);
 
@@ -35,9 +35,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             return newCard;
         }
 
-        private static MonsterData CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description,
-                                      UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution,
-                                      EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats,
+        private static CustomCard CreateCard(string CardSet, string ModPrefix, string CardName, string Artist, string Description,
+                                      UnityEngine.Vector3 effectAmount, string element, string nextEvolution,
+                                      string previousEvolution, string rarity, List<string> role, List<int> stats,
                                       List<string> Skills, string ImagePath)
         {
             API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogInfo("Creating card...");
@@ -53,36 +53,12 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {
                 Plugin.Log.LogDebug($"{field.Name} {field.InitialValue}");
             }
+            EMonsterType monsterTypetype = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
+            string monsterType = ModPrefix + "_" + CardName;
 
-            EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), ModPrefix + "_" + CardName);
-
-            var convertedRoles = role.Select(r =>
+            return new CustomCard
             {
-                if (Enum.TryParse(typeof(EMonsterRole), r, out var parsedEnum))
-                {
-                    return (EMonsterRole)parsedEnum;
-                }
-                else
-                {
-                    throw new ArgumentException($"Role '{r}' is not a valid EMonsterRole");
-                }
-            }).ToList();
-
-            var convertedSkills = Skills.Select(s =>
-            {
-                if (Enum.TryParse(typeof(ESkill), s, out var parsedSkill))
-                {
-                    return (ESkill)parsedSkill;
-                }
-                else
-                {
-                    API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogWarning($"Skill '{s}' could not be parsed to ESkill. Defaulting to None.");
-                    return ESkill.None;
-                }
-            }).ToList();
-
-            return new MonsterData
-            {
+                MonsterTypeType = monsterTypetype,
                 Name = CardName,
                 ArtistName = Artist,
                 Description = Description,
@@ -92,11 +68,22 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 NextEvolution = nextEvolution,
                 PreviousEvolution = previousEvolution,
                 Rarity = rarity,
-                Roles = convertedRoles,
-                BaseStats = stats,
-                SkillList = convertedSkills,
+                Roles = role,
+                Skills = Skills,
                 GhostIcon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}_Ghost", ImagePath),
-                Icon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}", ImagePath)
+                Icon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}", ImagePath),
+                HP = stats[0],
+                HPLevelAdd = stats[1],
+                Magic = stats[2],
+                MagicLevelAdd = stats[3],
+                Speed = stats[4],
+                SpeedLevelAdd = stats[5],
+                Sprit = stats[6],
+                SpritLevelAdd = stats[7],
+                Strength = stats[8],
+                StrengthLevelAdd = stats[9],
+                Vitality = stats[10],
+                VitalityLevelAdd = stats[11]
             };
         }
 
@@ -130,13 +117,13 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
         }
 
         // Retrieve cards by CardSet
-        public static List<MonsterData> GetCardsBySet(string CardSet)
+        public static List<CustomCard> GetCardsBySet(string CardSet)
         {
-            return cardSets.ContainsKey(CardSet) ? cardSets[CardSet] : new List<MonsterData>();
+            return cardSets.ContainsKey(CardSet) ? cardSets[CardSet] : new List<CustomCard>();
         }
 
         // Retrieve all CardSets
-        public static Dictionary<string, List<MonsterData>> GetAllCardSets()
+        public static Dictionary<string, List<CustomCard>> GetAllCardSets()
         {
             return cardSets;
         }
@@ -148,7 +135,18 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             public static List<Dictionary<string, object>> ConvertCardSetToDictList(string CardSet)
             {
                 var cards = CardHandler.GetCardsBySet(CardSet);
-                return cards.Select(ConvertToDict).ToList();
+                return cards.Select(card =>
+                {
+                    try
+                    {
+                        return ConvertToDict(card);
+                    }
+                    catch (Exception ex)
+                    {
+                        Plugin.Log.LogError($"Error converting card {card?.Name}: {ex.Message}");
+                        return null; // or an empty dictionary
+                    }
+                }).Where(dict => dict != null).ToList();
             }
 
             public static (List<Dictionary<string, object>> TetramonCards,
@@ -188,12 +186,12 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 return (tetramonCards, fantasyRPGCards, megabotCards, catJobCards, maxCatJob, maxFantasyRPG, maxMegabot, maxTetramonCards);
             }
 
-            private static Dictionary<string, object> ConvertToDict(MonsterData monsterData)
+            private static Dictionary<string, object> ConvertToDict(CustomCard customCard)
             {
                 var monstersToAdd = new Dictionary<string, (string MonsterType, int MonsterTypeID)>();
-                int monsterTypeID = GetMonsterTypeID(monsterData.MonsterType);
+                int monsterTypeID = GetMonsterTypeID(customCard.MonsterTypeType);
 
-                monstersToAdd[monsterData.Name] = (monsterData.MonsterType.ToString(), monsterTypeID);
+                monstersToAdd[customCard.Name] = (customCard.MonsterTypeType.ToString(), monsterTypeID);
 
                 var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
                 AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
@@ -203,20 +201,31 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 
                 return new Dictionary<string, object>
                 {
-                    { "Name", monsterData.Name },
-                    { "Artist", monsterData.ArtistName },
-                    { "Description", monsterData.Description },
-                    { "EffectAmount", monsterData.EffectAmount },
-                    { "ElementIndex", monsterData.ElementIndex },
-                    { "MonsterType", monsterData.MonsterType },
-                    { "NextEvolution", monsterData.NextEvolution },
-                    { "PreviousEvolution", monsterData.PreviousEvolution },
-                    { "Rarity", monsterData.Rarity },
-                    { "Roles", monsterData.Roles },
-                    { "BaseStats", monsterData.BaseStats },
-                    { "SkillList", monsterData.SkillList },
-                    { "GhostIcon", monsterData.GhostIcon },
-                    { "Icon", monsterData.Icon }
+                    { "Name", customCard.Name },
+                    { "Artist", customCard.ArtistName },
+                    { "Description", customCard.Description },
+                    { "EffectAmount", customCard.EffectAmount },
+                    { "ElementIndex", customCard.ElementIndex },
+                    { "MonsterType", customCard.MonsterType },
+                    { "NextEvolution", customCard.NextEvolution },
+                    { "PreviousEvolution", customCard.PreviousEvolution },
+                    { "Rarity", customCard.Rarity },
+                    { "Roles", customCard.Roles },
+                    { "SkillList", customCard.Skills },
+                    { "GhostIcon", customCard.GhostIcon },
+                    { "Icon", customCard.Icon },
+                    { "HP", customCard.Magic },
+                    { "HPLevelAdd", customCard.MagicLevelAdd },
+                    { "Magic", customCard.Magic },
+                    { "MagicLevelAdd", customCard.MagicLevelAdd },
+                    { "Speed", customCard.Speed },
+                    { "SpeedLevelAdd", customCard.SpeedLevelAdd },
+                    { "Spirit", customCard.Sprit },
+                    { "SpiritLevelAdd", customCard.SpritLevelAdd },
+                    { "Strength", customCard.Strength },
+                    { "StrengthLevelAdd", customCard.StrengthLevelAdd },
+                    { "Vitality", customCard.Vitality },
+                    { "VitalityLevelAdd", customCard.VitalityLevelAdd },
                 };
             }
 
@@ -225,7 +234,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {
                 return (int)monsterType;
             }
-
         }
 
 

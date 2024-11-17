@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using TCGShopNewCardsModPreloader.Handlers;
 
 namespace API_For_TCG_Card_Shop_Simulator
 {
@@ -33,14 +34,14 @@ namespace API_For_TCG_Card_Shop_Simulator
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             
-            AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), EElementIndex.Wind, EMonsterType.Alpha, EMonsterType.EX0Director, ERarity.Rare, new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new Stats { HP = 100, Strength = 10, Magic = 15, Vitality = 20, Spirit = 5, Speed = 12, HP_LevelAdd = 5, Strength_LevelAdd = 2 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath+ "/Art"));
+            // AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, List<int> stats [HP = 100, Strength = 10, Magic = 15, Vitality = 20, Spirit = 5, Speed = 12, HP_LevelAdd = 5, Strength_LevelAdd = 2 ], new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath+ "/Art"));
         }
         
-        public void AddCards(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, EElementIndex element, EMonsterType nextEvolution, EMonsterType previousEvolution, ERarity rarity, List<string> role, Stats stats, List<string> Skills, string ImagePath)
+        public void AddCards(string CardSet, string ModPrefix, string CardName, string Artist, string Description, UnityEngine.Vector3 effectAmount, string element, string nextEvolution, string previousEvolution, string rarity, List<string> role, List<int> stats, List<string> Skills, string ImagePath)
         {
             Logger.LogInfo($"I Have seen {ModPrefix}_{CardName}");
             Logger.LogInfo($"Test inputting a Card");
-            MonsterData Card = CardHandler.AddNewCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
+            CustomCard Card = CardHandler.AddNewCard(CardSet, ModPrefix, CardName, Artist, Description, effectAmount, element, nextEvolution, previousEvolution, rarity, role, stats, Skills, ImagePath);
         }
 
         // Other methods can go here

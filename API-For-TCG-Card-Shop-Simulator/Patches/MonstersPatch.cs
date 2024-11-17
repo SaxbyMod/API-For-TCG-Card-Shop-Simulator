@@ -5,6 +5,10 @@ using System.Drawing;
 using UnityEngine;
 using TCGShopNewCardsModPreloader.Handlers;
 using API_For_TCG_Card_Shop_Simulator.Scripts;
+using System.Linq;
+using static UnityEngine.UIElements.StyleVariableResolver;
+using Mono.Cecil;
+using System.Reflection;
 
 namespace TCGShopNewCardsMod.Patches
 {
@@ -17,6 +21,7 @@ namespace TCGShopNewCardsMod.Patches
         [HarmonyPatch(typeof(InventoryBase), "Awake")]
         public static void InventoryBase_Awake_Postfix()
         {
+            Console.WriteLine("InventoryBase_Awake_Postfix");
             if (hasAddedNewCardsData == false)
             {
                 addNewMonsterData();
@@ -25,6 +30,8 @@ namespace TCGShopNewCardsMod.Patches
         }
         public static void addNewMonsterData()//Works
         {
+
+            // can refactor this method by using a combination of reflection iteration technique in MonsterDataPatch.cs and to create the emonstertype could use what's done in CustomMonsterHandler.cs
             List<CustomCard> newMonsterDataList = CardHandler.newMonstersList;
             if (newMonsterDataList != null)
             {
@@ -37,37 +44,52 @@ namespace TCGShopNewCardsMod.Patches
                         MonsterData newMonsterData = CreateNewMonsterData(customCard);
                         if (baseMonsterData != null && newMonsterData != null)
                         {
+                            // this is getting the first and last member of the expansion range
                             EMonsterType FireChickenB = TryParseEnum<EMonsterType>("FireChickenB", EMonsterType.None);
                             EMonsterType MAX = TryParseEnum<EMonsterType>("MAX", EMonsterType.None);
+                            List<MonsterData> dataList = new List<MonsterData>();
+                            List<EMonsterType> shownMonsterList = new List<EMonsterType>();
+                            dataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_DataList;
+                            shownMonsterList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMonsterList;
+
 
                             EMonsterType WingBooster = TryParseEnum<EMonsterType>("WingBooster", EMonsterType.None);
                             EMonsterType MAX_MEGABOT = TryParseEnum<EMonsterType>("MAX_MEGABOT", EMonsterType.None);
+                            List<MonsterData> megabotDataList = new List<MonsterData>();
+                            List<EMonsterType> shownMegabotList = new List<EMonsterType>();
+                            megabotDataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_MegabotDataList;
+                            shownMegabotList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMegabotList;
+
 
                             EMonsterType WolfFantasy = TryParseEnum<EMonsterType>("WolfFantasy", EMonsterType.None);
                             EMonsterType MAX_FANTASYRPG = TryParseEnum<EMonsterType>("MAX_FANTASYRPG", EMonsterType.None);
+                            List<MonsterData> fantasyRPGDataList = new List<MonsterData>();
+                            List<EMonsterType> shownFantasyRPGList = new List<EMonsterType>();
+                            fantasyRPGDataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_FantasyRPGDataList;
+                            shownFantasyRPGList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownFantasyRPGList;
+
 
                             EMonsterType EX0Pirate = TryParseEnum<EMonsterType>("EX0Pirate", EMonsterType.None);
                             EMonsterType MAX_CATJOB = TryParseEnum<EMonsterType>("MAX_CATJOB", EMonsterType.None);
-
-                            List<MonsterData> dataList = new List<MonsterData>();
                             List<MonsterData> catJobDataList = new List<MonsterData>();
-                            List<MonsterData> fantasyRPGDataList = new List<MonsterData>();
-                            List<MonsterData> megabotDataList = new List<MonsterData>();
-                            List<EMonsterType> shownMonsterList = new List<EMonsterType>();
-                            List<EMonsterType> shownGhostList = new List<EMonsterType>();
                             List<EMonsterType> shownCatJobList = new List<EMonsterType>();
-                            List<EMonsterType> shownFantasyRPGList = new List<EMonsterType>();
-                            List<EMonsterType> shownMegabotList = new List<EMonsterType>();
-
-                            dataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_DataList;
                             catJobDataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_CatJobDataList;
-                            fantasyRPGDataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_FantasyRPGDataList;
-                            megabotDataList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_MegabotDataList;
-                            shownMonsterList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMonsterList;
-                            shownGhostList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownGhostMonsterList;
                             shownCatJobList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownCatJobList;
-                            shownFantasyRPGList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownFantasyRPGList;
-                            shownMegabotList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMegabotList;
+
+
+                            List<EMonsterType> shownGhostList = new List<EMonsterType>();
+                            shownGhostList = CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownGhostMonsterList;
+
+
+                            var minMaxPairs = GetMinMaxPair();
+                            //----------------------
+                            for (int i = 0; i < minMaxPairs.Count; i += 2)
+                            {
+                                var min = minMaxPairs[i]["Min"];
+                                var max = minMaxPairs[i + 1]["Max"];
+
+                            }
+                            //--------------------------
 
                             if (monsterType > FireChickenB && monsterType < MAX)
                             {
@@ -192,6 +214,70 @@ namespace TCGShopNewCardsMod.Patches
             };
         }
 
+        private static List<Dictionary<string, EMonsterType>> GetMinMaxPair()
+        {
+            List<EMonsterType> eMonsterTypes = GetEMonsterTypeList();
+            var eMonsterTypesMaxIndex = eMonsterTypes
+                                            .Select((value, index) => new { value, index })
+                                            .Where(obj => obj.ToString().Take(3).Equals("MAX"))
+                                            .Select(obj => obj.index)
+                                            .ToList();
+            List<Dictionary<string, EMonsterType>> minMaxPairs = new List<Dictionary<string, EMonsterType>>(eMonsterTypesMaxIndex.Count());
+
+            // start 1 = first index, max = first index with max
+            // start 2 = first index after max, max = 2nd index with max
+            minMaxPairs[0]["Min"] = eMonsterTypes[0];
+            minMaxPairs[0]["Max"] = eMonsterTypes[eMonsterTypesMaxIndex.First()];
+
+            for (int i = 0; i < eMonsterTypesMaxIndex.Count; i++)
+            {
+                EMonsterType start = (eMonsterTypesMaxIndex[i] + 1 < eMonsterTypes.Count)
+                                    ? eMonsterTypes[eMonsterTypesMaxIndex[i] + 1]
+                                    : EMonsterType.None;
+                EMonsterType end = (i + 1 < eMonsterTypesMaxIndex.Count && eMonsterTypesMaxIndex[i + 1] < eMonsterTypes.Count)
+                                    ? eMonsterTypes[eMonsterTypesMaxIndex[i + 1]]
+                                    : EMonsterType.None;
+
+                minMaxPairs.Add(new Dictionary<string, EMonsterType> { { "Min", start }, { "Max", end } });
+            }
+
+            foreach (var pair in minMaxPairs)
+            {
+                Console.WriteLine($"GetMinMaxPair() min {pair["Min"]} max {pair["Max"]}");
+            }
+            return minMaxPairs;
+        }
+
+        private static List<EMonsterType> GetEMonsterTypeList()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string dllPath = baseDirectory + @"\Card Shop Simulator_Data\Managed\Assembly-CSharp.dll";
+
+            AssemblyDefinition loadedAssembly = new();
+            try
+            {
+                // Load the assembly from the specified path
+                loadedAssembly = AssemblyDefinition.ReadAssembly(Assembly.LoadFile(dllPath).Location);
+
+                // Display the assembly's full name as confirmation
+                Console.WriteLine("Loaded Assembly: " + loadedAssembly.FullName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error loading DLL: " + ex.Message);
+            }
+
+            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
+            List<EMonsterType> eMonsterTypeList = new List<EMonsterType>();
+
+            /// print all EMonsterType names
+            foreach (var field in typeDefinition.Fields)
+            {
+                EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), field.Name);
+                Console.WriteLine($"GetEMonsterTypeList() monsterType {monsterType}");
+            }
+            return eMonsterTypeList;
+        }
 
         /* Old but leaving it as a reference
         public static MonsterData CreateCopy(MonsterData original, EMonsterType newMonsterType, string newName)
