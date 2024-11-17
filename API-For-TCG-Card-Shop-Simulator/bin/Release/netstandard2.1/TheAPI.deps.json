@@ -14,7 +14,8 @@
           "BepInEx.AssemblyPublicizer.MSBuild": "0.4.0",
           "BepInEx.Core": "5.4.21",
           "BepInEx.PluginInfoProps": "1.1.0",
-          "UnityEngine.Modules": "2019.4.24"
+          "UnityEngine.Modules": "2019.4.24",
+          "Bepinex_Preload_Patch": "1.0.0.0"
         },
         "runtime": {
           "TheAPI.dll": {}
@@ -393,7 +394,15 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "UnityEngine.Modules/2019.4.24": {}
+      "UnityEngine.Modules/2019.4.24": {},
+      "Bepinex_Preload_Patch/1.0.0.0": {
+        "runtime": {
+          "Bepinex_Preload_Patch.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -681,6 +690,11 @@
       "sha512": "sha512-Qrq0+YPa5oTk0ZUQEXB81IQJDNtKACTsFDq53BinxJEhSzH5B/6KE07G7BFUBwvj30lPMhX0OgAfTW7LCWPOow==",
       "path": "unityengine.modules/2019.4.24",
       "hashPath": "unityengine.modules.2019.4.24.nupkg.sha512"
+    },
+    "Bepinex_Preload_Patch/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

@@ -33,6 +33,7 @@ namespace TCGShopNewCardsModPreloader.Handlers
         public int SpritLevelAdd { get; set; }
         public int Strength { get; set; }
         public int StrengthLevelAdd { get; set; }
-
+        public int Vitality { get; set; }
+        public int VitalityLevelAdd { get; set; }
     }
 }

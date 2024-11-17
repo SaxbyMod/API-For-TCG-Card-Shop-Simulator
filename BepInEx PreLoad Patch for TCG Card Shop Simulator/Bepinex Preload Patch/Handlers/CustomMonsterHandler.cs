@@ -3,31 +3,25 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 
 namespace TCGShopNewCardsModPreloader.Handlers
 {
     public class CustomMonsterHandler
     {
+        public static List<CustomMonsterAttribute> monsterMax = new List<CustomMonsterAttribute>();
 
-        public static int tetramonMax;
-        public static int megabotMax;
-        public static int fantasyRPGMax;
-        public static int catJobMax;
-
-        public static void ChangeMaxValues(TypeDefinition enumType, int MaxTetramon, int MaxMegabot, int MaxFantasyRPG, int MaxCatJob)
+        public static void ChangeMaxValues(TypeDefinition enumType, List<CustomMonsterAttribute> maxValues)
         {
-            int maxTetramon = MaxTetramon;
-            int maxMegabot = MaxMegabot;
-            int maxFantasyRPG = MaxFantasyRPG;
-            int maxCatJob = MaxCatJob;
-            tetramonMax = maxTetramon;
-            megabotMax = maxMegabot;
-            fantasyRPGMax = maxFantasyRPG;
-            catJobMax = maxCatJob;
-            ModifyEnumValue(enumType, "MAX", maxTetramon);
-            ModifyEnumValue(enumType, "MAX_MEGABOT", maxMegabot);
-            ModifyEnumValue(enumType, "MAX_FANTASYRPG", maxFantasyRPG);
-            ModifyEnumValue(enumType, "MAX_CATJOB", maxCatJob);
+            // maxValues are used only here and as a static variable and unaltered so we can just assign it to the static variable directly
+            monsterMax = maxValues;
+
+            // name for the first tetramon is different so it's outside the loop
+            ModifyEnumValue(enumType, "MAX", maxValues[0].MaxValue);
+            foreach (var monster in maxValues.Skip(1))
+            {
+                ModifyEnumValue(enumType, "MAX_" + monster.Name.ToUpper(), monster.MaxValue);
+            }
         }
 
         public static void ModifyEnumValue(TypeDefinition enumType, string fieldName, int newValue)
