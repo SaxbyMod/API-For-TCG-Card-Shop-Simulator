@@ -64,6 +64,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 monsterTypeValue = EMonsterType.WeirdBirdA; // Fallback value
             }
 
+            
+
             // Return the newly created card
             return new CustomCard
             {
@@ -81,18 +83,26 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 Skills = Skills,
                 GhostIcon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}_Ghost", ImagePath),
                 Icon = ImageLoader.GetCustomImage($"{ModPrefix}_{CardName}", ImagePath),
-                HP = stats[0],
-                HPLevelAdd = stats[1],
-                Magic = stats[2],
-                MagicLevelAdd = stats[3],
-                Speed = stats[4],
-                SpeedLevelAdd = stats[5],
-                Sprit = stats[6],
-                SpritLevelAdd = stats[7],
-                Strength = stats[8],
-                StrengthLevelAdd = stats[9],
-                Vitality = stats[10],
-                VitalityLevelAdd = stats[11]
+                BaseStats = NewStats(stats)
+            };
+        }
+
+        public static Stats NewStats(List<int> Stats)
+        {
+            return new Stats()
+                {
+                HP = Stats[0],
+                HP_LevelAdd = Stats[1],
+                Magic = Stats[2],
+                Magic_LevelAdd = Stats[3],
+                Speed = Stats[4],
+                Speed_LevelAdd = Stats[5],
+                Spirit = Stats[6],
+                Spirit_LevelAdd = Stats[7],
+                Strength = Stats[8],
+                Strength_LevelAdd = Stats[9],
+                Vitality = Stats[10],
+                Vitality_LevelAdd = Stats[11]
             };
         }
 
@@ -137,115 +147,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
         {
             return cardSets;
         }
-
-        // Class to convert card data to dictionaries and handle enum updates
-        public class CardDataConverter
-        {
-            // Convert all cards in a CardSet to a list of dictionaries
-            public static List<Dictionary<string, object>> ConvertCardSetToDictList(string CardSet)
-            {
-                var cards = CardHandler.GetCardsBySet(CardSet);
-                return cards.Select(card =>
-                {
-                    try
-                    {
-                        return ConvertToDict(card);
-                    }
-                    catch (Exception ex)
-                    {
-                        Plugin.Log.LogError($"Error converting card {card?.Name}: {ex.Message}");
-                        return null; // or an empty dictionary
-                    }
-                }).Where(dict => dict != null).ToList();
-            }
-
-            public static (List<Dictionary<string, object>> TetramonCards,
-                           List<Dictionary<string, object>> FantasyRPGCards,
-                           List<Dictionary<string, object>> MegabotCards,
-                           List<Dictionary<string, object>> CatJobCards,
-                           int MaxCatJob,
-                           int MaxFantasyRPG,
-                           int MaxMegabot,
-                           int MaxTetramonCards) GetFourSpecificCardSetsAndUpdateEnum()
-            {
-                var tetramonCards = ConvertCardSetToDictList("Tetramon");
-                var fantasyRPGCards = ConvertCardSetToDictList("FantasyRPG");
-                var megabotCards = ConvertCardSetToDictList("Megabot");
-                var catJobCards = ConvertCardSetToDictList("CatJob");
-
-                int maxCatJob = catJobCards.Count + 3040;
-                int maxMegabot = megabotCards.Count + 1113;
-                int maxFantasyRPG = fantasyRPGCards.Count + 2050;
-                int maxTetramonCards = tetramonCards.Count + 122;
-
-                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
-                AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
-
-                TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
-
-                List<CustomMonsterAttribute> monsters = new List<CustomMonsterAttribute>
-                {
-                    new CustomMonsterAttribute { Name = "CatJob", MaxValue = maxCatJob },
-                    new CustomMonsterAttribute { Name = "FantasyRPG", MaxValue = maxFantasyRPG },
-                    new CustomMonsterAttribute { Name = "Megabot", MaxValue = maxMegabot },
-                    new CustomMonsterAttribute { Name = "Tetramon", MaxValue = maxTetramonCards }
-                };
-
-                CustomMonsterHandler.ChangeMaxValues(enumType, monsters);
-
-                return (tetramonCards, fantasyRPGCards, megabotCards, catJobCards, maxCatJob, maxFantasyRPG, maxMegabot, maxTetramonCards);
-            }
-
-            private static Dictionary<string, object> ConvertToDict(CustomCard customCard)
-            {
-                var monstersToAdd = new Dictionary<string, (string MonsterType, int MonsterTypeID)>();
-                int monsterTypeID = GetMonsterTypeID(customCard.MonsterTypeType);
-
-                monstersToAdd[customCard.Name] = (customCard.MonsterTypeType.ToString(), monsterTypeID);
-
-                var assemblyPath = Path.Combine("path_to_assembly", "Assembly-CSharp.dll");
-                AssemblyDefinition assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
-                TypeDefinition enumType = assembly.MainModule.Types.First(t => t.Name == "MonsterTypeEnum");
-
-                CustomMonsterHandler.AddNewMonstersToEnum(enumType, monstersToAdd);
-
-                return new Dictionary<string, object>
-                {
-                    { "Name", customCard.Name },
-                    { "Artist", customCard.ArtistName },
-                    { "Description", customCard.Description },
-                    { "EffectAmount", customCard.EffectAmount },
-                    { "ElementIndex", customCard.ElementIndex },
-                    { "MonsterType", customCard.MonsterType },
-                    { "NextEvolution", customCard.NextEvolution },
-                    { "PreviousEvolution", customCard.PreviousEvolution },
-                    { "Rarity", customCard.Rarity },
-                    { "Roles", customCard.Roles },
-                    { "SkillList", customCard.Skills },
-                    { "GhostIcon", customCard.GhostIcon },
-                    { "Icon", customCard.Icon },
-                    { "HP", customCard.Magic },
-                    { "HPLevelAdd", customCard.MagicLevelAdd },
-                    { "Magic", customCard.Magic },
-                    { "MagicLevelAdd", customCard.MagicLevelAdd },
-                    { "Speed", customCard.Speed },
-                    { "SpeedLevelAdd", customCard.SpeedLevelAdd },
-                    { "Spirit", customCard.Sprit },
-                    { "SpiritLevelAdd", customCard.SpritLevelAdd },
-                    { "Strength", customCard.Strength },
-                    { "StrengthLevelAdd", customCard.StrengthLevelAdd },
-                    { "Vitality", customCard.Vitality },
-                    { "VitalityLevelAdd", customCard.VitalityLevelAdd },
-                };
-            }
-
-            // Retrieve MonsterTypeID (implementation example)
-            private static int GetMonsterTypeID(EMonsterType monsterType)
-            {
-                return (int)monsterType;
-            }
-        }
-
+        
 
         public static class ImageLoader
         {

@@ -24,17 +24,6 @@ namespace TCGShopNewCardsModPreloader.Handlers
         public string Rarity { get; set; }
         public List<String> Roles { get; set; }
         public List<String> Skills { get; set; }
-        public int HP { get; set; }
-        public int HPLevelAdd { get; set; }
-        public int Magic { get; set; }
-        public int MagicLevelAdd { get; set; }
-        public int Speed { get; set; }
-        public int SpeedLevelAdd { get; set; }
-        public int Sprit { get; set; }
-        public int SpritLevelAdd { get; set; }
-        public int Strength { get; set; }
-        public int StrengthLevelAdd { get; set; }
-        public int Vitality { get; set; }
-        public int VitalityLevelAdd { get; set; }
+        public Stats BaseStats { get; set; }
     }
 }

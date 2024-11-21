@@ -68,7 +68,15 @@ namespace TCGShopNewCardsModPreloader.Handlers
         {
             foreach (var monster in monsters)
             {
-                CloneAndAddEnumValue(enumType, "FireChickenB", monster.Value.MonsterType, monster.Value.MonsterTypeID);
+                CloneAndAddEnumValue(enumType, "SlimeD", monster.Value.MonsterType, monster.Value.MonsterTypeID);
+            }
+        }
+
+        public static void AddNewExpansionsToEnum(TypeDefinition enumType, Dictionary<string, (string ExpansionType, int ExpansionTypeID)> expansions)
+        {
+            foreach (var expansion in expansions)
+            {
+                CloneAndAddEnumValue(enumType, "FoodieGO", expansion.Value.ExpansionType, expansion.Value.ExpansionTypeID);
             }
         }
     }

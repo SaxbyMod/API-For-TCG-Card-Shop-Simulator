@@ -181,15 +181,14 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             return new MonsterData
             {
                 ArtistName = newMonsterData.ArtistName,
-                BaseStats = NewDataHelper.GetBaseStats(newMonsterData),
+                BaseStats = newMonsterData.BaseStats,
                 Description = newMonsterData.Description,
-                EffectAmount = new Vector3(newMonsterData.EffectAmount.x, newMonsterData.EffectAmount.y, newMonsterData.EffectAmount.z),
+                EffectAmount = newMonsterData.EffectAmount,
                 ElementIndex = NewDataHelper.TryParseEnum<EElementIndex>(newMonsterData.ElementIndex, EElementIndex.None),
-                GhostIcon = NewDataHelper.GetCustomImage("Ghost_" + newMonsterData.MonsterType, NewDataHelper.monsterImagesPath),
-                Icon = NewDataHelper.GetCustomImage(newMonsterData.MonsterType, NewDataHelper.monsterImagesPath),
+                GhostIcon = newMonsterData.GhostIcon,
+                Icon = newMonsterData.Icon,
                 MonsterType = NewDataHelper.TryParseEnum<EMonsterType>(newMonsterData.MonsterType, EMonsterType.None),
                 Name = newMonsterData.Name,
-                NextEvolution = NewDataHelper.TryParseEnum<EMonsterType>(newMonsterData.NextEvolution, EMonsterType.None),
                 PreviousEvolution = NewDataHelper.TryParseEnum<EMonsterType>(newMonsterData.PreviousEvolution, EMonsterType.None),
                 Rarity = NewDataHelper.TryParseEnum<ERarity>(newMonsterData.Rarity, ERarity.None),
                 Roles = NewDataHelper.ParseRoles(newMonsterData.Roles),
@@ -388,66 +387,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
                 }
             }
             return list;
-        }
-
-        // Token: 0x06000017 RID: 23 RVA: 0x00002E30 File Offset: 0x00001030
-        public static Stats GetBaseStats(CustomCard monsterData)
-        {
-            MonsterData monsterData2 = new MonsterData();
-            return new Stats
-            {
-                HP = monsterData.HP,
-                HP_LevelAdd = monsterData.HPLevelAdd,
-                Magic = monsterData.Magic,
-                Magic_LevelAdd = monsterData.MagicLevelAdd,
-                Speed = monsterData.Speed,
-                Speed_LevelAdd = monsterData.SpeedLevelAdd,
-                Spirit = monsterData.Sprit,
-                Spirit_LevelAdd = monsterData.SpritLevelAdd,
-                Strength = monsterData.Strength,
-                Strength_LevelAdd = monsterData.StrengthLevelAdd,
-                Vitality = monsterData.Vitality,
-                Vitality_LevelAdd = monsterData.VitalityLevelAdd
-            };
-        }
-
-        // Token: 0x06000018 RID: 24 RVA: 0x00002EF0 File Offset: 0x000010F0
-        public static Texture2D LoadCustomPNG(string fileName, string imagePath)
-        {
-            string path = imagePath + fileName + ".png";
-            bool flag = File.Exists(path);
-            Texture2D result;
-            if (flag)
-            {
-                byte[] data = File.ReadAllBytes(path);
-                Texture2D texture2D = new Texture2D(2, 2, DefaultFormat.LDR, TextureCreationFlags.None);
-                texture2D.LoadImage(data);
-                result = texture2D;
-            }
-            else
-            {
-                result = null;
-            }
-            return result;
-        }
-
-        // Token: 0x06000019 RID: 25 RVA: 0x00002F3C File Offset: 0x0000113C
-        public static Sprite GetCustomImage(string fileName, string imagePath)
-        {
-            Texture2D texture2D = NewDataHelper.LoadCustomPNG(fileName, imagePath);
-            bool flag = texture2D != null;
-            Sprite result;
-            if (flag)
-            {
-                Sprite sprite = Sprite.Create(texture2D, new Rect(0f, 0f, (float)texture2D.width, (float)texture2D.height), Vector2.zero);
-                sprite.name = fileName;
-                result = sprite;
-            }
-            else
-            {
-                result = null;
-            }
-            return result;
         }
 
         // Token: 0x0600001B RID: 27 RVA: 0x000030C1 File Offset: 0x000012C1

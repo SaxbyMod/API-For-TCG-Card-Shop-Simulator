@@ -27,7 +27,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<Reference Include="Assembly-CSharp">
-			<HintPath>libs\Assembly-CSharp.dll</HintPath>
+		  <HintPath>libs\Assembly-CSharp.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>

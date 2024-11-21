@@ -9,6 +9,8 @@ using System.Linq;
 using static UnityEngine.UIElements.StyleVariableResolver;
 using Mono.Cecil;
 using System.Reflection;
+using System.Diagnostics;
+using System.IO;
 
 namespace TCGShopNewCardsMod.Patches
 {
@@ -30,7 +32,6 @@ namespace TCGShopNewCardsMod.Patches
         }
         public static void addNewMonsterData()//Works
         {
-
             // can refactor this method by using a combination of reflection iteration technique in MonsterDataPatch.cs and to create the emonstertype could use what's done in CustomMonsterHandler.cs
             List<CustomCard> newMonsterDataList = CardHandler.newMonstersList;
             if (newMonsterDataList != null)
@@ -177,28 +178,12 @@ namespace TCGShopNewCardsMod.Patches
             return parsedSkills;
         }
 
-        public static Stats GetBaseStats(TCGShopNewCardsModPreloader.Handlers.CustomCard monsterData)
-        {
-            Stats stats = new Stats();
-            stats.HP = monsterData.HP;
-            stats.HP_LevelAdd = monsterData.HPLevelAdd;
-            stats.Magic = monsterData.Magic;
-            stats.Magic_LevelAdd = monsterData.MagicLevelAdd;
-            stats.Speed = monsterData.Speed;
-            stats.Speed_LevelAdd = monsterData.SpeedLevelAdd;
-            stats.Spirit = monsterData.Sprit;
-            stats.Spirit_LevelAdd = monsterData.SpritLevelAdd;
-            stats.Strength = monsterData.Strength;
-            stats.Strength_LevelAdd = monsterData.StrengthLevelAdd;
-            return stats;
-        }
-
         public static MonsterData CreateNewMonsterData(TCGShopNewCardsModPreloader.Handlers.CustomCard newMonsterData)
         {
             return new MonsterData
             {
                 ArtistName = newMonsterData.ArtistName,
-                BaseStats = GetBaseStats(newMonsterData),
+                BaseStats = newMonsterData.BaseStats,
                 Description = newMonsterData.Description,
                 EffectAmount = new UnityEngine.Vector3(),
                 ElementIndex = TryParseEnum<EElementIndex>(newMonsterData.ElementIndex, EElementIndex.None),
@@ -250,9 +235,33 @@ namespace TCGShopNewCardsMod.Patches
 
         private static List<EMonsterType> GetEMonsterTypeList()
         {
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string dllPath = baseDirectory + @"\Card Shop Simulator_Data\Managed\Assembly-CSharp.dll";
+            AssemblyDefinition loadedAssembly = GetAssemblyDefinition("Assembly-CSharp.dll");
 
+            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
+            List<EMonsterType> eMonsterTypeList = new List<EMonsterType>();
+
+            /// print all EMonsterType names
+            foreach (var field in typeDefinition.Fields)
+            {
+                EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), field.Name);
+                Console.WriteLine($"GetEMonsterTypeList() monsterType {monsterType}");
+            }
+            return eMonsterTypeList;
+        }
+
+        private static AssemblyDefinition GetAssemblyDefinition(string assemblyName = "Assembly-CSharp.dll")
+        {
+            Process[] processes = Process.GetProcessesByName("Card Shop Simulator");
+            var cardShopSim = processes.FirstOrDefault();
+            // Get the full path of the process executable
+            string processPath = cardShopSim.MainModule.FileName;
+
+            // Extract the directory from the full path
+            string processDirectory = Path.GetDirectoryName(processPath);
+            Console.WriteLine("Process Directory: " + processDirectory);
+            string baseDirectory = processDirectory;
+
+            string dllPath = baseDirectory + $@"\Card Shop Simulator_Data\Managed\{assemblyName}";
             AssemblyDefinition loadedAssembly = new();
             try
             {
@@ -266,17 +275,7 @@ namespace TCGShopNewCardsMod.Patches
             {
                 Console.WriteLine("Error loading DLL: " + ex.Message);
             }
-
-            TypeDefinition typeDefinition = loadedAssembly.MainModule.Types.First((TypeDefinition t) => t.Name == "EMonsterType");
-            List<EMonsterType> eMonsterTypeList = new List<EMonsterType>();
-
-            /// print all EMonsterType names
-            foreach (var field in typeDefinition.Fields)
-            {
-                EMonsterType monsterType = (EMonsterType)Enum.Parse(typeof(EMonsterType), field.Name);
-                Console.WriteLine($"GetEMonsterTypeList() monsterType {monsterType}");
-            }
-            return eMonsterTypeList;
+            return loadedAssembly;
         }
 
         /* Old but leaving it as a reference
