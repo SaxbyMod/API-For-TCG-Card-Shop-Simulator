@@ -27,6 +27,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             "FoodieGOBW",
             "FoodieGOJP"
         };
+        // Old Enums List
         public List<string> CardsTotal = new List<string> {
             "None",
             "PiggyA",
@@ -360,6 +361,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             "EX0Scout",
             "EX0Pirate",
             "MAX_CATJOB"
+        };
+        // New Enums Dict
+        public Dictionary<string, int> TetramonEnums = new Dictionary<string, int>
+        {
+
         };
         public List<string> Roles = new List<string>
         {
