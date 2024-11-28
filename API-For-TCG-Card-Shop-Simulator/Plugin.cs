@@ -25,7 +25,11 @@ namespace API_For_TCG_Card_Shop_Simulator
 
         // Corrected List initialization
         public List<string> CardsToAdd = new List<string>();
-
+        public static MonsterData GetMonsterName (EMonsterType Name)
+        {
+            var InGameName = InventoryBase.GetMonsterData(Name);
+            return InGameName;
+        }
         // Static CardHandler instance
         //private static CardHandler cardHandler = new CardHandler();
         public void Awake()
@@ -37,8 +41,9 @@ namespace API_For_TCG_Card_Shop_Simulator
             Logger.LogDebug($"ID - ID Int - Monster Name");
             var monstertypename = EMonsterType.PiggyA;
             var monstertypeid = (int)EMonsterType.PiggyA;
-            var InGameName = InventoryBase.GetMonsterData(monsterType: EMonsterType.PiggyA).Name;
-            Logger.LogDebug($"{monstertypename} - {monstertypeid} - {InGameName}");
+            var Type = EMonsterType.PiggyA;
+            var Name = GetMonsterName(Type);
+            Logger.LogDebug($"{monstertypename} - {monstertypeid} - {Name}");
 
             // AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath + $"\\Art"));
         }
