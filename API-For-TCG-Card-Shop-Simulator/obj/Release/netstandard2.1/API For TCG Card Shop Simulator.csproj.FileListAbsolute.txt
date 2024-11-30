@@ -22,5 +22,3 @@ C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\obj\Relea
 C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\obj\Release\netstandard2.1\API For TCG Card Shop Simulator.sourcelink.json
 C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\obj\Release\netstandard2.1\TheAPI.dll
 C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\obj\Release\netstandard2.1\TheAPI.pdb
-C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\bin\Release\netstandard2.1\Bepinex_Preload_Patch.dll
-C:\Users\Thinc\source\repos\API Github\API-For-TCG-Card-Shop-Simulator\obj\Release\netstandard2.1\API For .AC844630.Up2Date

@@ -5,8 +5,8 @@ using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 using System.Reflection;
-using TCGShopNewCardsModPreloader.Handlers;
 
 namespace API_For_TCG_Card_Shop_Simulator
 {
@@ -37,13 +37,6 @@ namespace API_For_TCG_Card_Shop_Simulator
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
-            // Log Monster Name - ID - In Game Nmae
-            Logger.LogDebug($"ID - ID Int - Monster Name");
-            var monstertypename = EMonsterType.PiggyA;
-            var monstertypeid = (int)EMonsterType.PiggyA;
-            var Type = EMonsterType.PiggyA;
-            var Name = GetMonsterName(Type);
-            Logger.LogDebug($"{monstertypename} - {monstertypeid} - {Name}");
 
             // AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath + $"\\Art"));
         }

@@ -1,16 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using JetBrains.Annotations;
+using System.Collections.Generic;
+
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
-    internal class EnumListScript
-    {
-        public List<string> Rarities = new List<string> {
+    public static class EnumListScript
+    { 
+        
+        public static List<string> Rarities = new List<string> {
             "Common",
             "Rare",
             "Epic",
             "Legendary",
             "SuperLegend"
         };
-        public List<string> Elements = new List<string> {
+        public static List<string> Elements = new List<string> {
             "None",
             "Fire",
             "Earth",
@@ -28,7 +31,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             "FoodieGOJP"
         };
         // Old Enums List
-        public List<string> CardsTotal = new List<string> {
+        public static List<string> CardsTotal = new List<string> {
             "None",
             "PiggyA",
             "PiggyB",
@@ -363,7 +366,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             "MAX_CATJOB"
         };
         // New Enums Dict
-        public Dictionary<string, int> TetramonEnums = new Dictionary<string, int> {
+        public static Dictionary<string, int> TetramonEnums = new Dictionary<string, int> {
             {"Pigni", 1},
             {"Burpig", 2},
             {"Inferhog", 3},
@@ -487,7 +490,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {"Toximuck", 121}
         };
 
-        public Dictionary<string, int> MegabotEnums = new Dictionary<string, int>
+        public static Dictionary<string, int> MegabotEnums = new Dictionary<string, int>
         {
             {"Alpha", 1},
             {"Beta", 2},
@@ -604,7 +607,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {"Windblaster", 113}
         };
 
-        public Dictionary<string, int> FantasyRPGEnums = new Dictionary<string, int>
+        public static Dictionary<string, int> FantasyRPGEnums = new Dictionary<string, int>
         {
             {"Archer", 1},
             {"ArmoredSlime", 2},
@@ -658,7 +661,51 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {"Wolf", 50}
         };
 
-        public List<string> Roles = new List<string>
+        public static Dictionary<string, int> CatJobEnums = new Dictionary<string, int>
+        {
+            {"Teacher", 1},
+            {"Detective", 2},
+            {"Woodworker", 3},
+            {"Plumber", 4},
+            {"Electrician", 5},
+            {"Soldier", 6},
+            {"General", 7},
+            {"Police", 8},
+            {"Firemen", 9},
+            {"Farmer", 10},
+            {"Architect", 11},
+            {"Construction", 12},
+            {"BodyBuilder", 13},
+            {"Archer", 14},
+            {"Explorer", 15},
+            {"Hiker", 16},
+            {"Programmer", 17},
+            {"Laundry", 18},
+            {"Libarian", 19},
+            {"Racer", 20},
+            {"Florist", 21},
+            {"Geologist", 22},
+            {"Gamer", 23},
+            {"Maid", 24},
+            {"Barber", 25},
+            {"Bartender", 26},
+            {"Bouncer", 27},
+            {"Composer", 28},
+            {"Director", 29},
+            {"Investor", 30},
+            {"Singer", 31},
+            {"Musician", 32},
+            {"Artist", 33},
+            {"Photographer", 34},
+            {"Janitor", 35},
+            {"Lawyer", 36},
+            {"Phychic", 37},
+            {"Astronaut", 38},
+            {"Pirate", 39},
+            {"Scout", 40}
+        };
+
+        public static List<string> Roles = new List<string>
         {
             "PhysicalAttacker",
             "Defender",
@@ -668,7 +715,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             "AllRounder",
             "Disruptor"
         };
-        public List<string> Skills = new List<string>
+        public static List<string> Skills = new List<string>
         {
             "DoNothing",
             "Charging",

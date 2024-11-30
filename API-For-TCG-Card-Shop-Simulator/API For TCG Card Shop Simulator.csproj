@@ -41,9 +41,6 @@
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
-		<Reference Include="Bepinex_Preload_Patch">
-		  <HintPath>libs\Bepinex_Preload_Patch.dll</HintPath>
-		</Reference>
 		<Reference Include="Mono.Cecil">
 			<HintPath>libs\Mono.Cecil.dll</HintPath>
 			<Publicize>true</Publicize>
