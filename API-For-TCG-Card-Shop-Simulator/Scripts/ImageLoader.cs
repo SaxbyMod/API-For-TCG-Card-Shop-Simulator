@@ -1,45 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
 {
-    public class CustomCard
-    {
-        public string Set { get; set; }
-        public string Prefix { get; set; }
-        public string Name { get; set; }
-        public string ArtistName { get; set; }
-        public string Description { get; set; }
-        public Sprite Icon { get; set; }
-        public Sprite GhostIcon { get; set; }
-        public string NextEvolution { get; set; }
-        public string PreviousEvolution { get; set; }
-        public List<string> Effects { get; set; }
-        public string Rarity { get; set; }
-        public string Element { get; set; }
-        public List<string> Roles { get; set; }
-        public List<string> Skills { get; set; }
-        public List<int> Stats { get; set; }
-    };
-
-    public class CardHandlingNew
-    {
-        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> { };
-
-        public static void CreateNewData(string set, string name, string prefix, string artist, string description, List<Sprite> Icons, string NextEvolution, string PreviousEvolution, List<string> Effects, string Rarity, string Element, List<string> Roles, List<string> Skills, List<int> Stats)
-        {
-            // Create New ID into Set Dict's
-            string ID = prefix + name;
-            int Count = EnumListScript.SetDict[set].Count;
-            EnumListScript.SetDict[set].Add(ID, Count + 1);
-            Console.WriteLine("ID Inserted for " + EnumListScript.SetDict[set][ID]);
-
-            //
-        }
-    }
-
     public static class ImageLoader
     {
         // Load a custom texture from the specified path
