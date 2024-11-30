@@ -30,30 +30,13 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
 
         public static void CreateNewData(string set, string name, string prefix, string artist, string description, List<Sprite> Icons, string NextEvolution, string PreviousEvolution, List<string> Effects, string Rarity, string Element, List<string> Roles, List<string> Skills, List<int> Stats)
         {
-            if (set == "Tetramon")
-            {
-                string ID = prefix + name;
-                int Count = EnumListScript.TetramonEnums.Count;
-                EnumListScript.TetramonEnums.Add(ID, Count + 1);
-                Console.WriteLine("ID Inserted for " + EnumListScript.TetramonEnums[ID]);
+            // Create New ID into Set Dict's
+            string ID = prefix + name;
+            int Count = EnumListScript.SetDict[set].Count;
+            EnumListScript.SetDict[set].Add(ID, Count + 1);
+            Console.WriteLine("ID Inserted for " + EnumListScript.SetDict[set][ID]);
 
-            }
-            else if (set == "Megabot")
-            {
-
-            }
-            else if (set == "FantasyRPG")
-            {
-
-            }
-            else if (set == "CatJob")
-            {
-
-            }
-            else
-            {
-                // Create Handler to Insert for Custom Sets Here
-            }
+            //
         }
     }
 

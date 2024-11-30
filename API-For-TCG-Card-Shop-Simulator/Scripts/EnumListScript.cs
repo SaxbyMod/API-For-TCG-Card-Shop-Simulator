@@ -705,6 +705,14 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {"Scout", 40}
         };
 
+        public static Dictionary<string, Dictionary<string, int>> SetDict = new Dictionary<string, Dictionary<string,int>>
+        {
+            {"Tetramon", TetramonEnums},
+            {"Megabot", MegabotEnums},
+            {"FantasyRPG", FantasyRPGEnums},
+            {"CatJob", CatJobEnums}
+        };
+
         public static List<string> Roles = new List<string>
         {
             "PhysicalAttacker",
