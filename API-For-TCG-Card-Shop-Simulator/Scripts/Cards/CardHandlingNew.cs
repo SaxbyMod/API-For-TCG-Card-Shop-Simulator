@@ -33,8 +33,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
-        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> { };
         public static List<CustomCard> CustomCards = new List<CustomCard>();
+        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> { 
+            { "BaseGame", CustomCards }
+        };
+
         // Create New Data for a Card
         public static void CreateNewData(string set, string ID)
         {
