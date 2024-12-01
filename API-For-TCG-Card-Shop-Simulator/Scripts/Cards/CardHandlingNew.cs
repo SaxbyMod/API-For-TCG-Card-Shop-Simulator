@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
@@ -47,11 +48,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             Console.WriteLine("ID Inserted for " + EnumListScript.SetDict[set][ID]);
         }
 
-        // Get Portrait
-        public static Sprite GetPortrait(string path, string set, string ID)
+        // Handle Portraits
+        public static Sprite BaseGetPortrait(string path, string set, string ID, string type)
         {
             string newpath = path;
-            var file = ID + ".png";
+            var file = ID + type + ".png";
             if (File.Exists(path))
             {
                 newpath = Path.GetDirectoryName(path);
@@ -59,28 +60,22 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             }
             else
             {
-                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogMessage($"Artwork not found instead using: {ID}.png");
+                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogMessage($"Artwork not found instead using: {ID}{type}.png");
             }
             Sprite Artwork = ImageLoader.GetCustomImage(file, newpath);
             return Artwork;
         }
 
+        // Get Portrait
+        public static Sprite GetPortrait(string path, string set, string ID)
+        {
+            return BaseGetPortrait(path, set, ID, "");
+        }
+
         // Get Ghost Portrait
         public static Sprite GetGhostPortrait(string path, string set, string ID)
         {
-            string newpath = path;
-            var file = ID + ".png";
-            if (File.Exists(path))
-            {
-                newpath = Path.GetDirectoryName(path);
-                file = Path.GetFileName(path);
-            }
-            else
-            {
-                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogMessage($"Ghost Artwork not found instead using: {ID}_ghost.png");
-            }
-            Sprite GhostArtwork = ImageLoader.GetCustomImage(file, newpath);
-            return GhostArtwork;
+            return BaseGetPortrait(path, set, ID, "_ghost");
         }
 
         // Add Card
@@ -92,34 +87,14 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             Sprite Artwork = GetPortrait(PortaitPath, set, ID);
             Sprite GhostPortrait = GetGhostPortrait(GhostPortraitPath, set, ID);
 
-            var newRarity = "";
-            var newElement = "";
-            var newRole = "";
-            List<string> newSkills = [];
+            // Set the New Variants
+            var newRarity = EnumListScript.Rarities.Contains(Rarity) ? Rarity : "";
+            var newElement = EnumListScript.Elements.Contains(Element) ? Element : "";
+            var newRole = EnumListScript.Roles.Contains(Role) ? Role : "";
+            var newNextEvolution = EnumListScript.SetDict[set].ContainsKey(NextEvolution) ? NextEvolution : "";
+            var newPreviousEvolution = EnumListScript.SetDict[set].ContainsKey(PreviousEvolution) ? PreviousEvolution : "";
+            var newSkills = Skills.Where(item => EnumListScript.Skills.Contains(item)).ToList();
 
-            // Rarity Validation
-            if (EnumListScript.Rarities.Contains(Rarity))
-            {
-                newRarity = Rarity;
-            }
-            // Element Validation
-            if (EnumListScript.Elements.Contains(Rarity))
-            {
-                newElement = Element;
-            }
-            // Role Validation
-            if (EnumListScript.Roles.Contains(Rarity))
-            {
-                newRole = Role;
-            }
-            // Skill Validation
-            foreach (string item in Skills)
-            {
-                if (EnumListScript.Skills.Contains(item))
-                {
-                    newSkills.Add(item);
-                }
-            }
             // Stat Variables
             int HP = stats[0];
             int Strength = stats[1];
@@ -128,19 +103,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             int Spirit = stats[4];
             int Speed = stats[5];
 
-            string newNextEvolution = "";
-            string newPreviousEvolution = "";
 
-            // Validate Next Evolution
-            if (EnumListScript.SetDict[set].ContainsKey(NextEvolution))
-            {
-                newNextEvolution = NextEvolution;
-            }
-            // Validate Previous Evolution
-            if (EnumListScript.SetDict[set].ContainsKey(PreviousEvolution))
-            {
-                newNextEvolution = PreviousEvolution;
-            }
             // Create CustomCard
             CustomCard customCard = new CustomCard
             {
