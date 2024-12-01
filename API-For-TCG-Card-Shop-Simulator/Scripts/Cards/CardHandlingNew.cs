@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
@@ -28,6 +29,29 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
         public int Vitality { get; set; }
         public int Spirit { get; set; }
         public int Speed { get; set; }
+
+        public CustomCard(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, string rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed)
+        {
+            Set = set;
+            Prefix = prefix;
+            Name = name;
+            ArtistName = artistname;
+            Description = description;
+            Icon = icon;
+            GhostIcon = ghosticon;
+            NextEvolution = nextevolution;
+            PreviousEvolution = previousevolution;
+            Rarity = rarity;
+            Element = element;
+            Role = role;
+            Skills = skills;
+            HP = hp;
+            Strength = strength;
+            Magic = magic;
+            Vitality = vitality;
+            Spirit = spirit;
+            Speed = speed;
+        }
     };
 
     // Card Handling Logic
@@ -52,7 +76,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
         public static Sprite BaseGetPortrait(string path, string set, string ID, string type)
         {
             string newpath = path;
-            var file = ID + type + ".png";
+            var file = ID + type;
             if (File.Exists(path))
             {
                 newpath = Path.GetDirectoryName(path);
@@ -79,9 +103,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
         }
 
         // Add Card
-        public static void AddBaseCard(string set, string name, string prefix, string artist, string PortaitPath, string GhostPortraitPath, string flavor, string Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
+        public static void AddBaseCard(string set, string prefix, string name, string artist, string PortaitPath, string GhostPortraitPath, string flavor, string Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
         {
-            string ID = prefix + name;
+            string ID = prefix + "_" + name;
             // Add Data to Set and Fetch Artworks
             CreateNewData(set, ID);
             Sprite Artwork = GetPortrait(PortaitPath, set, ID);
@@ -103,31 +127,54 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             int Spirit = stats[4];
             int Speed = stats[5];
 
-
             // Create CustomCard
             CustomCard customCard = new CustomCard
-            {
-                Set = set,
-                Prefix = prefix,
-                Name = name,
-                ArtistName = artist,
-                Description = flavor,
-                Icon = Artwork,
-                GhostIcon = GhostPortrait,
-                NextEvolution = newNextEvolution,
-                PreviousEvolution = newPreviousEvolution,
-                Rarity = newRarity,
-                Element = newElement,
-                Role = newRole,
-                Skills = newSkills,
-                HP = HP,
-                Strength = Strength,
-                Magic = Magic,
-                Vitality = Vitality,
-                Spirit = Spirit,
-                Speed = Speed
-            };
+            (
+                set,
+                prefix,
+                name,
+                artist,
+                flavor,
+                Artwork,
+                GhostPortrait,
+                newNextEvolution,
+                newPreviousEvolution,
+                newRarity,
+                newElement,
+                newRole,
+                newSkills,
+                HP,
+                Strength,
+                Magic,
+                Vitality,
+                Spirit,
+                Speed
+            );
             CustomCards.Add(customCard);
+            // Debug Logging
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug($"Verbose logging for card {customCard.Prefix}_{customCard.Name}");
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Set);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Prefix);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Name);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.ArtistName);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Description);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Icon);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.GhostIcon);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.NextEvolution);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.PreviousEvolution);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Rarity);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Element);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Role);
+            foreach (string item in customCard.Skills)
+            {
+                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Skills.IndexOf(item));
+            }
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.HP);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Strength);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Magic);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Vitality);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Spirit);
+            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Speed);
         }
     }
 }

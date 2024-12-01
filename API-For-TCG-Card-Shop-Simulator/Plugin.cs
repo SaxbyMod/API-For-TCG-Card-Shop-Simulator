@@ -23,20 +23,13 @@ namespace API_For_TCG_Card_Shop_Simulator
         public const string PluginVersion = "1.0.0";
         public const string PluginPrefix = "TheAPI";
 
-        // Corrected List initialization
-        public List<string> CardsToAdd = new List<string>();
-        public static MonsterData GetMonsterName (EMonsterType Name)
-        {
-            var InGameName = InventoryBase.GetMonsterData(Name);
-            return InGameName;
-        }
-        // Static CardHandler instance
-        //private static CardHandler cardHandler = new CardHandler();
         public void Awake()
         {
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
+            // Debug Card
+            API_For_TCG_Card_Shop_Simulator.Scripts.Cards.CardHandlingNew.AddBaseCard("Tetramon", "MyPrefix", "Mythos", "Creator", Path.Combine(DLLPath + $"\\Art"), Path.Combine(DLLPath + $"\\Art"), "This card deals 6 damage at the end of the turn.", "Common", "Wind", "AllRounder", new List<string> {"DoNothing"}, new List<int> { 1, 5, 6, 9, 3, 1}, "Werbo", "Pigni" );
 
             // AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath + $"\\Art"));
         }
