@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Preloader Patch for BepInEx")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7f5d71ec90fd7ebdc9d314fd1c254903aecad7d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b9fe6ea01c04e77856dccae47dc2c23a540c027")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bepinex_Preload_Patch")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bepinex_Preload_Patch")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
