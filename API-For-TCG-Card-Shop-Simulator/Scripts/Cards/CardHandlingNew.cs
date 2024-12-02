@@ -152,29 +152,29 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             );
             CustomCards.Add(customCard);
             // Debug Logging
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug($"Verbose logging for card {customCard.Prefix}_{customCard.Name}");
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Set);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Prefix);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Name);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.ArtistName);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Description);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Icon);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.GhostIcon);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.NextEvolution);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.PreviousEvolution);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Rarity);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Element);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Role);
+            Console.WriteLine($"Verbose logging for card {customCard.Prefix}_{customCard.Name}");
+            Console.WriteLine(customCard.Set);
+            Console.WriteLine(customCard.Prefix);
+            Console.WriteLine(customCard.Name);
+            Console.WriteLine(customCard.ArtistName);
+            Console.WriteLine(customCard.Description);
+            Console.WriteLine(customCard.Icon);
+            Console.WriteLine(customCard.GhostIcon);
+            Console.WriteLine(customCard.NextEvolution);
+            Console.WriteLine(customCard.PreviousEvolution);
+            Console.WriteLine(customCard.Rarity);
+            Console.WriteLine(customCard.Element);
+            Console.WriteLine(customCard.Role);
             foreach (string item in customCard.Skills)
             {
-                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Skills.IndexOf(item));
+                Console.WriteLine(customCard.Skills.IndexOf(item));
             }
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.HP);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Strength);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Magic);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Vitality);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Spirit);
-            API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogDebug(customCard.Speed);
+            Console.WriteLine(customCard.HP);
+            Console.WriteLine(customCard.Strength);
+            Console.WriteLine(customCard.Magic);
+            Console.WriteLine(customCard.Vitality);
+            Console.WriteLine(customCard.Spirit);
+            Console.WriteLine(customCard.Speed);
         }
     }
 }
