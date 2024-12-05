@@ -134,6 +134,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Console.WriteLine("Spirit: " + customCard.Spirit);
                 Console.WriteLine("Speed: " + customCard.Speed);
             }
+            int CurrentMax = (int)EnumListScript.MonsterMax[set];
+            EnumListScript.MonsterMax.Remove(set);
+            EnumListScript.MonsterMax.Add(set, CurrentMax + 1);
         }
     }
 }

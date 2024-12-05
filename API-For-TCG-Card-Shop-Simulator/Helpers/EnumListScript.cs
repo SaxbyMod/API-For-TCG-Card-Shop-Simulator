@@ -713,6 +713,13 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
             {"CatJob", CatJobEnums}
         };
 
+        public static Dictionary<string, int> MonsterMax = new Dictionary<string, int> {
+            {"Tetramon", 122},
+            {"Magabot", 113},
+            {"FantasyRPG", 50},
+            {"CatJob", 40}
+        };
+
         public static List<string> Roles = new List<string>
         {
             "PhysicalAttacker",
