@@ -1,65 +1,19 @@
-﻿using System;
+﻿using API_For_TCG_Card_Shop_Simulator.Scripts;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
+namespace API_For_TCG_Card_Shop_Simulator.Cards
 {
-    // Define a Base Game Custom Card
-    public class CustomCard
-    {
-        public string Set { get; set; }
-        public string Prefix { get; set; }
-        public string Name { get; set; }
-        public string ArtistName { get; set; }
-        public string Description { get; set; }
-        public Sprite Icon { get; set; }
-        public Sprite GhostIcon { get; set; }
-        public string NextEvolution { get; set; }
-        public string PreviousEvolution { get; set; }
-        public string Rarity { get; set; }
-        public string Element { get; set; }
-        public string Role { get; set; }
-        public List<string> Skills { get; set; }
-        public int HP { get; set; }
-        public int Strength { get; set; }
-        public int Magic { get; set; }
-        public int Vitality { get; set; }
-        public int Spirit { get; set; }
-        public int Speed { get; set; }
-
-        public CustomCard(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, string rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed)
-        {
-            Set = set;
-            Prefix = prefix;
-            Name = name;
-            ArtistName = artistname;
-            Description = description;
-            Icon = icon;
-            GhostIcon = ghosticon;
-            NextEvolution = nextevolution;
-            PreviousEvolution = previousevolution;
-            Rarity = rarity;
-            Element = element;
-            Role = role;
-            Skills = skills;
-            HP = hp;
-            Strength = strength;
-            Magic = magic;
-            Vitality = vitality;
-            Spirit = spirit;
-            Speed = speed;
-        }
-    };
-
     // Card Handling Logic
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
         public static List<CustomCard> CustomCards = new List<CustomCard>();
-        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> { 
+        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> {
             { "BaseGame", CustomCards }
         };
 
@@ -84,7 +38,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             }
             else
             {
-                API_For_TCG_Card_Shop_Simulator.Plugin.Log.LogMessage($"Artwork not found instead using: {ID}{type}.png");
+                Plugin.Log.LogMessage($"Artwork not found instead using: {ID}{type}.png");
             }
             Sprite Artwork = ImageLoader.GetCustomImage(file, newpath);
             return Artwork;
@@ -152,29 +106,34 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts.Cards
             );
             CustomCards.Add(customCard);
             // Debug Logging
-            Console.WriteLine($"Verbose logging for card {customCard.Prefix}_{customCard.Name}");
-            Console.WriteLine(customCard.Set);
-            Console.WriteLine(customCard.Prefix);
-            Console.WriteLine(customCard.Name);
-            Console.WriteLine(customCard.ArtistName);
-            Console.WriteLine(customCard.Description);
-            Console.WriteLine(customCard.Icon);
-            Console.WriteLine(customCard.GhostIcon);
-            Console.WriteLine(customCard.NextEvolution);
-            Console.WriteLine(customCard.PreviousEvolution);
-            Console.WriteLine(customCard.Rarity);
-            Console.WriteLine(customCard.Element);
-            Console.WriteLine(customCard.Role);
-            foreach (string item in customCard.Skills)
+            if (Plugin.VerboseLogging.Value == true)
             {
-                Console.WriteLine(customCard.Skills.IndexOf(item));
+                Console.WriteLine($"Verbose logging for card {customCard.Prefix}_{customCard.Name}");
+                Console.WriteLine("Set: " + customCard.Set);
+                Console.WriteLine("Prefix:" + customCard.Prefix);
+                Console.WriteLine("Name: " + customCard.Name);
+                Console.WriteLine("Artist: " + customCard.ArtistName);
+                Console.WriteLine("Description: " + customCard.Description);
+                Console.WriteLine("Icon: " + customCard.Icon);
+                Console.WriteLine("Ghost Icon: " + customCard.GhostIcon);
+                Console.WriteLine("Next Evolution: " + customCard.NextEvolution);
+                Console.WriteLine("Previous Evolution: " + customCard.PreviousEvolution);
+                Console.WriteLine("Rarity: " + customCard.Rarity);
+                Console.WriteLine("Element: " + customCard.Element);
+                Console.WriteLine("Role: " + customCard.Role);
+                int i = 0;
+                foreach (string item in customCard.Skills)
+                {
+                    Console.WriteLine($"Skills {i}: " + customCard.Skills.IndexOf(item));
+                    i++;
+                }
+                Console.WriteLine("HP: " + customCard.HP);
+                Console.WriteLine("Strength: " + customCard.Strength);
+                Console.WriteLine("Magic: " + customCard.Magic);
+                Console.WriteLine("Vitality: " + customCard.Vitality);
+                Console.WriteLine("Spirit: " + customCard.Spirit);
+                Console.WriteLine("Speed: " + customCard.Speed);
             }
-            Console.WriteLine(customCard.HP);
-            Console.WriteLine(customCard.Strength);
-            Console.WriteLine(customCard.Magic);
-            Console.WriteLine(customCard.Vitality);
-            Console.WriteLine(customCard.Spirit);
-            Console.WriteLine(customCard.Speed);
         }
     }
 }

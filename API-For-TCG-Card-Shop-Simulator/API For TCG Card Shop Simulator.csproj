@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Scripts\CardHandler.cs" />
-    <Compile Remove="Scripts\Stats.cs" />
+    <Compile Remove="Helpers\CardHandler.cs" />
+    <Compile Remove="Helpers\Stats.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,54 +32,58 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<Reference Include="Assembly-CSharp">
-		  <HintPath>libs\Assembly-CSharp.dll</HintPath>
+		  <HintPath>Dependencies\Assembly-CSharp.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="BepInEx">
-			<HintPath>libs\BepInEx.dll</HintPath>
+			<HintPath>Dependencies\BepInEx.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="BepInEx.Preloader">
-			<HintPath>libs\BepInEx.Preloader.dll</HintPath>
+			<HintPath>Dependencies\BepInEx.Preloader.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Mono.Cecil">
-			<HintPath>libs\Mono.Cecil.dll</HintPath>
+			<HintPath>Dependencies\Mono.Cecil.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Newtonsoft.Json">
-			<HintPath>libs\Newtonsoft.Json.dll</HintPath>
+			<HintPath>Dependencies\Newtonsoft.Json.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="Unity.TextMeshPro">
-			<HintPath>libs\Unity.TextMeshPro.dll</HintPath>
+			<HintPath>Dependencies\Unity.TextMeshPro.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine">
-			<HintPath>libs\UnityEngine.dll</HintPath>
+			<HintPath>Dependencies\UnityEngine.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.CoreModule">
-			<HintPath>libs\UnityEngine.CoreModule.dll</HintPath>
+			<HintPath>Dependencies\UnityEngine.CoreModule.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.InputLegacyModule">
-			<HintPath>libs\UnityEngine.InputLegacyModule.dll</HintPath>
+			<HintPath>Dependencies\UnityEngine.InputLegacyModule.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="UnityEngine.UI">
-			<HintPath>libs\UnityEngine.UI.dll</HintPath>
+			<HintPath>Dependencies\UnityEngine.UI.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Cards\Patches\" />
 	</ItemGroup>
 </Project>

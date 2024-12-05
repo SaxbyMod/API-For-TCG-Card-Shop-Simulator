@@ -36,7 +36,7 @@
 *.hex
 
 # Debug files
-*.dSYM/
+*.dSYM\*
 *.su
 *.idb
 *.pdb
@@ -44,18 +44,17 @@
 # Kernel Module Compile Results
 *.mod*
 *.cmd
-.tmp_versions/
+.tmp_versions
 modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-API-For-TCG-Card-Shop-Simulator/bin
-BepInEx PreLoad Patch for TCG Card Shop Simulator/Bepinex Preload Patch/bin
-API-For-TCG-Card-Shop-Simulator/.vs
-API-For-TCG-Card-Shop-Simulator/obj
-BepInEx PreLoad Patch for TCG Card Shop Simulator/.vs
-BepInEx PreLoad Patch for TCG Card Shop Simulator/Bepinex Preload Patch/obj
-*.v2
-*.v2
-*.json
-*.bin
+
+# C Sharp Compile/Usage Files
+obj/
+bin/
+.idea/
+.vs/
+.vscode/
+*.user
+build/
