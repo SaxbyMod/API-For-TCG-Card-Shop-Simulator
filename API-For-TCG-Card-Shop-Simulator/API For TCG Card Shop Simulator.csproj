@@ -32,7 +32,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<Reference Include="Assembly-CSharp">
-		  <HintPath>Dependencies\Assembly-CSharp.dll</HintPath>
+		  <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\TCG Card Shop Simulator\Card Shop Simulator_Data\Managed\Assembly-CSharp.dll</HintPath>
 			<Publicize>true</Publicize>
 			<Private>false</Private>
 		</Reference>

@@ -12,9 +12,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
-        public static List<CustomCard> CustomCards = new List<CustomCard>();
-        public static Dictionary<string, List<CustomCard>> ModdedMonsterData = new Dictionary<string, List<CustomCard>> {
-            { "BaseGame", CustomCards }
+        public static Dictionary<int, CustomCard> CustomCards = new Dictionary<int, CustomCard>() { };
+        public static Dictionary<string, Dictionary<int, CustomCard>> ModdedMonsterData = new Dictionary<string, Dictionary<int, CustomCard>> {
+            { "Tetramon", CustomCards }
         };
 
         // Create New Data for a Card
@@ -55,10 +55,10 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         {
             return BaseGetPortrait(path, set, ID, "_ghost");
         }
-
         // Add Card
         public static void AddBaseCard(string set, string prefix, string name, string artist, string PortaitPath, string GhostPortraitPath, string flavor, string Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
         {
+            int i = 0;
             string ID = prefix + "_" + name;
             // Add Data to Set and Fetch Artworks
             CreateNewData(set, ID);
@@ -104,7 +104,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Spirit,
                 Speed
             );
-            CustomCards.Add(customCard);
+            CustomCards.Add(i, customCard);
             // Debug Logging
             if (Plugin.VerboseLogging.Value == true)
             {
@@ -121,11 +121,11 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Console.WriteLine("Rarity: " + customCard.Rarity);
                 Console.WriteLine("Element: " + customCard.Element);
                 Console.WriteLine("Role: " + customCard.Role);
-                int i = 0;
+                int g = 0;
                 foreach (string item in customCard.Skills)
                 {
-                    Console.WriteLine($"Skills {i}: " + customCard.Skills.IndexOf(item));
-                    i++;
+                    Console.WriteLine($"Skills {g}: " + customCard.Skills.IndexOf(item));
+                    g++;
                 }
                 Console.WriteLine("HP: " + customCard.HP);
                 Console.WriteLine("Strength: " + customCard.Strength);
@@ -137,6 +137,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             int CurrentMax = (int)EnumListScript.MonsterMax[set];
             EnumListScript.MonsterMax.Remove(set);
             EnumListScript.MonsterMax.Add(set, CurrentMax + 1);
+            i++;
         }
     }
 }

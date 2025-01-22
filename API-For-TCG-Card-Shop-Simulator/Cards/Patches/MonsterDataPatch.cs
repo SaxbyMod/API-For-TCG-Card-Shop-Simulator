@@ -2,51 +2,84 @@
 using HarmonyLib;
 using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
+using System.Linq;
+using static UnityEngine.UIElements.StyleVariableResolver;
 
 namespace API_For_TCG_Card_Shop_Simulator.Cards.Patches
 {
     [HarmonyPatch]
     internal class MonsterDataPatch
     {
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(InventoryBase), "GetMonsterDataMatchWithType")]
-        public static CustomCard GetMonsterDataMatchWithType(List<CustomCard> listMonsterData, CustomCard monsterType)
+        [HarmonyPrepare, HarmonyPatch(nameof(InventoryBase.GetMonsterDataMatchWithType), typeof(InventoryBase))]
+        public static bool GetMonsterDataMatchWithTypeModified(Dictionary<int, CustomCard> listMonsterData, CustomCard monsterType, ref CustomCard __result)
         {
+            if (listMonsterData == null)
+            {
+                UnityEngine.Debug.LogError("listMonsterData is null in GetMonsterDataMatchWithTypeModified.");
+                __result = null;
+                return false;
+            }
+
+            if (monsterType == null)
+            {
+                UnityEngine.Debug.LogError("monsterType is null in GetMonsterDataMatchWithTypeModified.");
+                __result = null;
+                return false;
+            }
+
             for (int i = 0; i < listMonsterData.Count; i++)
             {
                 if (listMonsterData[i] == monsterType)
                 {
-                    return listMonsterData[i];
+                    CustomCard customCard = listMonsterData[i];
+                    __result = customCard;
+                    return false;
                 }
             }
-            return null;
+
+            __result = null;
+            return false;
         }
 
-        [HarmonyPrefix]
-        [HarmonyPatch(typeof(InventoryBase), "GetMonsterData")]
-        public static CustomCard GetMonsterData(int monsterType)
+
+        [HarmonyPrefix, HarmonyPatch(nameof(InventoryBase.GetMonsterData), typeof(InventoryBase))]
+        public static bool GetMonsterDataModified(int monsterType, ref CustomCard __result)
         {
+            CustomCard result = null;
             if (monsterType == 0 || (monsterType >= (int)EnumListScript.MonsterMax["Tetramon"] + (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["FantasyRPG"] + (int)EnumListScript.MonsterMax["CatJob"]))
             {
-                return null;
+                __result = null;
+                return false;
             }
             if (monsterType < (int)EnumListScript.MonsterMax["Tetramon"])
             {
-                return GetMonsterDataMatchWithType(CardHandlingNew.ModdedMonsterData["Tetramon"], CardHandlingNew.ModdedMonsterData["Tetramon"][monsterType]);
+                GetMonsterDataMatchWithTypeModified(CardHandlingNew.ModdedMonsterData["Tetramon"], CardHandlingNew.ModdedMonsterData["Tetramon"][monsterType], ref result);
+                __result = result;
+                return false;
             }
+            /*
             if (monsterType > (int)EnumListScript.MonsterMax["Tetramon"] && monsterType < (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["Tetramon"])
             {
-                return GetMonsterDataMatchWithType(CardHandlingNew.ModdedMonsterData["Megabot"], CardHandlingNew.ModdedMonsterData["Megabot"][monsterType]);
+                GetMonsterDataMatchWithTypeModified(CardHandlingNew.ModdedMonsterData["Megabot"], CardHandlingNew.ModdedMonsterData["Megabot"][monsterType], ref result);
+                __result = result;
+                return false;
             }
             if (monsterType > (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["Tetramon"] && monsterType < (int)EnumListScript.MonsterMax["FantasyRPG"] + (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["Tetramon"])
             {
-                return GetMonsterDataMatchWithType(CardHandlingNew.ModdedMonsterData["FantasyRPG"], CardHandlingNew.ModdedMonsterData["FantasyRPG"][monsterType]);
+                GetMonsterDataMatchWithTypeModified(CardHandlingNew.ModdedMonsterData["FantasyRPG"], CardHandlingNew.ModdedMonsterData["FantasyRPG"][monsterType], ref result);
+                __result = result;
+                return false;
             }
             if (monsterType > (int)EnumListScript.MonsterMax["FantasyRPG"] + (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["Tetramon"] && monsterType < (int)EnumListScript.MonsterMax["CatJob"] + (int)EnumListScript.MonsterMax["FantasyRPG"] + (int)EnumListScript.MonsterMax["Megabot"] + (int)EnumListScript.MonsterMax["Tetramon"])
             {
-                return GetMonsterDataMatchWithType(CardHandlingNew.ModdedMonsterData["CatJob"], CardHandlingNew.ModdedMonsterData["CatJob"][monsterType]);
+                GetMonsterDataMatchWithTypeModified(CardHandlingNew.ModdedMonsterData["CatJob"], CardHandlingNew.ModdedMonsterData["CatJob"][monsterType], ref result);
+                __result = result;
+                return false;
             }
-            return GetMonsterData(0);
+            */
+            GetMonsterDataModified(0, ref result);
+            __result = result;
+            return false;
         }
     }
 }

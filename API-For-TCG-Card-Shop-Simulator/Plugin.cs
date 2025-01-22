@@ -9,6 +9,7 @@ using UnityEngine;
 using System.Reflection;
 using BepInEx.Configuration;
 using API_For_TCG_Card_Shop_Simulator.Cards;
+using API_For_TCG_Card_Shop_Simulator.Cards.Patches;
 
 namespace API_For_TCG_Card_Shop_Simulator
 {
@@ -16,7 +17,7 @@ namespace API_For_TCG_Card_Shop_Simulator
     public class Plugin : BaseUnityPlugin
     {
         // Declare Harmony here for future Harmony patches. You'll use Harmony to patch the game's code outside of the scope of the API.
-        readonly Harmony harmony = new(PluginGuid);
+        public static Harmony harmony = new(PluginGuid);
         public static ManualLogSource Log = new ManualLogSource(PluginName);
 
         // These are variables that exist everywhere in the entire class.
@@ -41,7 +42,7 @@ namespace API_For_TCG_Card_Shop_Simulator
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             // Debug Card
             CardHandlingNew.AddBaseCard("Tetramon", "MyPrefix", "Mythos", "Creator", Path.Combine(DLLPath + $"\\Art"), Path.Combine(DLLPath + $"\\Art"), "This card deals 6 damage at the end of the turn.", "Common", "Wind", "AllRounder", new List<string> {"DoNothing"}, new List<int> { 1, 5, 6, 9, 3, 1}, "Werbo", "Pigni" );
-
+            harmony.PatchAll(typeof(MonsterDataPatch));
             // AddCards("Tetramon", "MyPrefix", "TestCard", "Testing Purposes Only", "This card is here for testing and only for testing.", new UnityEngine.Vector3(1, 2, 3), "Wind", "Alpha", "EX0Director", "Rare", new List<string> { EMonsterRole.PhysicalAttacker.ToString() }, new List<int> { 100, 10, 15, 20, 5, 12, 5, 2, 0, 0, 0, 0 }, new List<string> { ESkill.DoNothing.ToString() }, Path.Combine(DLLPath + $"\\Art"));
         }
         
