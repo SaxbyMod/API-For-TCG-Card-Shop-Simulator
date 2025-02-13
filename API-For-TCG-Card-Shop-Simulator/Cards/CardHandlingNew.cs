@@ -56,7 +56,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             return BaseGetPortrait(path, set, ID, "_ghost");
         }
         // Add Card
-        public static void AddBaseCard(string set, string prefix, string name, string artist, string PortaitPath, string GhostPortraitPath, string flavor, string Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
+        public static void AddBaseCard(string set, string prefix, string name, string artist, string PortaitPath, string GhostPortraitPath, string flavor, ERarity Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
         {
             int i = 0;
             string ID = prefix + "_" + name;
@@ -66,7 +66,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             Sprite GhostPortrait = GetGhostPortrait(GhostPortraitPath, set, ID);
 
             // Set the New Variants
-            var newRarity = EnumListScript.Rarities.Contains(Rarity) ? Rarity : "";
+            var newRarity = Rarity;
             var newElement = EnumListScript.Elements.Contains(Element) ? Element : "";
             var newRole = EnumListScript.Roles.Contains(Role) ? Role : "";
             var newNextEvolution = EnumListScript.SetDict[set].ContainsKey(NextEvolution) ? NextEvolution : "";
@@ -80,6 +80,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             int Vitality = stats[3];
             int Spirit = stats[4];
             int Speed = stats[5];
+            int Id = EnumListScript.SetDict[set][ID];
 
             // Create CustomCard
             CustomCard customCard = new CustomCard
@@ -102,7 +103,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Magic,
                 Vitality,
                 Spirit,
-                Speed
+                Speed,
+                Id
             );
             CustomCards.Add(i, customCard);
             // Debug Logging
@@ -133,6 +135,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Console.WriteLine("Vitality: " + customCard.Vitality);
                 Console.WriteLine("Spirit: " + customCard.Spirit);
                 Console.WriteLine("Speed: " + customCard.Speed);
+                Console.WriteLine("Id: " + customCard.ID);
             }
             int CurrentMax = (int)EnumListScript.MonsterMax[set];
             EnumListScript.MonsterMax.Remove(set);

@@ -16,7 +16,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         public Sprite GhostIcon { get; set; }
         public string NextEvolution { get; set; }
         public string PreviousEvolution { get; set; }
-        public string Rarity { get; set; }
+        public ERarity Rarity { get; set; }
         public string Element { get; set; }
         public string Role { get; set; }
         public List<string> Skills { get; set; }
@@ -26,8 +26,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         public int Vitality { get; set; }
         public int Spirit { get; set; }
         public int Speed { get; set; }
+        public int ID { get; set; }
 
-        public CustomCard(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, string rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed)
+        public CustomCard(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, ERarity rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed, int id)
         {
             Set = set;
             Prefix = prefix;
@@ -48,6 +49,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             Vitality = vitality;
             Spirit = spirit;
             Speed = speed;
+            ID = id;
         }
     };
 }
