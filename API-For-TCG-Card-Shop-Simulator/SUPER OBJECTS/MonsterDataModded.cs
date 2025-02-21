@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-namespace API_For_TCG_Card_Shop_Simulator.Cards
+namespace API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS.Objects
 {
-    public class CustomCard
+    public class MonsterDataModded
     {
         public string Set { get; set; }
         public string Prefix { get; set; }
@@ -28,7 +28,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         public int Speed { get; set; }
         public int ID { get; set; }
 
-        public CustomCard(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, ERarity rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed, int id)
+        public MonsterDataModded(string set, string prefix, string name, string artistname, string description, Sprite icon, Sprite ghosticon, string nextevolution, string previousevolution, ERarity rarity, string element, string role, List<string> skills, int hp, int strength, int magic, int vitality, int spirit, int speed, int id)
         {
             Set = set;
             Prefix = prefix;

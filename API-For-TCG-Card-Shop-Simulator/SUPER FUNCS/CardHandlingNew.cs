@@ -1,4 +1,5 @@
-﻿using API_For_TCG_Card_Shop_Simulator.Scripts;
+﻿using API_For_TCG_Card_Shop_Simulator.Helpers;
+using API_For_TCG_Card_Shop_Simulator.Scripts;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,8 +13,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
-        public static Dictionary<int, CustomCard> CustomCards = new Dictionary<int, CustomCard>() { };
-        public static Dictionary<string, Dictionary<int, CustomCard>> ModdedMonsterData = new Dictionary<string, Dictionary<int, CustomCard>> {
+        public static Dictionary<int, MonsterDataModded> CustomCards = new Dictionary<int, MonsterDataModded>() { };
+        public static Dictionary<string, Dictionary<int, MonsterDataModded>> ModdedMonsterData = new Dictionary<string, Dictionary<int, MonsterDataModded>> {
             { "Tetramon", CustomCards }
         };
 
@@ -83,7 +84,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             int Id = EnumListScript.SetDict[set][ID];
 
             // Create CustomCard
-            CustomCard customCard = new CustomCard
+            MonsterDataModded customCard = new MonsterDataModded
             (
                 set,
                 prefix,
