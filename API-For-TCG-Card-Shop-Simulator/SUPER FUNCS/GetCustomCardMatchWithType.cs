@@ -1,5 +1,6 @@
 ﻿using API_For_TCG_Card_Shop_Simulator.Cards;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS.Functions
 {
@@ -17,16 +18,7 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS.Functions
                 return null;
             }
 
-            for (int i = 0; i < listMonsterData.Count; i++)
-            {
-                if (listMonsterData[i] == monsterType)
-                {
-                    CustomCard customCard = listMonsterData[i];
-                    return customCard;
-                }
-            }
-
-            return null;
+            return listMonsterData.FirstOrDefault(x => x == monsterType);
         }
     }
 }

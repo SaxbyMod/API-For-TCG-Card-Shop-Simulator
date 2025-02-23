@@ -8,14 +8,14 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS
         public string priceChangeType;
         public string GetName(bool isIncrease)
         {
+            string translation = LocalizationManager.GetTranslation("decrease");
+
             if (isIncrease)
             {
-                string translation = LocalizationManager.GetTranslation("increase");
-                return LocalizationManager.GetTranslation(name).Replace("XXX", translation);
+                translation = LocalizationManager.GetTranslation("increase");
             }
 
-            string translation2 = LocalizationManager.GetTranslation("decrease");
-            return LocalizationManager.GetTranslation(name).Replace("XXX", translation2);
+            return LocalizationManager.GetTranslation(name).Replace("XXX", translation);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS.Functions
@@ -15,14 +16,8 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS.Functions
 
         public static FurniturePurchaseDataModded GetFurniturePurchaseDataObjectType(string objType)
         {
-            for (int i = 0; i < m_ObjectData_SO.m_ObjectDataList.Count; i++)
-            {
-                if (m_ObjectData_SO.m_FurniturePurchaseDataList[i].objectType == objType)
-                {
-                    return m_ObjectData_SO.m_FurniturePurchaseDataList[i];
-                }
-            }
-            return null;
+            return m_ObjectData_SO.m_FurniturePurchaseDataList.FirstOrDefault(x => x.objectType == objType);
+
         }
     }
 }
