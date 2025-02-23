@@ -30,8 +30,8 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS
         public string GetRandomName()
         {
             int num = Mathf.Clamp(UnityEngine.Random.Range(-4, 4), 1, 3);
-            int num2 = UnityEngine.Random.Range(0, 100);
-            int num3 = UnityEngine.Random.Range(0, 100);
+            int random1 = UnityEngine.Random.Range(0, 100);
+            int random2 = UnityEngine.Random.Range(0, 100);
             List<string> RandomName = m_RandomName1;
             List<string> list = new();
             List<string> list2 = new();
@@ -53,12 +53,12 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS
                 list3 = (UnityEngine.Random.Range(0, 2) != 0) ? m_RandomName3 : m_RandomName2;
             }
 
-            if (num2 < 15)
+            if (random1 < 15)
             {
                 text = UnityEngine.Random.Range(0, 10000).ToString();
             }
 
-            if (num3 < 15)
+            if (random2 < 15)
             {
                 if (UnityEngine.Random.Range(0, 2) == 0)
                 {

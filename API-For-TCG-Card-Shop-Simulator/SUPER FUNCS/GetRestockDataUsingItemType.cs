@@ -3,6 +3,7 @@ using API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS
 {
@@ -16,15 +17,9 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS
 
         public static List<RestockDataModded> GetRestockDataUsingItemTypeFunch(string itemType)
         {
-            List<RestockDataModded> list = new();
-            for (int i = 0; i < m_StockItemData_SO.m_RestockDataList.Count; i++)
-            {
-                if (m_StockItemData_SO.m_RestockDataList[i].itemType == itemType)
-                {
-                    list.Add(m_StockItemData_SO.m_RestockDataList[i]);
-                }
-            }
-            return list;
+            return m_StockItemData_SO.m_RestockDataList
+                .Where(x => x.itemType == itemType)
+                .ToList();
         }
     }
 }

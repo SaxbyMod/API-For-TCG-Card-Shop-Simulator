@@ -3,6 +3,7 @@ using API_For_TCG_Card_Shop_Simulator.SUPER_OBJECTS;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS
 {
@@ -16,14 +17,9 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS
 
         public static int GetUnlockItemLevelRequired(string itemType)
         {
-            for (int i = 0; i < m_StockItemData_SO.m_RestockDataList.Count; i++)
-            {
-                if (m_StockItemData_SO.m_RestockDataList[i].itemType == itemType)
-                {
-                    return m_StockItemData_SO.m_RestockDataList[i].licenseShopLevelRequired;
-                }
-            }
-            return 0;
+            return m_StockItemData_SO.m_RestockDataList
+                .FirstOrDefault(restockData => restockData.itemType == itemType)?
+                .licenseShopLevelRequired ?? 0;
         }
     }
 }
