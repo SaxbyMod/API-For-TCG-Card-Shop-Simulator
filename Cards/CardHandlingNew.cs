@@ -13,8 +13,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
-        public static Dictionary<int, MonsterDataModded> CustomCards = new Dictionary<int, MonsterDataModded>() { };
-        public static Dictionary<string, Dictionary<int, MonsterDataModded>> ModdedMonsterData = new Dictionary<string, Dictionary<int, MonsterDataModded>> {
+        public static Dictionary<int, MonsterData> CustomCards = new Dictionary<int, MonsterData>() { };
+        public static Dictionary<string, Dictionary<int, MonsterData>> ModdedMonsterData = new Dictionary<string, Dictionary<int, MonsterData>> {
             { "Tetramon", CustomCards }
         };
 
@@ -56,7 +56,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         {
             return BaseGetPortrait(path, set, ID, "_ghost");
         }
-        // Add Card
+        /*// Add Card
         public static void AddBaseCard(string set, string prefix, string name, string artist, string PortaitPath, string GhostPortraitPath, string flavor, ERarity Rarity, string Element, string Role, List<string> Skills, List<int> stats, string NextEvolution, string PreviousEvolution)
         {
             int i = 0;
@@ -142,6 +142,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             EnumListScript.MonsterMax.Remove(set);
             EnumListScript.MonsterMax.Add(set, CurrentMax + 1);
             i++;
-        }
+        }*/
     }
 }
