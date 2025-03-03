@@ -20,25 +20,23 @@ namespace API_For_TCG_Card_Shop_Simulator.SUPER_FUNCS
             Dictionary<int,string> list = new();
             for (int i = 0; i < CSingleton<InventoryBase>.Instance.m_StockItemData_SO.m_ItemDataList.Count; i++)
             {
-                if (m_StockItemData_SO.m_ItemDataList[i].category == category)
+                if (m_StockItemData_SO.m_ItemDataList[i].category == category && unlockedOnly)
                 {
-                    if (unlockedOnly)
+                    List<RestockDataModded> output = GetRestockDataUsingItemType.GetRestockDataUsingItemTypeFunch(category);
+                    RestockDataModded newoutput = output[i];
+                    if (GetIsItemLiscenseUnlocked.GetIsItemLicenseUnlockedFunc(EnumListScript.ItemType[newoutput.name]))
                     {
-                        List<RestockDataModded> output = GetRestockDataUsingItemType.GetRestockDataUsingItemTypeFunch(category);
-                        RestockDataModded newoutput = output[i];
-                        if (GetIsItemLiscenseUnlocked.GetIsItemLicenseUnlockedFunc(EnumListScript.ItemType[newoutput.name]))
-                        {
-                            list.Add(i, newoutput.name);
-                        }
+                        list.Add(i, newoutput.name);
                     }
                 }
             }
-            int count = 0;
-            if (list.Any())
+
+            if (list.Count <= 0)
             {
-                count = list.Count;
+                return null;
             }
-            var newitem = UnityEngine.Random.RandomRange(0, count);
+
+            var newitem = UnityEngine.Random.RandomRange(0, list.Count);
             return list[newitem];
         }
     }
