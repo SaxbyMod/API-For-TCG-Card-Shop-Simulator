@@ -54,7 +54,7 @@ dkms.conf
 obj/
 bin/
 .idea/
-.vs/
 .vscode/
 *.user
 build/
+.vs/
