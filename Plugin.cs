@@ -1,9 +1,12 @@
+using API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using System.IO;
 using System.Reflection;
+using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
+using API_For_TCG_Card_Shop_Simulator.Helpers.FillOurObjectDats;
 
 namespace API_For_TCG_Card_Shop_Simulator
 {
@@ -34,6 +37,8 @@ namespace API_For_TCG_Card_Shop_Simulator
             // Removed 'public' keyword from here
             Assembly assembly = Assembly.GetExecutingAssembly();
             string DLLPath = Path.GetDirectoryName(assembly.Location);
+            MonsterType.CheckMonsterMaxes();
+            Tetramon.CreateTetramon();
         }
     }
 }

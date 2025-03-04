@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEngine;
 
 namespace API_For_TCG_Card_Shop_Simulator.Scripts
@@ -16,7 +17,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 texture2D.LoadImage(data);
                 return texture2D;
             }
-            Debug.LogWarning($"Texture not found at path: {imageToLoad}");
+            Console.WriteLine($"Texture not found at path: {imageToLoad}");
             return null;
         }
 
@@ -36,7 +37,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Scripts
                 sprite.name = fileName; // Name the sprite for easy identification
                 return sprite;
             }
-            Debug.LogWarning($"Sprite creation failed for: {fileName} at path: {imagePath}");
+            Console.WriteLine($"Sprite creation failed for: {fileName} at path: {imagePath}");
             return null;
         }
     }
