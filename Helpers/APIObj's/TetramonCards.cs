@@ -5,7 +5,7 @@ using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
 
 namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
 {
-    public class TetramonCards
+    public class TetramonCards : MonsterData
     {
         public string Name;
         public string ArtistName;

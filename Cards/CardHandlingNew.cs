@@ -46,7 +46,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         {
             return BaseGetPortrait(path, "_ghost");
         }
-        
+        public static int TetraIterator = 0;
         // Create a Tetramon Card Data
         public static void CreateTetramonCards(string modId, string name, string artistName, string description, Vector3 effectAmount, EElementIndex elementIndex, ERarity rarity, MonsterType.EMonsterTypeLocal monsterType, MonsterType.EMonsterTypeLocal nextEvolution, MonsterType.EMonsterTypeLocal previousEvolution, List<EMonsterRole> roles, Stats stats, List<ESkill> skillList, string icon, string ghostIcon)
         {
@@ -99,7 +99,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Console.WriteLine($"GhostIcon = {ghostIcon}");
             }
             TetramonCards.Add(tetramonCard);
-            Console.WriteLine($"Creation Process done for: {NewName}");
+            Console.WriteLine($"Creation Process done for: {NewName} Total Completed as of this Entry {TetraIterator}");
+            TetraIterator++;
         }
     }
 }

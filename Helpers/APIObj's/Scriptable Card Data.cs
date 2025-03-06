@@ -1,10 +1,9 @@
-﻿using API_For_TCG_Card_Shop_Simulator.Cards;
-using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
+﻿using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
 using System.Collections.Generic;
-using UnityEngine;
+
 namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
 {
-    public class Scriptable_Card_Data
+    public class Scriptable_Card_Data : MonsterData_ScriptableObject
     {
         // Lists/WhatTheDataIS
         public List<MonsterType.EMonsterTypeLocal> m_ShownMonsterList;
@@ -16,15 +15,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
         public List<MegabotCards> m_MegabotDataList;
         public List<FantasyRPGCards> m_FantasyRPGDataList;
         public List<CatJobCards> m_CatJobDataList;
-        public List<Color> m_RarityColor;
-        public List<Sprite> m_CardBorderList;
-        public List<Sprite> m_CardBGList;
-        public List<Sprite> m_CardFrontImageList;
-        public List<Sprite> m_CardBackImageList;
-        public List<Sprite> m_CardFoilMaskImageList;
-        public List<CardUISetting> m_CardUISettingList;
-        public List<Sprite> m_TetramonImageList;
-        public List<MonsterData> m_SpecialCardImageList;
         
         // Tetramon
         public TetramonCards GetTetramonCards(string monsterType)
@@ -65,26 +55,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
                     return m_CatJobDataList[index];
             }
             return m_CatJobDataList[0];
-        }
-        // Color Funcs
-        public Color GetRarityColor(ERarity rarity) => this.m_RarityColor[(int) rarity];
-        // Sprite Funcs
-        public Sprite GetCardBorderSprite(ERarity rarity) => this.m_CardBorderList[(int) rarity];
-        public Sprite GetCardBGSprite(EElementIndex element)
-        {
-            return element == EElementIndex.None ? (Sprite) null : this.m_CardBGList[(int) element];
-        }
-        public Sprite GetCardFrontSprite(EElementIndex elementIndex)
-        {
-            return this.m_CardFrontImageList[(int) elementIndex];
-        }
-        public Sprite GetCardBackSprite(ECardExpansionType cardExpansionType)
-        {
-            return this.m_CardBackImageList[(int) cardExpansionType];
-        }
-        public Sprite GetCardFoilMaskSprite(ECardExpansionType cardExpansionType)
-        {
-            return this.m_CardFoilMaskImageList[(int) cardExpansionType];
         }
     }
 }

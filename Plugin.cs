@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
 using API_For_TCG_Card_Shop_Simulator.Helpers.FillOurObjectDats;
+using API_For_TCG_Card_Shop_Simulator.Patches;
 
 namespace API_For_TCG_Card_Shop_Simulator
 {
@@ -39,6 +40,7 @@ namespace API_For_TCG_Card_Shop_Simulator
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             MonsterType.CheckMonsterMaxes();
             Tetramon.CreateTetramon();
+            harmony.PatchAll(typeof(InventoryBasePatches));
         }
     }
 }
