@@ -3,8 +3,7 @@ using API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s;
 using API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS;
 using HarmonyLib;
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using System;
+using UnityEngine;
 
 namespace API_For_TCG_Card_Shop_Simulator.Patches
 {
@@ -24,27 +23,22 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
             {
                 case ECardExpansionType.Tetramon:
                 case ECardExpansionType.Destiny:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMonsterList;
                     MonsterTypeList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownMonsterList;
                     return false;
                 case ECardExpansionType.Ghost:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownGhostMonsterList;
                     GhostList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownGhostMonsterList;
                     return false;
                 case ECardExpansionType.Megabot:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMegabotList;
                     MegaBotList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownMegabotList;
                     return false;
                 case ECardExpansionType.FantasyRPG:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownFantasyRPGList;
                     FantasyRPGList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownFantasyRPGList;
                     return false;
                 case ECardExpansionType.CatJob:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownCatJobList;
                     CatJobList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownCatJobList;
                     return false;
                 default:
-                    //CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_ShownMonsterList;
+                    MonsterTypeList = Scriptable_Card_Data.CreateInstance<Scriptable_Card_Data>().m_ShownMonsterList;
                     return false;
             }
         }
@@ -123,24 +117,22 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
                 return (CatJobCards)null;
             }
 
-            // TO DO FOR SPRITES
-            /*
-             public static Sprite GetAncientArtifactSprite(EMonsterType monsterType) => (Sprite) null;
-             public static Sprite GetMonsterGhostIconSprite(EMonsterType monsterType) => (Sprite) null;
-             public static Sprite GetTetramonIconSprite(EMonsterType monsterType)
+            // TO DO FOR SPRITEs
+             public static Sprite GetAncientArtifactSpriteTetra(MonsterType.EMonsterTypeLocal monsterType) => (Sprite) null;
+             public static Sprite GetMonsterGhostIconSpriteTetra(MonsterType.EMonsterTypeLocal monsterType) => (Sprite) null;
+             public static Sprite GetTetramonIconSpriteTetra(MonsterType.EMonsterTypeLocal monsterType)
              {
-                 return monsterType == EMonsterType.None ? (Sprite) null : CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_TetramonImageList[(int) monsterType % CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_TetramonImageList.Count];
+                 return monsterType == MonsterType.EMonsterTypeLocal.None ? (Sprite) null : CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_TetramonImageList[(int)monsterType % CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_TetramonImageList.Count];
              }
-             public static Sprite GetSpecialCardImage(EMonsterType monsterType) {
-                 if (monsterType == EMonsterType.None)
+             public static Sprite GetSpecialCardImageTetra(MonsterType.EMonsterTypeLocal monsterType) {
+                 if (monsterType == MonsterType.EMonsterTypeLocal.None)
                      return (Sprite) null;
                  for (int index = 0; index < CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_SpecialCardImageList.Count; ++index) {
-                     if (CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_SpecialCardImageList[index].MonsterType == monsterType)
+                     if (Scripted_Card_Setup.data.m_ShownMonsterList[index] == monsterType)
                          return CSingleton<InventoryBase>.Instance.m_MonsterData_SO.m_SpecialCardImageList[index].GetIcon(ECardExpansionType.None);
                  }
                  return (Sprite) null;
              }
-             */
         }
     }
 }
