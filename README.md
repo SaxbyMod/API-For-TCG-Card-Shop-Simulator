@@ -15,15 +15,17 @@ Ping me via the API or THE API thread in Modding Help or Requests, `@thincreator
 # Attributations:
 
 * Thincreator3483/Creator: API Code
-* Dark_Dragoon: Preloader Patch, and help with figuring out issues.
-* Lynn Titis: Getting the Enum system working.
+* Dark_Dragoon: Preloader Patch, and help with figuring out issues, found in older versions No longer need it.
+* Lynn Titis: A bunch of code help.
+* Ghost Narwhal: A bunch of code help.
+* James Games: A bunch of code help.
 
 # Planned for Initial Release:
 * Card Adding
-* Card Modification
-* Different portraits for each card type.
 
 Planned for Future:
+* Card Modification
+* Different portraits for each card type.
 * Custom Sets (Without base Modification)
 * Set Selection Menu for the Album
 * Allow modders to define their system through the API for their cards to use.
