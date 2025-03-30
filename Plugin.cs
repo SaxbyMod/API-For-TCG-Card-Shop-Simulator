@@ -40,6 +40,7 @@ namespace API_For_TCG_Card_Shop_Simulator
             string DLLPath = Path.GetDirectoryName(assembly.Location);
             MonsterType.CheckMonsterMaxes();
             Tetramon.CreateTetramon();
+            harmony.PatchAll(typeof(Scriptable_Card_Data));
             harmony.PatchAll(typeof(InventoryBasePatches));
         }
     }

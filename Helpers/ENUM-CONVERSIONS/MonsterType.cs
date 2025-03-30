@@ -349,10 +349,12 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
 			Scout = 39,
 			Pirate = 40,
 		}
+		
 		public static List<EMonsterTypeLocal> TetramonEnumList = new List<EMonsterTypeLocal>();
 		public static List<EMegaBotType> MegaBotEnumList = new List<EMegaBotType>();
 		public static List<EFantasyRPGType> FantasyRPGEnumList = new List<EFantasyRPGType>();
 		public static List<ECatJobType> CatJobEnumList = new List<ECatJobType>();
+		
 		public static void CheckMonsterMaxes()
 		{
 			Console.WriteLine("Tetramon [BASE GAME] Max: " + (int)EMonsterType.MAX);

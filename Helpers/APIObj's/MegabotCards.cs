@@ -13,9 +13,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
         public Vector3 EffectAmount;
         public EElementIndex ElementIndex;
         public ERarity Rarity;
-        public MonsterType.EMegaBotType MonsterType;
-        public MonsterType.EMegaBotType NextEvolution;
-        public MonsterType.EMegaBotType PreviousEvolution;
+        public MonsterType.EMonsterTypeLocal MonsterType;
+        public MonsterType.EMonsterTypeLocal NextEvolution;
+        public MonsterType.EMonsterTypeLocal PreviousEvolution;
         public List<EMonsterRole> Roles;
         public Stats BaseStats;
         public List<ESkill> SkillList;
