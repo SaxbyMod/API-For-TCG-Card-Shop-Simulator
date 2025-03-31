@@ -1,5 +1,4 @@
-﻿using API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
@@ -250,7 +249,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
 			WingBooster = 113,
 		}
 
-		public enum EFantasyRPGType
+		public enum EFantasyRpgType
 		{
 			None = 0,
 			Archer = 1,
@@ -352,7 +351,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
 		
 		public static List<EMonsterTypeLocal> TetramonEnumList = new List<EMonsterTypeLocal>();
 		public static List<EMegaBotType> MegaBotEnumList = new List<EMegaBotType>();
-		public static List<EFantasyRPGType> FantasyRPGEnumList = new List<EFantasyRPGType>();
+		public static List<EFantasyRpgType> FantasyRPGEnumList = new List<EFantasyRpgType>();
 		public static List<ECatJobType> CatJobEnumList = new List<ECatJobType>();
 		
 		public static void CheckMonsterMaxes()
@@ -370,9 +369,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
 				MegaBotEnumList.Add(newName);
 			}
 			Console.WriteLine("FantasyRPG [BASE GAME] Max: " + (int)EMonsterType.MAX_FANTASYRPG);
-			foreach (var Name in Enum.GetValues(typeof(EFantasyRPGType)))
+			foreach (var Name in Enum.GetValues(typeof(EFantasyRpgType)))
 			{
-				var newName = Enum.Parse<EFantasyRPGType>(Name.ToString(),true);
+				var newName = Enum.Parse<EFantasyRpgType>(Name.ToString(),true);
 				FantasyRPGEnumList.Add(newName);
 			}
 			Console.WriteLine("CatJob [BASE GAME] Max: " + (int)EMonsterType.MAX_CATJOB);

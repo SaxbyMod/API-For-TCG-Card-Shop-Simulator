@@ -18,6 +18,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.FillOurObjectDats
             CreateBurpig();
             CreateInferhog();
             CreateBlazoar();
+            CreateKidsune();
+            CreateBonifox();
             
             // Add None to the Pool
             static void CreateNone()
@@ -45,6 +47,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.FillOurObjectDats
                 };
                 List<ESkill> NoneSkills = new List<ESkill>()
                 {
+	                
                 };
                 CardHandlingNew.CreateTetramonCards(
                     "",
@@ -265,7 +268,158 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.FillOurObjectDats
                 );
             }
             
+            // Add Kidsune to the Pool
+            static void CreateKidsune()
+            {
+	            Assembly assembly = Assembly.GetExecutingAssembly();
+	            string DLLPath = Path.GetDirectoryName(assembly.Location);
+	            List<EMonsterRole> KidsuneRoles = new List<EMonsterRole>()
+	            {
+		            EMonsterRole.MagicalAttacker,
+		            EMonsterRole.Disruptor
+	            };
+	            Stats KidsuneStats = new Stats()
+	            {
+		            HP = 75,
+		            Strength = 12,
+		            Magic = 33,
+		            Vitality = 13,
+		            Spirit = 28,
+		            Speed = 24,
+		            HP_LevelAdd = 0,
+		            Strength_LevelAdd = 0,
+		            Magic_LevelAdd = 0,
+		            Vitality_LevelAdd = 0,
+		            Spirit_LevelAdd = 0,
+		            Speed_LevelAdd = 0
+	            };
+	            List<ESkill> KidsuneSkills = new List<ESkill>()
+	            {
+		            ESkill.FlamePillar,
+		            ESkill.Cover,
+		            ESkill.None,
+		            ESkill.PowerDrip
+	            };
+	            CardHandlingNew.CreateTetramonCards(
+		            "",
+		            "Kidsune",
+		            "Hikoku",
+		            "Fire element deals XXX extra damage this turn, draw YYY",
+		            new Vector3(15, 1, 0),
+		            EElementIndex.Fire,
+		            ERarity.Common,
+		            MonsterType.EMonsterTypeLocal.FoxA,
+		            MonsterType.EMonsterTypeLocal.FoxB,
+		            MonsterType.EMonsterTypeLocal.None,
+		            KidsuneRoles,
+		            KidsuneStats,
+		            KidsuneSkills,
+		            DLLPath + "\\BaseAssets\\Tetramon\\FoxA",
+		            DLLPath + "\\BaseAssets\\None"
+	            );
+            }
             
+            // Add Bonifox to the Pool
+            static void CreateBonifox()
+            {
+	            Assembly assembly = Assembly.GetExecutingAssembly();
+	            string DLLPath = Path.GetDirectoryName(assembly.Location);
+	            List<EMonsterRole> BonifoxRoles = new List<EMonsterRole>()
+	            {
+		            EMonsterRole.MagicalAttacker,
+		            EMonsterRole.Disruptor
+	            };
+	            Stats BonifoxStats = new Stats()
+	            {
+		            HP = 78,
+		            Strength = 12,
+		            Magic = 34,
+		            Vitality = 13,
+		            Spirit = 29,
+		            Speed = 25,
+		            HP_LevelAdd = 0,
+		            Strength_LevelAdd = 0,
+		            Magic_LevelAdd = 0,
+		            Vitality_LevelAdd = 0,
+		            Spirit_LevelAdd = 0,
+		            Speed_LevelAdd = 0
+	            };
+	            List<ESkill> BonifoxSkills = new List<ESkill>()
+	            {
+		            ESkill.BlazingPillar,
+		            ESkill.Cover,
+		            ESkill.None,
+		            ESkill.PowerDrip
+	            };
+	            CardHandlingNew.CreateTetramonCards(
+		            "",
+		            "Bonifox",
+		            "Faiahaato",
+		            "Fire element deals XXX extra damage this turn, draw YYY",
+		            new Vector3(30, 1, 0),
+		            EElementIndex.Fire,
+		            ERarity.Rare,
+		            MonsterType.EMonsterTypeLocal.FoxB,
+		            MonsterType.EMonsterTypeLocal.FoxC,
+		            MonsterType.EMonsterTypeLocal.FoxA,
+		            BonifoxRoles,
+		            BonifoxStats,
+		            BonifoxSkills,
+		            DLLPath + "\\BaseAssets\\Tetramon\\FoxB",
+		            DLLPath + "\\BaseAssets\\None"
+	            );
+            }
+            
+            // Add Honobi to the Pool
+            static void CreateHonobi()
+            {
+	            Assembly assembly = Assembly.GetExecutingAssembly();
+	            string DLLPath = Path.GetDirectoryName(assembly.Location);
+	            List<EMonsterRole> HonobiRoles = new List<EMonsterRole>()
+	            {
+		            EMonsterRole.MagicalAttacker,
+		            EMonsterRole.Disruptor
+	            };
+	            Stats HonobiStats = new Stats()
+	            {
+		            HP = 81,
+		            Strength = 13,
+		            Magic = 36,
+		            Vitality = 14,
+		            Spirit = 31,
+		            Speed = 26,
+		            HP_LevelAdd = 0,
+		            Strength_LevelAdd = 0,
+		            Magic_LevelAdd = 0,
+		            Vitality_LevelAdd = 0,
+		            Spirit_LevelAdd = 0,
+		            Speed_LevelAdd = 0
+	            };
+	            List<ESkill> HonobiSkills = new List<ESkill>()
+	            {
+		            ESkill.InfernoPillar,
+		            ESkill.Cover,
+		            ESkill.None,
+		            ESkill.PowerLeak
+	            };
+	            CardHandlingNew.CreateTetramonCards(
+		            "",
+		            "Honobi",
+		            "Faiahaato",
+		            "Fire element deals XXX extra damage this turn, draw YYY",
+		            new Vector3(50, 1, 0),
+		            EElementIndex.Fire,
+		            ERarity.Epic,
+		            MonsterType.EMonsterTypeLocal.FoxC,
+		            MonsterType.EMonsterTypeLocal.FoxD,
+		            MonsterType.EMonsterTypeLocal.FoxB,
+		            HonobiRoles,
+		            HonobiStats,
+		            HonobiSkills,
+		            DLLPath + "\\BaseAssets\\Tetramon\\FoxC",
+		            DLLPath + "\\BaseAssets\\None"
+	            );
+            }
         }
     }
 }

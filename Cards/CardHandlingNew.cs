@@ -17,10 +17,10 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
     public class CardHandlingNew
     {
         // Define the ModdedMonsterData Dictionary
-        public static List<TetramonCards> TetramonCards = new List<TetramonCards>() { };
-        public static List<MegabotCards> MegaBotCards = new List<MegabotCards>() { };
-        public static List<FantasyRPGCards> FantasyRPGCards = new List<FantasyRPGCards>() { };
-        public static List<CatJobCards> CatJobCards = new List<CatJobCards>() { };
+        public static List<TetramonCards> DataList = new List<TetramonCards>() { };
+        public static List<MegabotCards> MegabotDataList = new List<MegabotCards>() { };
+        public static List<FantasyRPGCards> FantasyRPGDataList = new List<FantasyRPGCards>() { };
+        public static List<CatJobCards> CatJobDataList = new List<CatJobCards>() { };
 
         // Handle Portraits
         public static Sprite BaseGetPortrait(string path,  string type)
@@ -46,7 +46,9 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
         {
             return BaseGetPortrait(path, "_ghost");
         }
+        
         public static int TetraIterator = 0;
+        
         // Create a Tetramon Card Data
         public static void CreateTetramonCards(string modId, string name, string artistName, string description, Vector3 effectAmount, EElementIndex elementIndex, ERarity rarity, MonsterType.EMonsterTypeLocal monsterType, MonsterType.EMonsterTypeLocal nextEvolution, MonsterType.EMonsterTypeLocal previousEvolution, List<EMonsterRole> roles, Stats stats, List<ESkill> skillList, string icon, string ghostIcon)
         {
@@ -58,12 +60,12 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             }
             else
             {
-                NewName = name;
+	            NewName = name;
             }
+            
             Sprite Icon = GetPortrait(icon);
             Sprite GhostIcon = GetPortrait(ghostIcon);
             
-
             TetramonCards tetramonCard = new TetramonCards()
             {
                 Name = NewName,
@@ -80,6 +82,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Icon = Icon,
                 GhostIcon = GhostIcon,
             };
+            
             if (Plugin.VerboseLogging.Value == true)
             {
                 Console.WriteLine($"Creating Tetramon card for: {NewName}");
@@ -98,7 +101,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
                 Console.WriteLine($"Icon = {icon}");
                 Console.WriteLine($"GhostIcon = {ghostIcon}");
             }
-            TetramonCards.Add(tetramonCard);
+            
+            DataList.Add(tetramonCard);
             Console.WriteLine($"Creation Process done for: {NewName} Total Completed as of this Entry {TetraIterator}");
             TetraIterator++;
         }
