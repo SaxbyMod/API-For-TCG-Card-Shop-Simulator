@@ -10,7 +10,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
 	[HarmonyPatch]
 	public class InventoryBasePatches
 	{
-		[HarmonyPatch(nameof(InventoryBase.GetMonsterData))]
+		[HarmonyPatch(typeof(InventoryBase), "GetMonsterData")]
+		[HarmonyPatch(new Type[] { typeof(EMonsterType) })]
 		[HarmonyPrefix]
 		public static bool GetMonsterData(EMonsterType monsterType, ref MonsterData __result)
 		{
@@ -21,6 +22,7 @@ namespace API_For_TCG_Card_Shop_Simulator.Patches
 			}
 			if((int)monsterType >= 200000)
 			{
+				__result = null;
 				return false;
 			}
 			return true;

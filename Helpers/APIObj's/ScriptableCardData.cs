@@ -18,20 +18,5 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.APIObj_s
             }
             return CardHandlingNew.DataList[0];
         }
-        
-        [HarmonyPatch(typeof(MonsterData_ScriptableObject), nameof(MonsterData_ScriptableObject.GetMonsterData)), HarmonyPrefix]
-        public static bool GetMonsterData(string monsterType, ref MonsterData __result)
-        {
-	        for (int index = 0; index < CardHandlingNew.DataList.Count; ++index)
-	        {
-		        if (CardHandlingNew.DataList[index].MonsterType.ToString() == monsterType)
-		        {
-			        __result = CardHandlingNew.DataList[index];
-			        return false;
-		        }
-	        }
-	        __result = CardHandlingNew.DataList[0];
-	        return false;
-        }
     }
 }

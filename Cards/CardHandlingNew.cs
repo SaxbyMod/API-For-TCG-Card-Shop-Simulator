@@ -103,6 +103,8 @@ namespace API_For_TCG_Card_Shop_Simulator.Cards
             }
             
             DataList.Add(tetramonCard);
+
+
             Console.WriteLine($"Creation Process done for: {NewName} Total Completed as of this Entry {TetraIterator}");
             TetraIterator++;
         }

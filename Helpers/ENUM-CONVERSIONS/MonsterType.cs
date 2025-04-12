@@ -380,7 +380,6 @@ namespace API_For_TCG_Card_Shop_Simulator.Helpers.ENUM_CONVERSIONS
 				var newName = Enum.Parse<ECatJobType>(Name.ToString(),true);
 				CatJobEnumList.Add(newName);
 			}
-			Console.WriteLine(CSingleton<InventoryBase>.Instance.m_MonsterData_SO);
 		}
 	}
 }
