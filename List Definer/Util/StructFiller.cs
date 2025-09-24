@@ -1,0 +1,22 @@
+﻿using List_Definer.Objects;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices.Objects;
+using UnityEngine;
+
+namespace List_Definer.Util
+{
+	public class StructFiller
+	{
+		public static void AddSetToStruct(string prefix, string name, string description)
+		{
+			EarlySetData set = new EarlySetData(prefix, name, description);
+			StructSetup.sets.Add(set);
+		}
+		
+		public static void AddCardToStruct(string prefix, string name, string set, string artistName, string description, string rarity, string element, Vector3 effectAmount, string next, string previous, List<EMonsterRole> roles, List<ESkill> skills, List<int> baseStats, List<int> modifiedStats)
+		{
+			EarlyCardData data = new EarlyCardData(prefix, name, set, artistName, description, rarity, element, effectAmount, next, previous, roles, skills, baseStats, modifiedStats);
+			StructSetup.sets.Find(setData => setData.SetName == (prefix + set)).Cards.Add(data);;
+		}
+	}
+}
