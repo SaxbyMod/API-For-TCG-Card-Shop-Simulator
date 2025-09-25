@@ -10,7 +10,7 @@ namespace List_Definer.Objects
 		public List<EarlyCardData> Cards { get; set; }
 		
 		public EarlySetData(string prefix, string name, string description) {
-			SetName = prefix + name;
+			SetName = prefix + ":" + name;
 			SetDescription = description;
 			Cards = new List<EarlyCardData>();
 		}

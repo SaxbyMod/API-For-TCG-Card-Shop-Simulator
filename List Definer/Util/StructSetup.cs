@@ -1,9 +1,7 @@
 ﻿using List_Definer.Objects;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Runtime.CompilerServices.Objects;
-using System.Text;
 
 namespace List_Definer.Util
 {
@@ -27,83 +25,92 @@ namespace List_Definer.Util
 
 		public static void SaveStructAfterRun()
 		{
-			var Sets = File.CreateText(ListDefinerBase.DLLPath + "..\\..\\Config\\ListDefiner\\Sets.apidat");
+			string path = ListDefinerBase.DLLPath + "..\\..\\..\\config\\ListDefiner\\Sets.apidat";
+			string? dir = Path.GetDirectoryName(path);
+			
+			if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+			{
+				Directory.CreateDirectory(dir);
+			}
+
+			var Sets = new StreamWriter(path, false);
 			Sets.WriteLine("Sets [");
 			foreach (EarlySetData set in sets)
 			{
-				Sets.WriteLine($"\t\"{set.SetName}\" [");
+				Sets.WriteLine($"    \"{set.SetName}\" [");
 				Sets.WriteLine($"""
-								\t\tDescription [
-								\t\t\t{set.SetDescription}
-								\t\t] 
+								        Description [
+								            {set.SetDescription}
+								        ] 
 								""");
-				Sets.WriteLine("\t\tCardsList [");
+				Sets.WriteLine("        CardsList [");
 				foreach (EarlyCardData card in set.Cards)
 				{
-					Sets.WriteLine($"\t\t\t\"{card.CardName}\" [");
-					Sets.WriteLine($"\t\t\t\tRoles [");
+					Sets.WriteLine($"            \"{card.CardName}\" [");
+					Sets.WriteLine($"                Roles [");
 					foreach (EMonsterRole role in card.Roles)
 					{
-						Sets.WriteLine($"\t\t\t\t\t{role.ToString()}");
+						Sets.WriteLine($"                    {role.ToString()}");
 					}
-					Sets.WriteLine($"\t\t\t\t]");
-					Sets.WriteLine($"\t\t\t\tSkills [");
+					Sets.WriteLine($"                ]");
+					Sets.WriteLine($"                Skills [");
 					foreach (ESkill skill in card.Skills)
 					{
-						Sets.WriteLine($"\t\t\t\t\t{skill.ToString()}");
+						Sets.WriteLine($"                    {skill.ToString()}");
 					}
-					Sets.WriteLine($"\t\t\t\t]");
+					Sets.WriteLine($"                ]");
 					Sets.WriteLine($"""
-					                \t\t\t\tArtist [
-					                \t\t\t\t\t{card.ArtistName}
-					                \t\t\t\t]
-					                \t\t\t\tDescription [
-					                \t\t\t\t\t{card.Description}
-					                \t\t\t\t]
-					                \t\t\t\tEffectAmount [
-					                \t\t\t\t\t{card.EffectAmount.x}
-					                \t\t\t\t\t{card.EffectAmount.y}
-					                \t\t\t\t\t{card.EffectAmount.z}
-					                \t\t\t\t]
-					                \t\t\t\tElement [
-					                \t\t\t\t\t{card.Element}
-					                \t\t\t\t]
-					                \t\t\t\tRarity [
-					                \t\t\t\t\t{card.Rarity}
-					                \t\t\t\t]
-					                \t\t\t\tNextForm [
-					                \t\t\t\t\t{card.Next}
-					                \t\t\t\t]
-					                \t\t\t\tPreviousForm [
-					                \t\t\t\t\t{card.Previous}
-					                \t\t\t\t]
-					                \t\t\t\tStats [
-					                \t\t\t\t\tBaseStats [
+					                                Artist [
+					                                    {card.ArtistName}
+					                                ]
+					                                Description [
+					                                    {card.Description}
+					                                ]
+					                                EffectAmount [
+					                                    {card.EffectAmount.x}
+					                                    {card.EffectAmount.y}
+					                                    {card.EffectAmount.z}
+					                                ]
+					                                Element [
+					                                    {card.Element.ToString()}
+					                                ]
+					                                Rarity [
+					                                    {card.Rarity.ToString()}
+					                                ]
+					                                NextForm [
+					                                    {card.Next}
+					                                ]
+					                                PreviousForm [
+					                                    {card.Previous}
+					                                ]
+					                                Stats [
+					                                    BaseStats [
 					                """);
 					foreach (int stat in card.BaseStats)
 					{
-						Sets.WriteLine($"\t\t\t\t\t\t{stat}");
+						Sets.WriteLine($"                        {stat}");
 					}
-					Sets.WriteLine($"\t\t\t\t\t]");
-					Sets.WriteLine("\t\t\t\t\tModifiedStats [");
+					Sets.WriteLine($"                    ]");
+					Sets.WriteLine("                    ModifiedStats [");
 					foreach (int stat in card.ModifiedStats)
 					{
-						Sets.WriteLine($"\t\t\t\t\t\t{stat}");
+						Sets.WriteLine($"                        {stat}");
 					}
-					Sets.WriteLine($"\t\t\t\t\t]");
-					Sets.WriteLine("\t\t\t\t]");
-					Sets.WriteLine("\t\t\t\tIconPath [");
-					Sets.WriteLine($"\t\t\t\t\t{card.IconPath}");
-					Sets.WriteLine("\t\t\t\t]");
-					Sets.WriteLine("\t\t\t\tGhostIconPath [");
-					Sets.WriteLine($"\t\t\t\t\t{card.GhostIconPath}");
-					Sets.WriteLine("\t\t\t\t]");
-					Sets.WriteLine("\t\t\t]");
+					Sets.WriteLine($"                    ]");
+					Sets.WriteLine("                ]");
+					Sets.WriteLine("                IconPath [");
+					Sets.WriteLine($"                    {card.IconPath}");
+					Sets.WriteLine("                ]");
+					Sets.WriteLine("                GhostIconPath [");
+					Sets.WriteLine($"                    {card.GhostIconPath}");
+					Sets.WriteLine("                ]");
+					Sets.WriteLine("            ]");
 				}
-				Sets.WriteLine("\t\t]");
-				Sets.WriteLine("\t]");
+				Sets.WriteLine("        ]");
+				Sets.WriteLine("    ]");
 			}
 			Sets.WriteLine("]");
+			Sets.Close();
 		}
 	}
 }

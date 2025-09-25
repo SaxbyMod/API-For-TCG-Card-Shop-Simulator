@@ -13,10 +13,11 @@ namespace List_Definer.Util
 			StructSetup.sets.Add(set);
 		}
 		
-		public static void AddCardToStruct(string prefix, string name, string set, string artistName, string description, string rarity, string element, Vector3 effectAmount, string next, string previous, List<EMonsterRole> roles, List<ESkill> skills, List<int> baseStats, List<int> modifiedStats)
+		public static void AddCardToStruct(string prefix, string name, string set, string artistName, string description, ERarity rarity, EElementIndex element, Vector3 effectAmount, string next, string previous, List<EMonsterRole> roles, List<ESkill> skills, List<int> baseStats, List<int> modifiedStats, string pathStart)
 		{
-			EarlyCardData data = new EarlyCardData(prefix, name, set, artistName, description, rarity, element, effectAmount, next, previous, roles, skills, baseStats, modifiedStats);
-			StructSetup.sets.Find(setData => setData.SetName == (prefix + set)).Cards.Add(data);;
+			EarlyCardData data = new EarlyCardData(prefix, name, set, artistName, description, rarity, element, effectAmount, next, previous, roles, skills, baseStats, modifiedStats, pathStart);
+			StructSetup.sets.Find(setData => setData.SetName == (set)).Cards.Add(data);
+			StructSetup.SaveStructAfterRun();
 		}
 	}
 }
