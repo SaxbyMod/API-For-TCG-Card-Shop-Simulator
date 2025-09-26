@@ -1,7 +1,6 @@
 ﻿using List_Definer.Objects;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices.Objects;
 
 namespace List_Definer.Util
 {
@@ -26,13 +25,13 @@ namespace List_Definer.Util
 		public static void SaveStructAfterRun()
 		{
 			string path = ListDefinerBase.DLLPath + "..\\..\\..\\config\\ListDefiner\\Sets.apidat";
-			string? dir = Path.GetDirectoryName(path);
+			string dir = Path.GetDirectoryName(path);
 			
 			if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
 			{
 				Directory.CreateDirectory(dir);
 			}
-
+			// Refactor later to allow custom set object types
 			var Sets = new StreamWriter(path, false);
 			Sets.WriteLine("Sets [");
 			foreach (EarlySetData set in sets)
@@ -46,7 +45,7 @@ namespace List_Definer.Util
 				Sets.WriteLine("        CardsList [");
 				foreach (EarlyCardData card in set.Cards)
 				{
-					Sets.WriteLine($"            \"{card.CardName}\" [");
+					Sets.WriteLine($"            \"{set.SetName}|{card.CardName}\" [");
 					Sets.WriteLine($"                Roles [");
 					foreach (EMonsterRole role in card.Roles)
 					{

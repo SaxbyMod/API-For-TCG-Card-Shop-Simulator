@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace List_Definer.Objects
 {
-	public class EarlyCardData
+	public class MiddleCardData
 	{
 		public string CardName { get; set; }
 		public string ArtistName { get; set; }
@@ -20,8 +20,8 @@ namespace List_Definer.Objects
 		public List<int> BaseStats { get; set; }
 		public List<int> ModifiedStats { get; set; }
 		
-		public EarlyCardData(string prefix, string name, string set, string artistName, string description, ERarity rarity, EElementIndex element, Vector3 effectAmount, string next, string previous, List<EMonsterRole> roles,  List<ESkill> skills, List<int> baseStats, List<int> modifiedStats, string pathStart) {
-			CardName = prefix + ":" + name;
+		public MiddleCardData(string cardName, string artistName, string description, ERarity rarity, EElementIndex element, Vector3 effectAmount, string next, string previous, List<EMonsterRole> roles,  List<ESkill> skills, List<int> baseStats, List<int> modifiedStats, string iconPath, string ghostIconPath) {
+			CardName = cardName;
 			ArtistName = artistName;
 			Description = description;
 			Rarity = rarity;
@@ -31,8 +31,8 @@ namespace List_Definer.Objects
 			Previous = previous;
 			Roles = roles;
 			Skills = skills;
-			IconPath = pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\";
-			GhostIconPath = pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\Ghost\\";
+			IconPath = iconPath;
+			GhostIconPath = ghostIconPath;
 			BaseStats = baseStats;
 			ModifiedStats = modifiedStats;
 		}

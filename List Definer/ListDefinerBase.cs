@@ -21,6 +21,7 @@ namespace List_Definer
 			StructSetup.AddStarterSets();
 			Tetramon.CreateBaseTetramon();
 			StructSetup.SaveStructAfterRun();
+			var Return = StructReader.ReadCardStruct();
 			// Fill Base Data Points;
 		}
 
