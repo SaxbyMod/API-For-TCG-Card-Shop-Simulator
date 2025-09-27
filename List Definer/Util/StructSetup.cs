@@ -40,7 +40,7 @@ namespace List_Definer.Util
 				Sets.WriteLine($"""
 								        Description [
 								            {set.SetDescription}
-								        ] 
+								        ]⇵
 								""");
 				Sets.WriteLine("        CardsList [");
 				foreach (EarlyCardData card in set.Cards)
@@ -51,37 +51,37 @@ namespace List_Definer.Util
 					{
 						Sets.WriteLine($"                    {role.ToString()}");
 					}
-					Sets.WriteLine($"                ]");
+					Sets.WriteLine($"                ]⇵");
 					Sets.WriteLine($"                Skills [");
 					foreach (ESkill skill in card.Skills)
 					{
 						Sets.WriteLine($"                    {skill.ToString()}");
 					}
-					Sets.WriteLine($"                ]");
+					Sets.WriteLine($"                ]⇵");
 					Sets.WriteLine($"""
 					                                Artist [
 					                                    {card.ArtistName}
-					                                ]
+					                                ]⇵
 					                                Description [
 					                                    {card.Description}
-					                                ]
+					                                ]⇵
 					                                EffectAmount [
 					                                    {card.EffectAmount.x}
 					                                    {card.EffectAmount.y}
 					                                    {card.EffectAmount.z}
-					                                ]
+					                                ]⇵
 					                                Element [
 					                                    {card.Element.ToString()}
-					                                ]
+					                                ]⇵
 					                                Rarity [
 					                                    {card.Rarity.ToString()}
-					                                ]
+					                                ]⇵
 					                                NextForm [
 					                                    {card.Next}
-					                                ]
+					                                ]⇵
 					                                PreviousForm [
 					                                    {card.Previous}
-					                                ]
+					                                ]⇵
 					                                Stats [
 					                                    BaseStats [
 					                """);
@@ -89,26 +89,26 @@ namespace List_Definer.Util
 					{
 						Sets.WriteLine($"                        {stat}");
 					}
-					Sets.WriteLine($"                    ]");
+					Sets.WriteLine($"                    ]⇵");
 					Sets.WriteLine("                    ModifiedStats [");
 					foreach (int stat in card.ModifiedStats)
 					{
 						Sets.WriteLine($"                        {stat}");
 					}
-					Sets.WriteLine($"                    ]");
-					Sets.WriteLine("                ]");
+					Sets.WriteLine($"                    ]⇵");
+					Sets.WriteLine("                ]⇵");
 					Sets.WriteLine("                IconPath [");
 					Sets.WriteLine($"                    {card.IconPath}");
-					Sets.WriteLine("                ]");
+					Sets.WriteLine("                ]⇵");
 					Sets.WriteLine("                GhostIconPath [");
 					Sets.WriteLine($"                    {card.GhostIconPath}");
-					Sets.WriteLine("                ]");
-					Sets.WriteLine("            ]");
+					Sets.WriteLine("                ]⇵");
+					Sets.WriteLine("            ]⇵");
 				}
-				Sets.WriteLine("        ]");
-				Sets.WriteLine("    ]");
+				Sets.WriteLine("        ]⇵");
+				Sets.WriteLine("    ]⇵");
 			}
-			Sets.WriteLine("]");
+			Sets.WriteLine("]⇵");
 			Sets.Close();
 		}
 	}

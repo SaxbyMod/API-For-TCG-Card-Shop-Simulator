@@ -1,8 +1,8 @@
-﻿using List_Definer.Objects;
+﻿using List_Definer.Helpers.NodeHelpers;
+using List_Definer.Objects;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using UnityEngine;
 
 namespace List_Definer.Util
@@ -11,199 +11,197 @@ namespace List_Definer.Util
     {
         public static List<MiddleSetData> ReadCardStruct()
         {
-            List<MiddleSetData> Sets = new List<MiddleSetData>();
+            List<MiddleSetData> sets =  new List<MiddleSetData>();
+            
             string path = ListDefinerBase.DLLPath + "..\\..\\..\\config\\ListDefiner\\Sets.apidat";
 
             if (!File.Exists(path))
-                return Sets;
+                return sets;
+            
+            string[] file = File.ReadAllLines(path);
+            
+            // This will parse the apidat file for the tree.
+            List<Node> Tree = ParseClass.Parse(file);
 
-            List<string> Lines = File.ReadLines(path).ToList();
-            int counter = 1;
-            while (!Lines[counter].Trim().Equals("]"))
+            // Delve into Sets Nodes
+            string[] setNodes = GetNodesClass.GetNodes(Tree, "Sets");
+
+            foreach (string item in setNodes)
             {
-                // Refactor later to allow custom set object types
-                // Start of Set
-                string rawline = Lines[counter];
-                string SetName = "";
+                // Delve into the unique Set Nodes
+                string[] setInformationNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}");
+                
+                // Create the base Set Information
+                string SetName = setInformationNodes[0].Replace("\"", "");
                 string SetDescription = "";
                 List<MiddleCardData> cards = new List<MiddleCardData>();
-                if (rawline.TrimStart().StartsWith("\"") && !rawline.Split("\"")[1].Contains('|') && rawline.EndsWith("["))
+                Console.WriteLine(item);
+
+                // Delve into the Set
+                foreach (string subItem in setInformationNodes)
                 {
-                    SetName = rawline.Split("\"")[1];
-                    SetDescription = Lines[counter + 2].Trim();
-                    Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                    Console.WriteLine($"Found Set called; {SetName}");
-                    Console.WriteLine($"    {SetDescription}");
-                    Console.WriteLine($"    Contains Cards;");
-                    counter += 4;
-                    // Start of CardList
-                    while (!Lines[counter].Trim().Equals("]"))
+                    Console.WriteLine("|--" + subItem);
+                    // Each of these are going to be roughly the same but these check the item and set the item to the tree path at value 0 from the GetNodes
+                    if (subItem == "Description")
                     {
-                        List<EMonsterRole> roles = new List<EMonsterRole>();
-                        List<ESkill> skills = new List<ESkill>();
-                        string CardName = "";
-                        string artist = "";
-                        string description = "";
-                        Vector3 effectAmount = new Vector3();
-                        EElementIndex element = EElementIndex.None;
-                        ERarity rarity = ERarity.None;
-                        string nextForm = "";
-                        string previousForm = "";
-                        List<int> baseStats = new List<int>();
-                        List<int> modifierStats = new List<int>();
-                        string IconPath = "";
-                        string GhostIconPath = "";
-                        counter++;
-                        if (Lines[counter].TrimStart().StartsWith("\"") && Lines[counter].EndsWith("["))
+                        SetDescription = GetNodesClass.GetNodes(Tree,  $"Sets/{item}/{subItem}")[0];
+                    }
+                    if (subItem == "CardsList")
+                    {
+                        // Delve into the Card Nodes
+                        string[] CardsList = GetNodesClass.GetNodes(Tree,  $"Sets/{item}/{subItem}");
+                        foreach (string cardItem in CardsList)
                         {
-                            CardName = Lines[counter].Split('"')[1].Split('|')[1];
-                            counter++;
-
-                            while (!Lines[counter].Trim().Equals("]"))
+                            // Create the base Card Information
+                            Console.WriteLine("|----" + cardItem);
+                            List<EMonsterRole> roles = new List<EMonsterRole>();
+                            List<ESkill> skills = new List<ESkill>();
+                            string CardName = "";
+                            string artist = "";
+                            string description = "";
+                            Vector3 effectAmount = new Vector3();
+                            EElementIndex element = EElementIndex.None;
+                            ERarity rarity = ERarity.None;
+                            string nextForm = "";
+                            string previousForm = "";
+                            List<int> baseStats = new List<int>();
+                            List<int> modifierStats = new List<int>();
+                            string IconPath = "";
+                            string GhostIconPath = "";
+                            
+                            // Delve into the unique Card Nodes
+                            string[] cardInformationNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}");
+                            CardName = cardInformationNodes[0].Replace("\"", "").Split('|')[1];
+                            foreach (string subCard in cardInformationNodes)
                             {
-                                string line = Lines[counter].Trim();
+                                Console.WriteLine("    |--" + subCard);
 
-                                if (line == "Roles [")
+                                if (subCard == "Roles")
                                 {
-                                    counter++;
-                                    while (!Lines[counter].Trim().Equals("]"))
+                                    // Delve into the Role Nodes
+                                    string[] roleNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
+                                    foreach (string roleNode in roleNodes)
                                     {
-                                        roles.Add(Enum.Parse<EMonsterRole>(Lines[counter].Trim()));
-                                        counter++;
+                                        Console.WriteLine("    |----" + roleNode);
+                                        roles.Add(Enum.Parse<EMonsterRole>(roleNode));
                                     }
-                                    counter++;
                                 }
-                                else if (line == "Skills [")
+                                
+                                if (subCard == "Skills")
                                 {
-                                    counter++;
-                                    while (!Lines[counter].Trim().Equals("]"))
+                                    // Delve into the Skill Nodes
+                                    string[] skillNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
+                                    foreach (string skillNode in skillNodes)
                                     {
-                                        skills.Add(Enum.Parse<ESkill>(Lines[counter].Trim()));
-                                        counter++;
+                                        Console.WriteLine("    |----" + skillNode);
+                                        skills.Add(Enum.Parse<ESkill>(skillNode));
                                     }
-                                    counter++;
                                 }
-                                else if (line == "Artist [")
-                                {
-                                    artist = Lines[counter + 1].Trim();
-                                    counter += 3;
+                                
+                                if (subCard == "Artist")
+                                { 
+                                    artist = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
-                                else if (line == "Description [")
-                                {
-                                    description = Lines[counter + 1].Trim();
-                                    counter += 3;
+                                
+                                if (subCard == "Description")
+                                { 
+                                    description = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
-                                else if (line == "EffectAmount [")
+                                
+                                if (subCard == "EffectAmount")
                                 {
-                                    effectAmount.x = int.Parse(Lines[counter + 1].Trim());
-                                    effectAmount.y = int.Parse(Lines[counter + 2].Trim());
-                                    effectAmount.z = int.Parse(Lines[counter + 3].Trim());
-                                    counter += 5;
+                                    string[] effectNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
+                                    effectAmount.x = int.Parse(effectNodes[0]);
+                                    effectAmount.y = int.Parse(effectNodes[1]);
+                                    effectAmount.z = int.Parse(effectNodes[2]);
                                 }
-                                else if (line == "Element [")
+                                
+                                if (subCard == "Element")
                                 {
-                                    element = Enum.Parse<EElementIndex>(Lines[counter + 1].Trim());
-                                    counter += 3;
+                                    element = Enum.Parse<EElementIndex>(GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0]);
                                 }
-                                else if (line == "Rarity [")
+                                
+                                if (subCard == "Rarity")
                                 {
-                                    rarity = Enum.Parse<ERarity>(Lines[counter + 1].Trim());
-                                    counter += 3;
+                                    rarity = Enum.Parse<ERarity>(GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0]);
                                 }
-                                else if (line == "NextForm [")
+                                
+                                if (subCard == "NextForm")
                                 {
-                                    nextForm = string.IsNullOrWhiteSpace(Lines[counter + 1].Trim()) ? "None" : Lines[counter + 1].Trim();
-                                    counter += 3;
+                                    nextForm = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
-                                else if (line == "PreviousForm [")
+                                
+                                if (subCard == "PreviousForm")
                                 {
-                                    previousForm = string.IsNullOrWhiteSpace(Lines[counter + 1].Trim()) ? "None" : Lines[counter + 1].Trim();
-                                    counter += 3;
+                                    previousForm = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
-                                else if (line == "Stats [")
+                                
+                                if (subCard == "Stats")
                                 {
-                                    counter++;
-                                    while (!Lines[counter].Trim().Equals("]"))
+                                    // Delve into the Stat Nodes
+                                    string[] statNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
+                                    foreach (string statType in statNodes)
                                     {
-                                        if (Lines[counter].Trim() == "BaseStats [")
+                                        Console.WriteLine("    |----" + statType);
+                                        if (statType == "BaseStats")
                                         {
-                                            counter++;
-                                            while (!Lines[counter].Trim().Equals("]"))
+                                            // Delve into the Base Stat Nodes
+                                            string[] baseNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}/{statType}");
+                                            foreach (string baseNode in baseNodes)
                                             {
-                                                baseStats.Add(int.Parse(Lines[counter].Trim()));
-                                                counter++;
+                                                Console.WriteLine("    |------" + baseNode);
+                                                baseStats.Add(int.Parse(baseNodes[0]));
                                             }
-                                            counter++;
                                         }
-                                        else if (Lines[counter].Trim() == "ModifiedStats [")
+                                        if (statType == "ModifiedStats")
                                         {
-                                            counter++;
-                                            while (!Lines[counter].Trim().Equals("]"))
+                                            // Delve into the Modified Stat  Nodes
+                                            string[] modifiedNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}/{statType}");
+                                            foreach (string modifiedNode in modifiedNodes)
                                             {
-                                                modifierStats.Add(int.Parse(Lines[counter].Trim()));
-                                                counter++;
+                                                Console.WriteLine("    |------" + modifiedNode);
+                                                baseStats.Add(int.Parse(modifiedNodes[0]));
                                             }
-                                            counter++;
-                                        }
-                                        else
-                                        {
-                                            counter++;
                                         }
                                     }
-                                    counter++;
                                 }
-                                else if (line == "IconPath [")
+                                
+                                if (subCard == "IconPath")
                                 {
-                                    IconPath = string.IsNullOrWhiteSpace(Lines[counter + 1].Trim()) ? "None" : Lines[counter + 1].Trim();
-                                    counter += 3;
+                                    IconPath = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
-                                else if (line == "GhostIconPath [")
+                                
+                                if (subCard == "GhostIconPath")
                                 {
-                                    GhostIconPath = string.IsNullOrWhiteSpace(Lines[counter + 1].Trim()) ? "None" : Lines[counter + 1].Trim();
-                                    counter += 3;
-                                }
-                                else
-                                {
-                                    counter++;
+                                    GhostIconPath = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
                             }
-
-                            counter++;
-
-                            if (!string.IsNullOrEmpty(CardName))
-                            {
-                                var card = new MiddleCardData(CardName, artist, description, rarity, element, effectAmount, nextForm, previousForm, roles, skills, baseStats, modifierStats, IconPath, GhostIconPath);
-
-                                cards.Add(card);
-                                Console.WriteLine($"        Found Card; {CardName}");
-                                Console.WriteLine($"            {description.Replace("XXX", effectAmount.x.ToString()).Replace("YYY", effectAmount.y.ToString()).Replace("ZZZ", effectAmount.z.ToString())}");
-                                Console.WriteLine($"            Artist(s): {artist}");
-                                Console.WriteLine($"            Next Form: {nextForm}");
-                                Console.WriteLine($"            Previous Form: {previousForm}");
-                                Console.WriteLine($"            Rarity: {rarity.ToString()}");
-                                Console.WriteLine($"            Element: {element.ToString()}");
-                                Console.WriteLine($"            With Roles of;");
-                                foreach (EMonsterRole item in roles)
-                                {
-                                    Console.WriteLine($"                {item.ToString()}");
-                                }
-                                Console.WriteLine($"            With Skills of;");
-                                foreach (ESkill item in skills)
-                                {
-                                    Console.WriteLine($"                {item.ToString()}");
-                                }
-                                Console.WriteLine($"            IconPath: {IconPath}");
-                                Console.WriteLine($"            GhostIconPath: {GhostIconPath}");
-                            }
+                            
+                            MiddleCardData card = new MiddleCardData(
+                                CardName,
+                                artist,
+                                description,
+                                rarity,
+                                element,
+                                effectAmount,
+                                nextForm,
+                                previousForm,
+                                roles,
+                                skills,
+                                baseStats,
+                                modifierStats,
+                                IconPath,
+                                GhostIconPath
+                            );
+                            cards.Add(card);
                         }
-                        counter++;
                     }
                 }
                 MiddleSetData set = new MiddleSetData(SetName, SetDescription, cards);
-                Sets.Add(set);
-                counter++;
+                sets.Add(set);
             }
-            return Sets;
+            
+            return sets;
         }
     }
 }

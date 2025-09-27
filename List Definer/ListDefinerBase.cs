@@ -17,7 +17,7 @@ namespace List_Definer
 		public static IEnumerable<string> TargetDLLs { get; } = ["Assembly-CSharp.dll"];
 		public static void Initialize()
 		{
-			Console.WriteLine(GetColorFromTypeFunctions.GetColorFromString("Yellow", "Italic") + "Initializing ListDefiner" + ANSICodeLists.ResetColor);
+			Console.WriteLine("Initializing ListDefiner");
 			StructSetup.AddStarterSets();
 			Tetramon.CreateBaseTetramon();
 			StructSetup.SaveStructAfterRun();
