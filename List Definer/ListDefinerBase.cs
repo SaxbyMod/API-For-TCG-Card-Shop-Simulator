@@ -20,12 +20,10 @@ namespace List_Definer
 			Console.WriteLine("Initializing ListDefiner");
 			StructSetup.AddStarterSets();
 			// Fill Base Data Points;
+			AddKeyClass.AddKeyStart("Core_API");
 			Tetramon.CreateBaseTetramon();
 			StructSetup.SaveStructAfterRun();
-		}
-
-		public static void Patch(AssemblyDefinition assembly)
-		{
+			AddKeyClass.MarkKeyFinished("Core_API");
 		}
 	}
 }

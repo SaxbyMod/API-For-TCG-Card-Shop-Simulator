@@ -6,7 +6,6 @@ namespace List_Definer.Helpers.NodeHelpers
 {
 	public class ParseClass
 	{
-            
             public static int ParsingIterator = 0;
             
             /// <summary>

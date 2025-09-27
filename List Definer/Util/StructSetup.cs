@@ -47,13 +47,13 @@ namespace List_Definer.Util
 				{
 					Sets.WriteLine($"            \"{set.SetName}|{card.CardName}\" [");
 					Sets.WriteLine($"                Roles [");
-					foreach (EMonsterRole role in card.Roles)
+					foreach (string role in card.Roles)
 					{
 						Sets.WriteLine($"                    {role.ToString()}");
 					}
 					Sets.WriteLine($"                ]⇵");
 					Sets.WriteLine($"                Skills [");
-					foreach (ESkill skill in card.Skills)
+					foreach (string skill in card.Skills)
 					{
 						Sets.WriteLine($"                    {skill.ToString()}");
 					}
@@ -66,15 +66,15 @@ namespace List_Definer.Util
 					                                    {card.Description}
 					                                ]⇵
 					                                EffectAmount [
-					                                    {card.EffectAmount.x}
-					                                    {card.EffectAmount.y}
-					                                    {card.EffectAmount.z}
+					                                    {card.EffectAmount[0]}
+					                                    {card.EffectAmount[1]}
+					                                    {card.EffectAmount[2]}
 					                                ]⇵
 					                                Element [
-					                                    {card.Element.ToString()}
+					                                    {card.Element}
 					                                ]⇵
 					                                Rarity [
-					                                    {card.Rarity.ToString()}
+					                                    {card.Rarity}
 					                                ]⇵
 					                                NextForm [
 					                                    {card.Next}

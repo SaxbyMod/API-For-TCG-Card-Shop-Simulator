@@ -5,8 +5,6 @@ namespace List_Definer.Helpers.NodeHelpers
 {
 	public class GetNodesClass
 	{
-		
-		
 		/// <summary>
 		///This takes in the tree and returns the value of a node inside it.
 		///The formatting looks like this: Path/To/Node, This/Has/"\Apostrophes\".

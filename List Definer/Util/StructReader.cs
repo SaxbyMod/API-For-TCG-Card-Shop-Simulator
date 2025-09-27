@@ -52,14 +52,14 @@ namespace List_Definer.Util
                         foreach (string cardItem in CardsList)
                         {
                             // Create the base Card Information
-                            List<EMonsterRole> roles = new List<EMonsterRole>();
-                            List<ESkill> skills = new List<ESkill>();
+                            List<string> roles = new List<string>();
+                            List<string> skills = new List<string>();
                             string CardName = "";
                             string artist = "";
                             string description = "";
-                            Vector3 effectAmount = new Vector3();
-                            EElementIndex element = EElementIndex.None;
-                            ERarity rarity = ERarity.None;
+                            List<int> effectAmount = new List<int>();
+                            string element = "None";
+                            string rarity = "None";
                             string nextForm = "";
                             string previousForm = "";
                             List<int> baseStats = new List<int>();
@@ -80,7 +80,7 @@ namespace List_Definer.Util
                                     string[] roleNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
                                     foreach (string roleNode in roleNodes)
                                     {
-                                        roles.Add(Enum.Parse<EMonsterRole>(roleNode));
+                                        roles.Add(roleNode);
                                     }
                                 }
                                 
@@ -90,7 +90,7 @@ namespace List_Definer.Util
                                     string[] skillNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
                                     foreach (string skillNode in skillNodes)
                                     {
-                                        skills.Add(Enum.Parse<ESkill>(skillNode));
+                                        skills.Add(skillNode);
                                     }
                                 }
                                 
@@ -107,19 +107,19 @@ namespace List_Definer.Util
                                 if (subCard == "EffectAmount")
                                 {
                                     string[] effectNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}");
-                                    effectAmount.x = int.Parse(effectNodes[0]);
-                                    effectAmount.y = int.Parse(effectNodes[1]);
-                                    effectAmount.z = int.Parse(effectNodes[2]);
+                                    effectAmount.Add(int.Parse(effectNodes[0]));
+                                    effectAmount.Add(int.Parse(effectNodes[1]));
+                                    effectAmount.Add(int.Parse(effectNodes[2]));
                                 }
                                 
                                 if (subCard == "Element")
                                 {
-                                    element = Enum.Parse<EElementIndex>(GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0]);
+                                    element = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
                                 
                                 if (subCard == "Rarity")
                                 {
-                                    rarity = Enum.Parse<ERarity>(GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0]);
+                                    rarity = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}")[0];
                                 }
                                 
                                 if (subCard == "NextForm")
@@ -207,21 +207,21 @@ namespace List_Definer.Util
                 {
                     Console.WriteLine($"|--> {card.CardName}");
                     Console.WriteLine($"     ");
-                    Console.WriteLine($"|-------> Card Description: {card.Description.Replace("XXX", card.EffectAmount.x.ToString()).Replace("YYY", card.EffectAmount.y.ToString()).Replace("ZZZ", card.EffectAmount.z.ToString())}");
+                    Console.WriteLine($"|-------> Card Description: {card.Description.Replace("XXX", card.EffectAmount[0].ToString()).Replace("YYY", card.EffectAmount[1].ToString()).Replace("ZZZ", card.EffectAmount[2].ToString())}");
                     Console.WriteLine($"|-------> Card Artist: {card.ArtistName}");
-                    Console.WriteLine($"|-------> Card Element: {card.Element.ToString()}");
-                    Console.WriteLine($"|-------> Card Rarity: {card.Rarity.ToString()}");
+                    Console.WriteLine($"|-------> Card Element: {card.Element}");
+                    Console.WriteLine($"|-------> Card Rarity: {card.Rarity}");
                     Console.WriteLine($"|-------> Card's Next Form: {card.Next}");
                     Console.WriteLine($"|-------> Card's Previous Form: {card.Previous}");
                     Console.WriteLine($"|-------> Card Roles:");
-                    foreach (EMonsterRole role in card.Roles)
+                    foreach (string role in card.Roles)
                     {
-                        Console.WriteLine($"|------------> {role.ToString()}");
+                        Console.WriteLine($"|------------> {role}");
                     }
                     Console.WriteLine("|-------> Card Skills:");
-                    foreach (ESkill skill in card.Skills)
+                    foreach (string skill in card.Skills)
                     {
-                        Console.WriteLine($"|------------> {skill.ToString()}");
+                        Console.WriteLine($"|------------> {skill}");
                     }
                     Console.WriteLine("|-------> Card Base Stats:");
                     foreach (int stat in card.BaseStats)
