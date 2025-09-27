@@ -30,7 +30,7 @@ namespace Enum_Patcher
 	        List<MiddleSetData> ReadInput = List_Definer.Util.StructReader.ReadCardStruct();
 	        
 	        var monsterType = assembly.MainModule.Types.First(Type => Type.Name == "EMonsterType");
-	        var cardExpanstionType = assembly.MainModule.Types.First(Type => Type.Name == "ECardExpansionType");
+	        var cardExpansionType = assembly.MainModule.Types.First(Type => Type.Name == "ECardExpansionType");
 	        
 	        int iterator = 0;
 	        foreach (MiddleSetData data in ReadInput)
@@ -50,12 +50,12 @@ namespace Enum_Patcher
 			        cards.Add(data.CardName, CurrentSeperator);
 			        CurrentSeperator += 1;
 		        }
-		        cards.Add($"Seperator:{cardExpansions[iteratorNew + 50].SetName}-{((50 + 1 > cardExpansions.Count) ? "END" : cardExpansions[iteratorNew + 50 + 1].SetName)}", CurrentSeperator);
+		        cards.Add($"Seperator:{cardExpansions[iteratorNew + 50].SetName}-{((iteratorNew + 1 + 1 > cardExpansions.Count) ? "END" : cardExpansions[iteratorNew + 50 + 1].SetName)}", CurrentSeperator);
 		        CurrentSeperator += 1;
 	        }
 	        
 	        CardHooksClass.CardHooks(monsterType, cards);
-	        CardHooksClass.CardHooks(monsterType, cards);
+	        SetHooksClass.SetHooks(cardExpansionType, sets);
         }
 	}
 }

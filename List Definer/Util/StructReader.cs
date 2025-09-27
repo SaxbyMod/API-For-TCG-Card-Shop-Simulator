@@ -72,8 +72,6 @@ namespace List_Definer.Util
                             CardName = cardItem.Replace("\"", "").Split('|')[1];
                             foreach (string subCard in cardInformationNodes)
                             {
-                                Console.WriteLine("    |--" + subCard);
-
                                 if (subCard == "Roles")
                                 {
                                     // Delve into the Role Nodes

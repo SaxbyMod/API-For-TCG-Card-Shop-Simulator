@@ -1,4 +1,5 @@
-﻿using List_Definer.Util;
+﻿using List_Definer.Objects.UserReferenceLists;
+using List_Definer.Util;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,13 +33,13 @@ namespace List_Definer.Recreation
 				"Core_API:Tetramon",
 				"Hikoku",
 				"Fire element deals XXX extra damage this turn",
-				"Rare",
-				"Fire",
+				Raritys.Rare.ToString(),
+				Elements.Fire.ToString(),
 				new List<int>() { 60, 0, 0 },
 				"Core_API:Inferhog",
 				"Core_API:Pigni",
-				new List<string>() { "PhysicalAttacker" },
-				new List<string>() { "BlazingClaw", "Sharpen", "None", "PoisonFang" },
+				new List<string>() { Roles.PhysicalAttacker.ToString() },
+				new List<string>() { Skills.BlazingClaw.ToString(), Skills.Sharpen.ToString(), Skills.None.ToString(), Skills.PoisonFang.ToString() },
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 81, 35, 14, 25, 12, 18 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
@@ -50,13 +51,13 @@ namespace List_Definer.Recreation
 				"Core_API:Tetramon",
 				"Hikoku",
 				"Fire element deals XXX extra damage this turn",
-				"Epic",
-				"Fire",
+				Raritys.Epic.ToString(),
+				Elements.Fire.ToString(),
 				new List<int>() { 100, 0, 0 },
 				"Core_API:Blazoar",
 				"Core_API:Burpig",
-				new List<string>() { "PhysicalAttacker" },
-				new List<string>() { "InfernoClaw", "Sharpen", "None", "VenomFang" },
+				new List<string>() { Roles.PhysicalAttacker.ToString() },
+				new List<string>() { Skills.InfernoClaw.ToString(), Skills.Sharpen.ToString(), Skills.None.ToString(), Skills.VenomFang.ToString() },
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 83, 36, 15, 26, 12, 17 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
@@ -68,13 +69,13 @@ namespace List_Definer.Recreation
 				"Core_API:Tetramon",
 				"Hikoku",
 				"Fire element deals double damage this turn",
-				"Epic",
-				"Fire",
+				Raritys.Legendary.ToString(),
+				Elements.Fire.ToString(),
 				new List<int>() { 2, 0, 0 },
 				"",
 				"Core_API:Inferhog",
-				new List<string>() { "PhysicalAttacker" },
-				new List<string>() { "HellfireClaw", "Sharpen", "None", "VenomFang" },
+				new List<string>() { Roles.PhysicalAttacker.ToString() },
+				new List<string>() { Skills.HellfireClaw.ToString(), Skills.Sharpen.ToString(), Skills.None.ToString(), Skills.VenomFang.ToString() },
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 85, 38, 15, 28, 12, 16 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },

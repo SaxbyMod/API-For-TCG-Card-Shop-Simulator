@@ -29,6 +29,8 @@ namespace Enum_Patching.Util
 					}
 				}
 			}
+			StructSetup.enumsToSave.Add("Sets", EnumPatcher.sets);
+			StructSetup.SaveStructAfterRun();
 		}
 	}
 }
