@@ -19,10 +19,9 @@ namespace List_Definer
 		{
 			Console.WriteLine("Initializing ListDefiner");
 			StructSetup.AddStarterSets();
+			// Fill Base Data Points;
 			Tetramon.CreateBaseTetramon();
 			StructSetup.SaveStructAfterRun();
-			var Return = StructReader.ReadCardStruct();
-			// Fill Base Data Points;
 		}
 
 		public static void Patch(AssemblyDefinition assembly)
