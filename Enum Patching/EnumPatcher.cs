@@ -54,8 +54,9 @@ namespace Enum_Patcher
 		        CurrentSeperator += 1;
 	        }
 	        
-	        CardHooksClass.CardHooks(monsterType, cards);
-	        SetHooksClass.SetHooks(cardExpansionType, sets);
+	        CardHooksClass.CardHooks(monsterType, cards).Wait();
+	        SetHooksClass.SetHooks(cardExpansionType, sets).Wait();
+	        assembly.Write();
         }
 	}
 }

@@ -24,7 +24,7 @@ namespace Enum_Patching.Util
 				Enums.WriteLine($"    \"{type}\" [");
 				foreach (KeyValuePair<string,int> enumType in enumsToSave[type])
 				{
-					Enums.WriteLine($"    {enumType.Key} = {enumType.Value}");
+					Enums.WriteLine($"        {enumType.Key.Replace("-", "_____").Replace(":", "________")} = {enumType.Value}");
 				}
 				Enums.WriteLine("    ]⇵");
 			}
