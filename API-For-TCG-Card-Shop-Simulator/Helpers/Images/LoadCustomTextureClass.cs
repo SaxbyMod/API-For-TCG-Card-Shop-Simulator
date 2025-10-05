@@ -6,7 +6,7 @@ namespace API.Helpers.Images
 	public class LoadCustomTextureClass
 	{
 		/// <summary>
-		///This is a simple function that converts a file into a Texture2D
+		/// This is a simple function that converts a file into a Texture2D
 		/// </summary>
 		/// <param name="fileName">The name of the file.</param>
 		/// <param name="imagePath">The path to the file.</param>

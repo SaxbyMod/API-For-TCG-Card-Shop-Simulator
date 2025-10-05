@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace List_Definer.Objects
@@ -31,8 +32,8 @@ namespace List_Definer.Objects
 			Previous = previous;
 			Roles = roles;
 			Skills = skills;
-			IconPath = pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\";
-			GhostIconPath = pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\Ghost\\";
+			IconPath = Path.GetFullPath(pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\");
+			GhostIconPath = Path.GetFullPath(pathStart + $"\\{(prefix.Equals("") ? prefix : "BaseAssets")}\\{set}\\Ghost\\");
 			BaseStats = baseStats;
 			ModifiedStats = modifiedStats;
 		}

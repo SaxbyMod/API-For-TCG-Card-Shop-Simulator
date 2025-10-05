@@ -1,6 +1,7 @@
 ﻿using List_Definer.Objects.UserReferenceLists;
 using List_Definer.Util;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace List_Definer.Recreation
@@ -25,7 +26,7 @@ namespace List_Definer.Recreation
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 79, 34, 14, 25, 11, 20 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
-				ListDefinerBase.DLLPath + "\\..\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator"
+				Path.GetFullPath(ListDefinerBase.DLLPath + "\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator")
 			);
 			StructFiller.AddCardToStruct(
 				"Core_API",
@@ -43,7 +44,7 @@ namespace List_Definer.Recreation
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 81, 35, 14, 25, 12, 18 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
-				ListDefinerBase.DLLPath + "\\..\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator"
+				Path.GetFullPath(ListDefinerBase.DLLPath + "\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator")
 			);
 			StructFiller.AddCardToStruct(
 				"Core_API",
@@ -61,7 +62,7 @@ namespace List_Definer.Recreation
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 83, 36, 15, 26, 12, 17 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
-				ListDefinerBase.DLLPath + "\\..\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator"
+				Path.GetFullPath(ListDefinerBase.DLLPath + "\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator")
 			);
 			StructFiller.AddCardToStruct(
 				"Core_API",
@@ -79,7 +80,7 @@ namespace List_Definer.Recreation
 				// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 				new List<int>() { 85, 38, 15, 28, 12, 16 },
 				new List<int>() { 0, 0, 0, 0, 0, 0 },
-				ListDefinerBase.DLLPath + "\\..\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator"
+				Path.GetFullPath(ListDefinerBase.DLLPath + "\\..\\..\\plugins\\CORE_API_TEAM-The_API_For_TCG_Card_Shop_Simulator")
 			);
 		}
 	}

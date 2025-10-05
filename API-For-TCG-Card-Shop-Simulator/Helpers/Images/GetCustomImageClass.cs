@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using API.Helpers.Images;
 
 namespace API.Helpers.Images
 {
 	public class GetCustomImageClass
 	{
 		/// <summary>
-		///This gets a sprite from the passed in file, specifically a PNG.
+		/// This gets a sprite from the passed in file, specifically a PNG.
 		/// </summary>
 		/// <param name="fileName">The name of the file.</param>
 		/// <param name="imagePath">The path to the file.</param>

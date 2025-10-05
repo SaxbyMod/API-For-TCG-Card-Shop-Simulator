@@ -1,6 +1,8 @@
 ﻿using API.Helpers.Images;
+using API.Helpers.Pathing;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace API.Objects
@@ -31,20 +33,22 @@ namespace API.Objects
 			EffectAmount = new Vector3(x: effectAmount[0], y: effectAmount[1], z: effectAmount[2]);
 			Next = Enum.Parse<EMonsterType>(next.Replace(":", "________"));
 			Previous = Enum.Parse<EMonsterType>(previous.Replace(":", "________"));
-			List<EMonsterRole> NewRoles = new List<EMonsterRole>();
-			foreach (string Role in roles)
+			List<EMonsterRole> newRoles = new List<EMonsterRole>();
+			foreach (string role in roles)
 			{
-				NewRoles.Add(Enum.Parse<EMonsterRole>(Role));
+				newRoles.Add(Enum.Parse<EMonsterRole>(role));
 			}
-			Roles = NewRoles;
-			List<ESkill> NewSkills = new List<ESkill>();
-			foreach (string Skill in skills)
+			Roles = newRoles;
+			List<ESkill> newSkills = new List<ESkill>();
+			foreach (string skill in skills)
 			{
-				NewSkills.Add(Enum.Parse<ESkill>(Skill));
+				newSkills.Add(Enum.Parse<ESkill>(skill));
 			}
-			Skills = NewSkills;
-			IconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], iconPath);
-			GhostIconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], ghostIconPath);
+			Skills = newSkills;
+			DebugCheckForFiles.CheckForFiles(Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(iconPath)));
+			DebugCheckForFiles.CheckForFiles(Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(ghostIconPath)));
+			IconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(iconPath)));
+			GhostIconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(ghostIconPath)));
 			// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED
 			CardStats = new Stats()
 			{

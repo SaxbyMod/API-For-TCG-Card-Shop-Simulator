@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using API.Helpers.Images;
 
 namespace API.Helpers.Images
 {
 	public class LoadCustomPNGClass
 	{
 		/// <summary>
-		///This essentially is LoadCustomTexture but from a PNG File.
+		/// This essentially is LoadCustomTexture but from a PNG File.
 		/// </summary>
 		/// <param name="fileName">The name of the file.</param>
 		/// <param name="imagePath">The path to the file.</param>
