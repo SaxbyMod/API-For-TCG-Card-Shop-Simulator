@@ -1,5 +1,6 @@
 using API.Objects;
 using API.Util;
+using API.Util.DecipherEnums;
 using API.Util.StructReaders;
 using BepInEx;
 using BepInEx.Logging;
@@ -36,8 +37,8 @@ namespace API
             Logger.LogDebug(string.Join("\n", Enum.GetNames(typeof(EMonsterType))));
             Logger.LogDebug(string.Join("\n", Enum.GetNames(typeof(ECardExpansionType))));
             List<FinalSetData> sets = SetStructClass.ReadCardStruct();
-            List<ECardExpansionType> expansionTypes = SetEnumStructClass.ReadEnumStruct();
-            List<EMonsterType> monsterTypes = CardEnumStructClass.ReadEnumStruct();
+            List<ECardExpansionType> expansionTypes = GetCardExpansionTypes.returnList();
+            List<EMonsterType> monsterTypes = GetMonsterTypes.returnList();
             List<PostSetData> postSets = GetSetLists.FinalizedSets(sets, expansionTypes, monsterTypes);
         }
     }

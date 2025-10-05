@@ -1,5 +1,4 @@
-﻿using BepInEx;
-using BepInEx.Logging;
+﻿using BepInEx.Logging;
 using Enum_Patching.Util;
 using List_Definer.Objects;
 using Mono.Cecil;
@@ -8,8 +7,6 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
-using BepInEx.Logging;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Enum_Patcher
@@ -44,7 +41,6 @@ namespace Enum_Patcher
 				}
 				int CurrentSeperator = 100000;
 				Initial = $"Seperator:baseGame-{cardExpansions[50].SetName}";
-				cards.Add($"Seperator:baseGame-{cardExpansions[50].SetName}", CurrentSeperator - 1);
 				for (int iteratorNew = 0; iteratorNew < cardExpansions.Count; iteratorNew++)
 				{
 					sets.Add(cardExpansions[iteratorNew + 50].SetName, 50 + iteratorNew);
@@ -59,8 +55,8 @@ namespace Enum_Patcher
 				}
 
 				await Task.WhenAll(
-				CardHooksClass.CardHooks(monsterType, cards, assembly),
-				SetHooksClass.SetHooks(cardExpansionType, sets, assembly)
+				CardHooksClass.CardHooks(monsterType, cards),
+				SetHooksClass.SetHooks(cardExpansionType, sets)
 				);
 			}).Wait();
 		}

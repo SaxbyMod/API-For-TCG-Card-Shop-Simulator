@@ -8,7 +8,7 @@ namespace Enum_Patching.Util
 {
 	public class SetHooksClass
 	{
-		public static async Task SetHooks(TypeDefinition type, Dictionary<string, int> sets, AssemblyDefinition assembly)
+		public static async Task SetHooks(TypeDefinition type, Dictionary<string, int> sets)
 		{
 			while (List_Definer.Util.CheckIfAllKeysHaveLoaded.AreThereUnfinishedMods())
 			{
@@ -28,9 +28,6 @@ namespace Enum_Patching.Util
 				}
 				previousKVP = kvp;
 			}
-
-			StructSetup.enumsToSave.Add("Sets", EnumPatcher.sets);
-			StructSetup.SaveStructAfterRun();
 		}
 	}
 }

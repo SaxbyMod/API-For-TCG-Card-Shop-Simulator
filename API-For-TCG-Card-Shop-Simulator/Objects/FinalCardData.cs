@@ -45,8 +45,6 @@ namespace API.Objects
 				newSkills.Add(Enum.Parse<ESkill>(skill));
 			}
 			Skills = newSkills;
-			DebugCheckForFiles.CheckForFiles(Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(iconPath)));
-			DebugCheckForFiles.CheckForFiles(Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(ghostIconPath)));
 			IconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(iconPath)));
 			GhostIconPath = GetCustomImageClass.GetCustomImage(cardName.Split(':')[1], Path.GetFullPath(HandleAPIPathingClass.HandleAPIPathing(ghostIconPath)));
 			// Order; HP, STRENGTH, MAGIC, VITALITY, SPIRIT, SPEED

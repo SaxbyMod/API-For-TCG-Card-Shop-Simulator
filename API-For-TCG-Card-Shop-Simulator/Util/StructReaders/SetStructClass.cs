@@ -199,11 +199,10 @@ namespace API.Util.StructReaders
                 Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONTENT -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
                 Console.WriteLine($"{set.SetDescription}");
                 Console.WriteLine($"CardList");
-                Console.WriteLine("|");
                 foreach (FinalCardData card in set.Cards)
                 {
+                    Console.WriteLine("|");
                     Console.WriteLine($"|--> {card.CardName}");
-                    Console.WriteLine($"     ");
                     Console.WriteLine($"|-------> Card Description: {card.Description.Replace("XXX", card.EffectAmount[0].ToString()).Replace("YYY", card.EffectAmount[1].ToString()).Replace("ZZZ", card.EffectAmount[2].ToString())}");
                     Console.WriteLine($"|-------> Card Artist: {card.ArtistName}");
                     Console.WriteLine($"|-------> Card Element: {card.Element}");

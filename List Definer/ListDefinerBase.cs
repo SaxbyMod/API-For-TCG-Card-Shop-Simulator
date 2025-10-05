@@ -17,7 +17,6 @@ namespace List_Definer
 		public static IEnumerable<string> TargetDLLs { get; } = ["Assembly-CSharp.dll"];
 		public static void Initialize()
 		{
-			Console.WriteLine("Initializing ListDefiner");
 			StructSetup.AddStarterSets();
 			// Fill Base Data Points;
 			AddKeyClass.AddKeyStart("Core_API");

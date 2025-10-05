@@ -192,50 +192,6 @@ namespace List_Definer.Util
                 sets.Add(set);
             }
             
-            // Verbose Logger
-            foreach (MiddleSetData set in sets)
-            {
-                Console.WriteLine($"-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                Console.WriteLine($"Found set called; {set.SetName}");
-                Console.WriteLine("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- CONTENT -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
-                Console.WriteLine($"{set.SetDescription}");
-                Console.WriteLine($"CardList");
-                Console.WriteLine("|");
-                foreach (MiddleCardData card in set.Cards)
-                {
-                    Console.WriteLine($"|--> {card.CardName}");
-                    Console.WriteLine($"     ");
-                    Console.WriteLine($"|-------> Card Description: {card.Description.Replace("XXX", card.EffectAmount[0].ToString()).Replace("YYY", card.EffectAmount[1].ToString()).Replace("ZZZ", card.EffectAmount[2].ToString())}");
-                    Console.WriteLine($"|-------> Card Artist: {card.ArtistName}");
-                    Console.WriteLine($"|-------> Card Element: {card.Element}");
-                    Console.WriteLine($"|-------> Card Rarity: {card.Rarity}");
-                    Console.WriteLine($"|-------> Card's Next Form: {card.Next}");
-                    Console.WriteLine($"|-------> Card's Previous Form: {card.Previous}");
-                    Console.WriteLine($"|-------> Card Roles:");
-                    foreach (string role in card.Roles)
-                    {
-                        Console.WriteLine($"|------------> {role}");
-                    }
-                    Console.WriteLine("|-------> Card Skills:");
-                    foreach (string skill in card.Skills)
-                    {
-                        Console.WriteLine($"|------------> {skill}");
-                    }
-                    Console.WriteLine("|-------> Card Base Stats:");
-                    foreach (int stat in card.BaseStats)
-                    {
-                        Console.WriteLine($"|------------> {stat.ToString()}");
-                    }
-                    Console.WriteLine("|-------> Card Modifier Stats:");
-                    foreach (int stat in card.ModifiedStats)
-                    {
-                        Console.WriteLine($"|------------> {stat.ToString()}");
-                    }
-                    Console.WriteLine($"|-------> Card's Icon Path: {card.IconPath}");
-                    Console.WriteLine($"|-------> Card's Ghost Icon Path: {card.GhostIconPath}");
-                }
-            }
-            
             return sets;
         }
     }

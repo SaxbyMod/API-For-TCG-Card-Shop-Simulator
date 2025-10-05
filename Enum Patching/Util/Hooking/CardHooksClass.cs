@@ -9,7 +9,7 @@ namespace Enum_Patching.Util
 {
 	public class CardHooksClass
 	{
-		public static async Task CardHooks(TypeDefinition type, Dictionary<string, int> cards, AssemblyDefinition assembly)
+		public static async Task CardHooks(TypeDefinition type, Dictionary<string, int> cards)
 		{
 			while (List_Definer.Util.CheckIfAllKeysHaveLoaded.AreThereUnfinishedMods())
 			{
@@ -31,8 +31,6 @@ namespace Enum_Patching.Util
 				}
 				previousKVP = kvp;
 			}
-			StructSetup.enumsToSave.Add("Cards", EnumPatcher.cards);
-			StructSetup.SaveStructAfterRun();
 		}
 	}
 }
