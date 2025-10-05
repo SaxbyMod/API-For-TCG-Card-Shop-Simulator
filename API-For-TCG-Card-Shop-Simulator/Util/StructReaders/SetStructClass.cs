@@ -150,7 +150,7 @@ namespace API.Util.StructReaders
                                             string[] modifiedNodes = GetNodesClass.GetNodes(Tree, $"Sets/{item}/{subItem}/{cardItem}/{subCard}/{statType}");
                                             foreach (string modifiedNode in modifiedNodes)
                                             {
-                                                baseStats.Add(int.Parse(modifiedNode));
+                                                modifierStats.Add(int.Parse(modifiedNode));
                                             }
                                         }
                                     }
