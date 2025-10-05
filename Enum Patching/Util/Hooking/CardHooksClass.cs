@@ -1,4 +1,5 @@
-﻿using Enum_Patcher;
+﻿using BepInEx;
+using Enum_Patcher;
 using Enum_Patching.Helpers.Enum_Helpers;
 using Mono.Cecil;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ namespace Enum_Patching.Util
 {
 	public class CardHooksClass
 	{
-		public static async Task CardHooks(TypeDefinition type, Dictionary<string, int> cards)
+		public static async Task CardHooks(TypeDefinition type, Dictionary<string, int> cards, AssemblyDefinition assembly)
 		{
 			while (List_Definer.Util.CheckIfAllKeysHaveLoaded.AreThereUnfinishedMods())
 			{
@@ -22,10 +23,12 @@ namespace Enum_Patching.Util
 				{
 					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, "MAX_CATJOB", EnumPatcher.Initial.Replace("-", "_____").Replace(":", "________"), 100000 - 1);
 					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, EnumPatcher.Initial.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), 100000);
-					continue;
 				}
-				
-				CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, previousKVP.Key.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), kvp.Value);
+				else
+				{
+					previousKVP = ((previousKVP.Key.IsNullOrWhiteSpace()) ? new KeyValuePair<string, int> ("MAX_CATJOB", 3040) : previousKVP);
+					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, previousKVP.Key.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), kvp.Value);
+				}
 				previousKVP = kvp;
 			}
 			StructSetup.enumsToSave.Add("Cards", EnumPatcher.cards);

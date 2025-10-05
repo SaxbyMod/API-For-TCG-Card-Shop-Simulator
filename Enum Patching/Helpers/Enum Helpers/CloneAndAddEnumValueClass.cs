@@ -38,7 +38,7 @@ namespace Enum_Patching.Helpers.Enum_Helpers
 			// Add the new field to the enum type
 			enumType.Fields.Add(newEnumValue);
 
-			Console.WriteLine($"Successfully cloned and added new enum value: '{newFieldName}' = {newValue}.");
+			Console.WriteLine($"Successfully cloned and added new enum value: '{newFieldName}' = {newValue} to Enum: {enumType}.");
 		}
 	}
 }

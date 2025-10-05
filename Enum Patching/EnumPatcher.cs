@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using BepInEx.Logging;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Enum_Patcher
 {
@@ -25,38 +27,42 @@ namespace Enum_Patcher
 		public static IEnumerable<string> TargetDLLs { get; } = ["Assembly-CSharp.dll"];
 
 		public static void Patch(AssemblyDefinition assembly)
-        {
-	        Console.WriteLine("Patching the Lists from ListDefiner into the game");
-	        List<MiddleSetData> ReadInput = List_Definer.Util.StructReader.ReadCardStruct();
-	        
-	        var monsterType = assembly.MainModule.Types.First(Type => Type.Name == "EMonsterType");
-	        var cardExpansionType = assembly.MainModule.Types.First(Type => Type.Name == "ECardExpansionType");
-	        
-	        int iterator = 0;
-	        foreach (MiddleSetData data in ReadInput)
-	        {
-		        cardExpansions.Add(50 + iterator, data);
-		        iterator++;
-	        }
-	        int CurrentSeperator = 100000;
-	        Initial = $"Seperator:baseGame-{cardExpansions[50].SetName}";
-	        cards.Add($"Seperator:baseGame-{cardExpansions[50].SetName}", CurrentSeperator - 1);
-	        for (int iteratorNew = 0; iteratorNew < cardExpansions.Count; iteratorNew++)
-	        {
-		        sets.Add(cardExpansions[iteratorNew + 50].SetName, 50 + iteratorNew);
-		        
-		        foreach (MiddleCardData data in cardExpansions[iteratorNew + 50].Cards)
-		        {
-			        cards.Add(data.CardName, CurrentSeperator);
-			        CurrentSeperator += 1;
-		        }
-		        cards.Add($"Seperator:{cardExpansions[iteratorNew + 50].SetName}-{((iteratorNew + 1 + 1 > cardExpansions.Count) ? "END" : cardExpansions[iteratorNew + 50 + 1].SetName)}", CurrentSeperator);
-		        CurrentSeperator += 1;
-	        }
-	        
-	        CardHooksClass.CardHooks(monsterType, cards).Wait();
-	        SetHooksClass.SetHooks(cardExpansionType, sets).Wait();
-	        assembly.Write();
-        }
+		{
+			Task.Run(async () =>
+			{
+				Console.WriteLine("Patching the Lists from ListDefiner into the game");
+				List<MiddleSetData> ReadInput = List_Definer.Util.StructReader.ReadCardStruct();
+
+				var monsterType = assembly.MainModule.Types.First(Type => Type.Name == "EMonsterType");
+				var cardExpansionType = assembly.MainModule.Types.First(Type => Type.Name == "ECardExpansionType");
+
+				int iterator = 0;
+				foreach (MiddleSetData data in ReadInput)
+				{
+					cardExpansions.Add(50 + iterator, data);
+					iterator++;
+				}
+				int CurrentSeperator = 100000;
+				Initial = $"Seperator:baseGame-{cardExpansions[50].SetName}";
+				cards.Add($"Seperator:baseGame-{cardExpansions[50].SetName}", CurrentSeperator - 1);
+				for (int iteratorNew = 0; iteratorNew < cardExpansions.Count; iteratorNew++)
+				{
+					sets.Add(cardExpansions[iteratorNew + 50].SetName, 50 + iteratorNew);
+
+					foreach (MiddleCardData data in cardExpansions[iteratorNew + 50].Cards)
+					{
+						cards.Add(data.CardName, CurrentSeperator);
+						CurrentSeperator += 1;
+					}
+					cards.Add($"Seperator:{cardExpansions[iteratorNew + 50].SetName}-{((iteratorNew + 1 + 1 > cardExpansions.Count) ? "END" : cardExpansions[iteratorNew + 50 + 1].SetName)}", CurrentSeperator);
+					CurrentSeperator += 1;
+				}
+
+				await Task.WhenAll(
+				CardHooksClass.CardHooks(monsterType, cards, assembly),
+				SetHooksClass.SetHooks(cardExpansionType, sets, assembly)
+				);
+			}).Wait();
+		}
 	}
 }

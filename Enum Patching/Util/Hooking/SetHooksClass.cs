@@ -8,7 +8,7 @@ namespace Enum_Patching.Util
 {
 	public class SetHooksClass
 	{
-		public static async Task SetHooks(TypeDefinition type, Dictionary<string, int> sets)
+		public static async Task SetHooks(TypeDefinition type, Dictionary<string, int> sets, AssemblyDefinition assembly)
 		{
 			while (List_Definer.Util.CheckIfAllKeysHaveLoaded.AreThereUnfinishedMods())
 			{
@@ -20,12 +20,12 @@ namespace Enum_Patching.Util
 			{
 				if (kvp.Value == 50)
 				{
-					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, "MAX", EnumPatcher.Initial.Replace("-", "_____").Replace(":", "________"), 50 - 1);
-					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, EnumPatcher.Initial.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), 50);
-					continue;
+						CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, "MAX", kvp.Key.Replace("-", "_____").Replace(":", "________"), 50);
 				}
-
-				CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, previousKVP.Key.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), kvp.Value);
+				else
+				{
+					CloneAndAddEnumValueClass.CloneAndAddEnumValue(type, previousKVP.Key.Replace("-", "_____").Replace(":", "________"), kvp.Key.Replace("-", "_____").Replace(":", "________"), kvp.Value);
+				}
 				previousKVP = kvp;
 			}
 
